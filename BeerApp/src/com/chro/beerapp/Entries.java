@@ -1,0 +1,76 @@
+package com.chro.beerapp;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.TimeZone;
+
+
+
+public class Entries {
+	public List<Entry> Entries = new LinkedList<Entry>();
+	public List<Entry> LastQuery = new LinkedList<Entry>(); //Zuletzt angeforderten Daten
+	TimeZone tz ; // et Timezone
+	Calendar calBeg; // initialize Beginning Calendar
+	Calendar calEnd;
+	Date d = new Date();
+	protected static Entries instants = null;
+	protected Entries()
+	{
+		SetUpTimeEssentials();
+		/*@TODO add the calendars here aswell */
+		Entry i = new Entry(0, "Bier", 0.1f, 3, "0188888888",99.0f,27.0f,calBeg,calEnd);
+		Entry i1 = new Entry(0, "Bier", 10.0f, 3, "0188888888",33.0f,27.0f,calBeg,calEnd);
+		Entry i2 = new Entry(0, "Bier", 10.0f, 3, "0188888888",34.0f,23.0f,calBeg,calEnd);
+		Entries.add(i);
+		Entries.add(i1);
+		Entries.add(i2);
+		LastQuery = Entries;
+	}
+	public void SetUpTimeEssentials()
+	{
+		TimeZone tz = TimeZone.getDefault(); // et Timezone
+		Calendar calBeg = new GregorianCalendar(tz); // initialize Beginning Calendar
+		Calendar calEnd = new GregorianCalendar(tz);
+		Date d = new Date();
+		calBeg.setTime(d); // Set time to cur Time
+		calEnd.setTime(d);
+		calBeg.set(Calendar.HOUR_OF_DAY,23);
+		calEnd.set(Calendar.HOUR_OF_DAY,24);
+		calBeg.set(Calendar.DAY_OF_WEEK, 0);		
+		
+	}
+	public static Entries getInstance()
+	{
+		if(instants == null)
+		{
+			instants = new Entries();
+		}
+		return instants;
+	}
+	public List<Entry> getEntriesByName(String Name)
+	{
+		LastQuery = Entries;
+		return Entries;
+	}
+	public List<Entry> getEntriesByLocation(int Categorie,float latiude,float longitude,int Radius)
+	{
+		LastQuery = Entries;
+		return Entries;
+		
+	}
+	public List<Entry> getEntriesByID(int UserID)
+	{
+		LastQuery = Entries;
+		return Entries;
+		
+	}
+	public List<Entry> getLastRequest()
+	{
+		return LastQuery;
+	}
+	
+	
+}

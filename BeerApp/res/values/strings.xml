@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BeerApp</string>
+    <string name="action_settings">Settings</string>
+    <string name="Header">BeerApp</string>
+    <string name="Btn_Search">Suche</string>
+    <string name="Btn_Map">Umgebung</string>
+    <string name="Btn_MyEntry">Meine Eintraege</string>
+    <string name="Btn_Settings">Optionen</string>
+    <string name="Btn_CreateEntry">Eintrag erstellen</string>
+    <string name="Btn_FirstEntry">Ein Eintrag</string>
+    <string name="Labl_Begin">Anfang:</string>
+    <string name="Labl_End">Ende:</string>
+    <string name="Bx_Period">Regelmässig</string>
+    <string name="Labl_PrdctName">Productname</string>
+    <string name="Labl_Price">Preis</string>
+    <string name="Labl_Quantity">Menge</string>
+    <string name="Labl_Contact">HandyNr:</string>
+    
+    <string-array name="Categories">
+        <item>Beer</item>
+        <item>Soda</item>
+        <item>Snacks</item>
+    </string-array>
+    <string name="Labl_Kategorie">Bier</string>
+    <string name="Labl_Search">Suche</string>
+    <string name="Labl_save">Speichern</string>
+    <string name="Labl_ShopName">Dein Name</string>
+    <string name="Labl_searchRadius">Suchradius</string>
+
+</resources>
