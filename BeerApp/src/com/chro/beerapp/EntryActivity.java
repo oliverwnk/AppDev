@@ -19,8 +19,8 @@ public class EntryActivity extends Activity implements OnItemClickListener {
 
 	private Button btn_CreateEntry;
 	private ListView lst_Entry;
-    List<String> listItems=new ArrayList<String>();
-    ArrayAdapter<String> adapter;
+    ArrayList<Entry> listItems=new ArrayList<Entry>();
+    //ArrayAdapter<String> adapter;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +28,12 @@ public class EntryActivity extends Activity implements OnItemClickListener {
 		setContentView(R.layout.entries);
 		lst_Entry = (ListView) findViewById(R.id.Lst_Entries);
         lst_Entry.setOnItemClickListener(this);
-		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice,listItems);
-		lst_Entry.setAdapter(adapter);
+		//adapter = new ArrayAdapter<String>(this, R.layout.list_item,listItems);
+        for(int i=0; i<10; i++){
+        	listItems.add(new Entry("woodchuck"+i));
+        }
+		lst_Entry.setAdapter(new EntryAdapter(this, listItems));
 		addListenerOnButton();
-		addItem("things");
-		addItem("beerings");
 	}
 	public void addListenerOnButton(){
 		btn_CreateEntry = (Button) findViewById(R.id.btn_CreateEntry);
@@ -45,11 +46,11 @@ public class EntryActivity extends Activity implements OnItemClickListener {
 			}
 		});
 	}
-	public void addItem(String Item)
+	/*public void addItem(String Item)
 	{
 		listItems.add(Item);
 		adapter.notifyDataSetChanged();
-	}
+	}*/
 	@Override
 	public void onItemClick(AdapterView<?> l, View v, int id, long pos) {
 		Intent intent = new Intent(getApplicationContext(),ShowEntryActivity.class);

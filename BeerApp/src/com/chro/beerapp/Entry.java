@@ -28,6 +28,10 @@ public class Entry {
 		this.beginTime = beginTime;
 		this.endTime = endTime;
 	}
+	
+	public Entry(String productName){
+		this.productName=productName;
+	}
 	public Calendar getBeginTime() {
 		return beginTime;
 	}
