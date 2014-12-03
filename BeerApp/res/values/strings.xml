@@ -12,6 +12,7 @@
     <string name="Btn_FirstEntry">Ein Eintrag</string>
     <string name="Labl_Begin">Von:</string>
     <string name="Labl_End">Bis:</string>
+    <string name="Labl_Category">Kategorie:</string>
     <string name="Bx_Period">Regelmässig</string>
     <string name="Labl_PrdctName">Productname</string>
     <string name="Labl_Price">Preis</string>

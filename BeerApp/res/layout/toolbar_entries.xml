@@ -4,13 +4,15 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/colorPrimaryDark">
+    android:background="?attr/colorPrimary">
     
     <Button
         android:id="@+id/btn_CreateEntry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Btn_CreateEntry" 
+        android:text="@string/Btn_CreateEntry"
+        android:drawableLeft="@drawable/ic_action_new" 
+        android:drawablePadding="2dp"
         style="@style/CustomStyleButton"/>
     
     </android.support.v7.widget.Toolbar>

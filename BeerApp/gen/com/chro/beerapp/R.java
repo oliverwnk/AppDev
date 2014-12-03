@@ -1775,7 +1775,8 @@ containing a value of this type.
         public static final int abc_textfield_search_default_mtrl_alpha=0x7f020031;
         public static final int abc_textfield_search_material=0x7f020032;
         public static final int custom_button=0x7f020033;
-        public static final int ic_launcher=0x7f020034;
+        public static final int ic_action_new=0x7f020034;
+        public static final int ic_launcher=0x7f020035;
     }
     public static final class id {
         public static final int Btn_Map=0x7f0a0041;
@@ -1948,19 +1949,20 @@ containing a value of this type.
         public static final int Btn_MyEntry=0x7f0b0015;
         public static final int Btn_Search=0x7f0b0013;
         public static final int Btn_Settings=0x7f0b0016;
-        public static final int Bx_Period=0x7f0b001b;
+        public static final int Bx_Period=0x7f0b001c;
         public static final int Header=0x7f0b0012;
         public static final int Labl_Begin=0x7f0b0019;
-        public static final int Labl_Contact=0x7f0b001f;
+        public static final int Labl_Category=0x7f0b001b;
+        public static final int Labl_Contact=0x7f0b0020;
         public static final int Labl_End=0x7f0b001a;
-        public static final int Labl_Kategorie=0x7f0b0020;
-        public static final int Labl_PrdctName=0x7f0b001c;
-        public static final int Labl_Price=0x7f0b001d;
-        public static final int Labl_Quantity=0x7f0b001e;
-        public static final int Labl_Search=0x7f0b0021;
-        public static final int Labl_ShopName=0x7f0b0023;
-        public static final int Labl_save=0x7f0b0022;
-        public static final int Labl_searchRadius=0x7f0b0024;
+        public static final int Labl_Kategorie=0x7f0b0021;
+        public static final int Labl_PrdctName=0x7f0b001d;
+        public static final int Labl_Price=0x7f0b001e;
+        public static final int Labl_Quantity=0x7f0b001f;
+        public static final int Labl_Search=0x7f0b0022;
+        public static final int Labl_ShopName=0x7f0b0024;
+        public static final int Labl_save=0x7f0b0023;
+        public static final int Labl_searchRadius=0x7f0b0025;
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
          */
         public static final int abc_action_bar_home_description=0x7f0b0001;
