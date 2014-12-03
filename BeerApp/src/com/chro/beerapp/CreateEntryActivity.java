@@ -1,20 +1,32 @@
 package com.chro.beerapp;
 
+import java.util.Calendar;
+
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
-public class CreateEntryActivity extends Activity {
+public class CreateEntryActivity extends ActionBarActivity {
 
 	Button btn_CreateEntry;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_entry);
+		initTime();
 		//addListenerOnButton();
 	}
+	
+	public void showTimePickerDialog(View v) {
+	    DialogFragment newFragment = new TimePickerFragment();
+	    newFragment.show(getSupportFragmentManager(), "timePicker");
+	}
+	
 	public void addListenerOnButton(){
 		//btn_CreateEntry = (Button) findViewById(R.id.);
 		//btn_CreateEntry.setOnClickListener(new OnClickListener() {
@@ -24,4 +36,22 @@ public class CreateEntryActivity extends Activity {
 		//	}
 		//});
 	}
+	
+	public void initTime(){
+		
+	final Calendar c = Calendar.getInstance();
+    int hour = c.get(Calendar.HOUR_OF_DAY);
+    int minute = c.get(Calendar.MINUTE);
+    
+    TextView timeBegin=(TextView)findViewById(R.id.timeBegin);
+	timeBegin.setText(hour+":"+minute);
+	hour= hour+2;
+	minute= minute+2;
+	
+	TextView timeEnd=(TextView)findViewById(R.id.timeEnd);
+	timeEnd.setText(hour+":"+minute);
+	
+	
+	}
+    
 }

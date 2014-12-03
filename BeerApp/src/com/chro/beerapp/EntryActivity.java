@@ -29,7 +29,7 @@ public class EntryActivity extends Activity implements OnItemClickListener {
 		lst_Entry = (ListView) findViewById(R.id.Lst_Entries);
         lst_Entry.setOnItemClickListener(this);
 		//adapter = new ArrayAdapter<String>(this, R.layout.list_item,listItems);
-        for(int i=0; i<10; i++){
+        for(int i=0; i<30; i++){
         	listItems.add(new Entry("woodchuck"+i));
         }
 		lst_Entry.setAdapter(new EntryAdapter(this, listItems));

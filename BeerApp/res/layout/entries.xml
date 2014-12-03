@@ -5,11 +5,11 @@
     android:background="#FFFFFF"
     android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/btn_CreateEntry"
+    <include 
+        android:id="@+id/toolbar_entries"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Btn_CreateEntry" />
+        layout="@layout/toolbar_entries"/>
 
     <ListView
         android:id="@+id/Lst_Entries"
