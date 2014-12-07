@@ -3,6 +3,8 @@ package com.chro.beerapp;
 import java.util.Calendar;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
@@ -20,22 +22,26 @@ public class CreateEntryActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_entry);
 		initTime();
-		//addListenerOnButton();
+		addListenerOnButton();
 	}
-	
+	DatabaseHandler db = new DatabaseHandler(this);
 	public void showTimePickerDialog(View v) {
 	    DialogFragment newFragment = new TimePickerFragment();
 	    newFragment.show(getSupportFragmentManager(), "timePicker");
 	}
 	
 	public void addListenerOnButton(){
-		//btn_CreateEntry = (Button) findViewById(R.id.);
-		//btn_CreateEntry.setOnClickListener(new OnClickListener() {
-		//	@Override
-		//	public void onClick(View v) {
-				
-		//	}
-		//});
+		btn_CreateEntry = (Button) findViewById(R.id.btn_Save_New_Entry);
+		btn_CreateEntry.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				int i = 1;
+				Entry entry1 = new Entry(i,"entry"+i,i*0,67,"details",234,456,"2014-04-23 16:29","2014-04-23 18:29");
+		       	db.addEntry(entry1);
+				Intent intent = new Intent(getApplicationContext(),EntryActivity.class);
+		        startActivity(intent);
+			}
+		});
 	}
 	
 	public void initTime(){

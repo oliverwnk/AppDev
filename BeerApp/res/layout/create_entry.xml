@@ -117,14 +117,14 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/txt_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="@string/Labl_Price" />
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/edit_price"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -135,7 +135,7 @@
     </LinearLayout>
 
     <SeekBar
-        android:id="@+id/seekBar1"
+        android:id="@+id/sb_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
         android:layout_marginLeft="10dp"/>
@@ -145,14 +145,14 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/txt_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Labl_Quantity" 
             android:layout_marginLeft="10dp"/>
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/edit_amount"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -161,7 +161,7 @@
     </LinearLayout>
 
     <SeekBar
-        android:id="@+id/seekBar2"
+        android:id="@+id/sb_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
         android:layout_marginLeft="10dp"/>
@@ -177,7 +177,7 @@
         android:layout_marginBottom="10dp"/>
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/txt_Handy_Number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -185,7 +185,7 @@
         android:layout_marginBottom="20dp" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/btn_Save_New_Entry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/CustomStyleButton"

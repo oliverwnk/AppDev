@@ -29,7 +29,7 @@ public class ShowEntryActivity extends Activity {
 		int id = intent.getExtras().getInt("id");
 		CurrentEntry = RequestetList.getLastRequest().get(id);
 		Categorie = (TextView) findViewById(R.id.txt_Categorie);
-		Categorie.setText(CurrentEntry.getCategorie());
+		Categorie.setText(CurrentEntry.getCategory());
 		PrdctName = (TextView) findViewById(R.id.txt_PrdctName);
 		PrdctName.setText(CurrentEntry.getProductName());
 		BegTime = (TextView) findViewById(R.id.txt_timeBegin);
