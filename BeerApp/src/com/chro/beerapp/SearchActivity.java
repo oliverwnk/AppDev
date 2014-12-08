@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.view.View.OnClickListener;
+import com.woodchro.bemystore.R;
 
 public class SearchActivity extends Activity {
 

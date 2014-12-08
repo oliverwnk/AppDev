@@ -22,12 +22,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.chro.beerapp.EntryActivity"></activity>
-        <activity android:name="com.chro.beerapp.CreateEntryActivity"></activity>
-        <activity android:name="com.chro.beerapp.SearchActivity"></activity>
-        <activity android:name="com.chro.beerapp.ShowEntryActivity"></activity>
-        <activity android:name="com.chro.beerapp.StartSearchActivity"></activity>
-        <activity android:name="com.chro.beerapp.SettingsActivity"></activity>
+        <activity android:name="EntryActivity"></activity>
+        <activity android:name="CreateEntryActivity"></activity>
+        <activity android:name="SearchActivity"></activity>
+        <activity android:name="ShowEntryActivity"></activity>
+        <activity android:name="StartSearchActivity"></activity>
+        <activity android:name="SettingsActivity"></activity>
     </application>
 
 </manifest>

@@ -7,14 +7,14 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.view.View.OnClickListener;
-import com.woodchro.bemystore.R;
 
-public class SettingsActivity extends Activity {
+public class SearchActivity extends Activity {
 
+	Button btn_startSearch;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.settings);
+		setContentView(R.layout.search);
 		addListenerOnButton();
 	}
 
@@ -27,7 +27,15 @@ public class SettingsActivity extends Activity {
 	
 
 	public void addListenerOnButton(){
-
+		btn_startSearch  = (Button) findViewById(R.id.Btn_startSearch);
+		btn_startSearch.setOnClickListener(new OnClickListener() {
+			@Override
+		    public void onClick(View v) {
+		        Intent intent = new Intent(getApplicationContext(),StartSearchActivity.class);
+		        startActivity(intent);
+		        }
+	    
+		});
 	}
 	
 

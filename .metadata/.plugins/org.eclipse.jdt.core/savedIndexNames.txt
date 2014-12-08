@@ -1,0 +1,3 @@
+INDEX VERSION 1.126+/home/fishkopf/Development/Android/AppDev/AppDev/.metadata/.plugins/org.eclipse.jdt.core
+680560739.index
+3899018151.index

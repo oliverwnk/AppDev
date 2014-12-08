@@ -1,3 +1,7 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=d097d219d8a3dfbe9379f86fb91d5ec9751608ed
 com.android.ide.eclipse.adt.fixLegacyEditors=1
-com.android.ide.eclipse.adt.sdk=C\:\\Program Files\\Eclipse Android\\adt-bundle-windows-x86_64-20140702\\sdk
+com.android.ide.eclipse.adt.sdk=/home/fishkopf/Development/Android/adt-bundle-linux-x86_64-20140702/sdk
+com.android.ide.eclipse.adt.xmlEditor=true
 eclipse.preferences.version=1

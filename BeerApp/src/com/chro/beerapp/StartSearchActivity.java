@@ -14,6 +14,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import com.woodchro.bemystore.R;
 
 public class StartSearchActivity extends Activity implements OnItemClickListener {
 
