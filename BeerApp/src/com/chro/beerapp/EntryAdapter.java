@@ -43,7 +43,7 @@ public class EntryAdapter extends BaseAdapter{
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		holder.txtName.setText(entryList.get(postion).getBeginTimeAsString());
+		holder.txtName.setText(entryList.get(postion).getProductName());
 		return convertView;
 		}
 	static class ViewHolder{

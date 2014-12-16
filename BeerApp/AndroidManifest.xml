@@ -44,10 +44,17 @@
         </activity>
         <activity android:name="com.chro.beerapp.SettingsActivity" >
         </activity>
+        <activity
+            android:name="com.chro.beerapp.MapActivity"
+            android:label="@string/title_activity_map" >
+        </activity>
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyAh2e7ZbaWvEaBXOjFwR3zjWnQczN4KFFw" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

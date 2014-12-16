@@ -15,6 +15,7 @@ public class MainActivity extends ActionBarActivity {
 	Button btn_myEntry;
 	Button btn_search;
 	Button btn_settings;
+	Button btn_map;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,17 @@ public class MainActivity extends ActionBarActivity {
 			        }
 		    
 			});
+			
+			btn_map  = (Button) findViewById(R.id.Btn_Map);
+			btn_map.setOnClickListener(new OnClickListener() {
+				@Override
+			    public void onClick(View v) {
+			        Intent intent = new Intent(getApplicationContext(),MapActivity.class);
+			        startActivity(intent);
+			        }
+		    
+			});
+			
 			btn_settings  = (Button) findViewById(R.id.Btn_Settings);
 			btn_settings.setOnClickListener(new OnClickListener() {
 				@Override

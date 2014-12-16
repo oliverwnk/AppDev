@@ -20,7 +20,7 @@ public class EntryActivity extends Activity implements OnItemClickListener {
 
 	private Button btn_CreateEntry;
 	private ListView lst_Entry;
-    ArrayList<Entry> listItems=new ArrayList<Entry>();
+    ArrayList<Entry> listItems=Entries.getInstance().getEntriesByID(0);
     //ArrayAdapter<String> adapter;
     
 	@Override
@@ -31,11 +31,11 @@ public class EntryActivity extends Activity implements OnItemClickListener {
         lst_Entry.setOnItemClickListener(this);
 		//adapter = new ArrayAdapter<String>(this, R.layout.list_item,listItems);
         
-        DatabaseHandler db = new DatabaseHandler(this);
+        //DatabaseHandler db = new DatabaseHandler(this);
         
         
         
-		lst_Entry.setAdapter(new EntryAdapter(this, db.getAllEntries()));
+		lst_Entry.setAdapter(new EntryAdapter(this, listItems));
 		addListenerOnButton();
 	}
 	public void addListenerOnButton(){

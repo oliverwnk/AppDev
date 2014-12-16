@@ -18,16 +18,19 @@
     <string name="Labl_Price">Preis</string>
     <string name="Labl_Quantity">Menge</string>
     <string name="Labl_Contact">HandyNr:</string>
-    
+
     <string-array name="Categories">
         <item>Beer</item>
         <item>Soda</item>
         <item>Snacks</item>
     </string-array>
-    <string name="Labl_Kategorie">Bier</string>
+
+    <string name="Labl_Kategorie">Kategorie</string>
     <string name="Labl_Search">Suche</string>
     <string name="Labl_save">Speichern</string>
     <string name="Labl_ShopName">Dein Name</string>
     <string name="Labl_searchRadius">Suchradius</string>
+    <string name="title_activity_map">MapActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

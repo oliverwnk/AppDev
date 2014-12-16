@@ -1,5 +1,6 @@
 package com.chro.beerapp;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -10,8 +11,8 @@ import java.util.TimeZone;
 
 
 public class Entries {
-	public List<Entry> Entries = new LinkedList<Entry>();
-	public List<Entry> LastQuery = new LinkedList<Entry>(); //Zuletzt angeforderten Daten
+	public ArrayList<Entry> Entries = new ArrayList<Entry>();
+	public ArrayList<Entry> LastQuery = new ArrayList<Entry>(); //Zuletzt angeforderten Daten
 	TimeZone tz ; // et Timezone
 	Calendar calBeg; // initialize Beginning Calendar
 	Calendar calEnd;
@@ -21,12 +22,13 @@ public class Entries {
 	{
 		SetUpTimeEssentials();
 		/*@TODO add the calendars here aswell */
-		Entry i = new Entry(0, "Bier", 0.1f, 3, "0188888888",99.0f,27.0f,calBeg,calEnd);
-		Entry i1 = new Entry(0, "Bier", 10.0f, 3, "0188888888",33.0f,27.0f,calBeg,calEnd);
-		Entry i2 = new Entry(0, "Bier", 10.0f, 3, "0188888888",34.0f,23.0f,calBeg,calEnd);
-		Entries.add(i);
-		Entries.add(i1);
-		Entries.add(i2);
+		int i=2;
+		Entry e = new Entry(0,"Becks"+i,1*0,67,"details",234,456,"2014-04-23 16:29","2014-04-23 18:29");
+		Entry e1 = new Entry(1,"Chips"+i,i*0,67,"details",234,456,"2014-04-23 16:29","2014-04-23 18:29");
+		Entry e2 = new Entry(2,"Fanta"+i,i*0,67,"details",234,456,"2014-04-23 16:29","2014-04-23 18:29");
+		Entries.add(e);
+		Entries.add(e1);
+		Entries.add(e2);
 		LastQuery = Entries;
 	}
 	public void SetUpTimeEssentials()
@@ -50,24 +52,24 @@ public class Entries {
 		}
 		return instants;
 	}
-	public List<Entry> getEntriesByName(String Name)
+	public ArrayList<Entry> getEntriesByName(String Name)
 	{
 		LastQuery = Entries;
 		return Entries;
 	}
-	public List<Entry> getEntriesByLocation(int Categorie,float latiude,float longitude,int Radius)
-	{
-		LastQuery = Entries;
-		return Entries;
-		
-	}
-	public List<Entry> getEntriesByID(int UserID)
+	public ArrayList<Entry> getEntriesByLocation(int Categorie,float latiude,float longitude,int Radius)
 	{
 		LastQuery = Entries;
 		return Entries;
 		
 	}
-	public List<Entry> getLastRequest()
+	public ArrayList<Entry> getEntriesByID(int UserID)
+	{
+		LastQuery = Entries;
+		return Entries;
+		
+	}
+	public ArrayList<Entry> getLastRequest()
 	{
 		return LastQuery;
 	}
