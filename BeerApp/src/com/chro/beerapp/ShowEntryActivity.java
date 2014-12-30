@@ -2,19 +2,17 @@ package com.chro.beerapp;
 
 import java.util.Calendar;
 
-import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.View;
-import android.view.ViewDebug.IntToString;
 import android.widget.Button;
 import android.widget.TextView;
-import android.view.View.OnClickListener;
+
 import com.woodchro.bemystore.R;
 
-public class ShowEntryActivity extends Activity {
+public class ShowEntryActivity extends ActionBarActivity {
 
 	Button btn_myEntry;
 	Button btn_search;
@@ -28,6 +26,8 @@ public class ShowEntryActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.show_entry);
+		
+		
 		Intent intent = getIntent();
 		int id = intent.getExtras().getInt("id");
 		CurrentEntry = RequestedList.getLastRequest().get(id);
@@ -43,7 +43,14 @@ public class ShowEntryActivity extends Activity {
 		//CurrentEntry.getProductName();
 		//CurrentEntry.getPrice();
 		//CurrentEntry.getQuantity();
+		
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		if (toolbar != null) {
+			setSupportActionBar(toolbar);
+		}
+		getSupportActionBar().setTitle(CurrentEntry.getProductName());
 		addListenerOnButton();
+		
 	}
 
 	@Override

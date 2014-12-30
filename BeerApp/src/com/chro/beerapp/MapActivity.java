@@ -1,13 +1,14 @@
 package com.chro.beerapp;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.app.DialogFragment;
-import android.content.Intent;
-import android.location.Location;
+import java.util.ArrayList;
 
+import android.content.Intent;
+import android.content.IntentSender;
+import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,26 +16,32 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMapLoadedCallback;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.woodchro.bemystore.R;
 
-public class MapActivity extends FragmentActivity implements
-		GooglePlayServicesClient.ConnectionCallbacks,
-		GooglePlayServicesClient.OnConnectionFailedListener, LocationListener {
+public class MapActivity extends ActionBarActivity implements
+		GoogleApiClient.ConnectionCallbacks,
+		GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback,
+		LocationListener, OnMapLoadedCallback {
 
 	private GoogleMap map;
-	LocationClient mLocationClient;
+	GoogleApiClient mGoogleApiClient;
 	Location mCurrentLocation;
 	LocationRequest mLocationRequest;
+	ArrayList<Entry> entries = Entries.getInstance().Entries;
 
 	// constants for Location Update Preferences
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
@@ -51,77 +58,6 @@ public class MapActivity extends FragmentActivity implements
 	private static final long FASTEST_INTERVAL = MILLISECONDS_PER_SECOND
 			* FASTEST_INTERVAL_IN_SECONDS;
 
-	
-	// Define a DialogFragment that displays the error dialog
-	public static class ErrorDialogFragment extends DialogFragment {
-
-		// Global field to contain the error dialog
-		private Dialog mDialog;
-
-		// Default constructor. Sets the dialog field to null
-		public ErrorDialogFragment() {
-			super();
-			mDialog = null;
-		}
-
-		// Set the dialog to display
-		public void setDialog(Dialog dialog) {
-			mDialog = dialog;
-		}
-
-		// Return a Dialog to the DialogFragment.
-		@Override
-		public Dialog onCreateDialog(Bundle savedInstanceState) {
-			return mDialog;
-		}
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// Decide what to do based on the original request code
-		switch (requestCode) {
-
-		case CONNECTION_FAILURE_RESOLUTION_REQUEST:
-			/*
-			 * If the result code is Activity.RESULT_OK, try to connect again
-			 */
-			switch (resultCode) {
-			case Activity.RESULT_OK:
-				mLocationClient.connect();
-				break;
-			}
-
-		}
-	}
-
-	private boolean isGooglePlayServicesAvailable() {
-		// Check that Google Play services is available
-		int resultCode = GooglePlayServicesUtil
-				.isGooglePlayServicesAvailable(this);
-		// If Google Play services is available
-		if (ConnectionResult.SUCCESS == resultCode) {
-			// In debug mode, log the status
-			Log.d("Location Updates", "Google Play services is available.");
-			return true;
-		} else {
-			// Get the error dialog from Google Play services
-			Dialog errorDialog = GooglePlayServicesUtil.getErrorDialog(
-					resultCode, this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
-
-			// If Google Play services can provide an error dialog
-			if (errorDialog != null) {
-				// Create a new DialogFragment for the error dialog
-				ErrorDialogFragment errorFragment = new ErrorDialogFragment();
-				errorFragment.setDialog(errorDialog);
-				errorFragment.show(getFragmentManager(),
-				 "Location Updates");
-			}
-
-			return false;
-		}
-	}
-
-	
 	/*
 	 * Called when the Activity becomes visible.
 	 */
@@ -129,9 +65,10 @@ public class MapActivity extends FragmentActivity implements
 	protected void onStart() {
 		super.onStart();
 		// Connect the client.
-		if (isGooglePlayServicesAvailable()) {
-			mLocationClient.connect();
-		}
+		// if (isGooglePlayServicesAvailable()) {
+		mGoogleApiClient.connect();
+
+		// }
 	}
 
 	/*
@@ -140,22 +77,34 @@ public class MapActivity extends FragmentActivity implements
 	@Override
 	protected void onStop() {
 		// Disconnecting the client invalidates it.
-		// mLocationClient.disconnect();
+		mGoogleApiClient.disconnect();
 		super.onStop();
 	}
 
 	// begin of functions for interfaces
-	//After calling connect(), this method will be invoked asynchronously 
-	//when the connect request has successfully completed.
+	// After calling connect(), this method will be invoked asynchronously
+	// when the connect request has successfully completed.
 	@Override
 	public void onConnected(Bundle dataBundle) {
 		// Display the connection status
 		Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
-		//notices when location changes
-		mLocationClient.requestLocationUpdates(mLocationRequest, this);
+		// notices when location changes
+		// mLocationClient.requestLocationUpdates(mLocationRequest, this);
+
+		// Location update
+		LocationServices.FusedLocationApi.requestLocationUpdates(
+				mGoogleApiClient, mLocationRequest, this);
+
+		// mCurrentLocation = LocationServices.FusedLocationApi
+		// .getLastLocation(mGoogleApiClient);
+		//
+		// LatLng latLng = new LatLng(mCurrentLocation.getLatitude(),
+		// mCurrentLocation.getLongitude());
+		// CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng,
+		// 15);
+		// map.moveCamera(cameraUpdate);
 	}
 
-	@Override
 	public void onDisconnected() {
 		// Display the connection status
 		Toast.makeText(this, "Disconnected. Please re-connect.",
@@ -164,6 +113,32 @@ public class MapActivity extends FragmentActivity implements
 
 	@Override
 	public void onConnectionFailed(ConnectionResult connectionResult) {
+		if (connectionResult.hasResolution()) {
+			try {
+				// Start an Activity that tries to resolve the error
+				connectionResult.startResolutionForResult(this,
+						CONNECTION_FAILURE_RESOLUTION_REQUEST);
+				/*
+				 * Thrown if Google Play services canceled the original
+				 * PendingIntent
+				 */
+			} catch (IntentSender.SendIntentException e) {
+				// Log the error
+				e.printStackTrace();
+			}
+		} else {
+			/*
+			 * If no resolution is available, display a dialog to the user with
+			 * the error.
+			 */
+			showDialog(connectionResult.getErrorCode());
+		}
+	}
+
+	@Override
+	public void onConnectionSuspended(int arg0) {
+		// TODO Auto-generated method stub
+
 	}
 
 	// end of functions for interfaces
@@ -172,38 +147,26 @@ public class MapActivity extends FragmentActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
-		// set mapFragement
-		if (map == null) {
-			map = ((MapFragment) getFragmentManager()
-					.findFragmentById(R.id.map)).getMap();
-		}
-
-		// locationManager = (LocationManager)
-		// getSystemService(Context.LOCATION_SERVICE);
-		//
-		// Criteria criteria = new Criteria();
-		// criteria.setAccuracy(Criteria.ACCURACY_FINE);
-		// criteria.setPowerRequirement(Criteria.POWER_LOW);
-		// criteria.setAltitudeRequired(false);
-		// criteria.setBearingRequired(false);
-		// criteria.setSpeedRequired(false);
-		// criteria.setCostAllowed(true);
-		//
-		// String provider = locationManager.getBestProvider(criteria, true);
-		// Location location = locationManager.getLastKnownLocation(provider);
-		//
-		// updateWithNewLocation(location);
-		// LatLng latLng = new LatLng(location.getLatitude(),
-		// location.getLongitude());
-		// CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng,
-		// 15);
-		// map.animateCamera(cameraUpdate);
-		// locationManager.removeUpdates(this);
-		// locationManager.requestLocationUpdates(provider, MIN_TIME,
-		// MIN_DISTANCE,
-		// this);
 		
-		//A data object that contains quality of service parameters for requests
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		if (toolbar != null) {
+			setSupportActionBar(toolbar);
+		}
+		getSupportActionBar().setTitle("In der Nähe");
+		
+		
+		Intent intent = getIntent();
+		
+		mCurrentLocation = intent
+				.getParcelableExtra(MainActivity.LAST_LOCATION);
+
+		MapFragment mapFragment = (MapFragment) getFragmentManager()
+				.findFragmentById(R.id.map);
+		mapFragment.getMapAsync(this);
+		buildGoogleApiClient();
+
+		// A data object that contains quality of service parameters for
+		// requests
 		mLocationRequest = LocationRequest.create();
 		// Use high accuracy
 		mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -212,47 +175,49 @@ public class MapActivity extends FragmentActivity implements
 		// Set the fastest update interval to 1 second
 		mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
 		// enables my location and adds button for my location
-		map.setMyLocationEnabled(true);
 
-		mLocationClient = new LocationClient(this, this, this);
-		// mCurrentLocation = mLocationClient.getLastLocation();
+		SharedPreferences prefs = getSharedPreferences("location",
+				(MODE_PRIVATE));
+		float Longitude = prefs.getFloat("Longitude", 0);
+		float Latitude = prefs.getFloat("Latitude", 0);
+		Log.i("aösdkfjawoeifj", String.valueOf(Longitude));
+		// mCurrentLocation.setLatitude((double) Longitude);
+		// mCurrentLocation.setLongitude((double) Latitude);
 
 	}
-	//tells LocationListener what to do when location changes
+
+	protected synchronized void buildGoogleApiClient() {
+		mGoogleApiClient = new GoogleApiClient.Builder(this)
+				.addConnectionCallbacks(this)
+				.addOnConnectionFailedListener(this)
+				.addApi(LocationServices.API).build();
+	}
+
+	// tells LocationListener what to do when location changes
 	public void onLocationChanged(Location location) {
 		updateWithNewLocation(location);
-		LatLng latLng = new LatLng(location.getLatitude(),
-				location.getLongitude());
-		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng,
-				15);
-		map.animateCamera(cameraUpdate);
-		//locationManager.removeUpdates(this);
+		mCurrentLocation = location;
+		
+		// LatLng latLng = new LatLng(location.getLatitude(),
+		// location.getLongitude());
+		// CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng,
+		// 15);
+		// map.animateCamera(cameraUpdate);
+		// locationManager.removeUpdates(this);
 	}
 
-	
-	 public void onProviderDisabled(String provider) {
-	 }
-	
-	 public void onProviderEnabled(String provider) {
-	 }
-	
-	 public void onStatusChanged(String provider, int status, Bundle extras) {
-	 }
-	
-	 //display coordinates in textview
-	 private void updateWithNewLocation(Location location) {
-	 TextView myLocationText;
-	 myLocationText = (TextView) findViewById(R.id.myLocationText);
-	 String latLongString = "No location found";
-	 if (location != null) {
-	 double lat = location.getLatitude();
-	 double lng = location.getLongitude();
-	 latLongString = "Lat:" + lat + "\nLong:" + lng;
-	 }
-	 myLocationText.setText("Your Current Position is:\n" + latLongString);
-	 }
-
-	
+	// display coordinates in textview
+	private void updateWithNewLocation(Location location) {
+		TextView myLocationText;
+		myLocationText = (TextView) findViewById(R.id.myLocationText);
+		String latLongString = "No location found";
+		if (location != null) {
+			double lat = location.getLatitude();
+			double lng = location.getLongitude();
+			latLongString = "Lat:" + lat + "\nLong:" + lng;
+		}
+		myLocationText.setText("Your Current Position is:\n" + latLongString);
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -272,4 +237,45 @@ public class MapActivity extends FragmentActivity implements
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
+	@Override
+	public void onMapReady(GoogleMap map) {
+		// TODO Auto-generated method stub
+		// set markers
+		this.map = map;
+		map.setOnMapLoadedCallback(this);
+
+		// adds my location button to map
+		map.setMyLocationEnabled(true);
+
+		LatLng latLng = new LatLng(mCurrentLocation.getLatitude(),
+				mCurrentLocation.getLongitude());
+		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng,
+				15);
+		map.moveCamera(cameraUpdate);
+
+		// sets marker from entry list
+		
+
+	}
+	
+	//sets marker from entry list and moves camera to see all markers
+	@Override
+	public void onMapLoaded() {
+		// TODO Auto-generated method stub
+		LatLngBounds.Builder builder = new LatLngBounds.Builder();
+		for (Entry e : entries) {
+			LatLng latlng = new LatLng(e.getLatitude(), e.getLongtitude());
+			Marker marker = map.addMarker(new MarkerOptions().position(latlng
+					).title(
+					e.getProductName()).snippet("Preis: " + String.valueOf(e.getPrice())+ "€   " +
+							"Menge: " + String.valueOf(e.getQuantity())));
+			builder.include(latlng);
+			marker.showInfoWindow();
+		}
+		LatLngBounds bounds = builder.build();
+		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, 100);
+		map.animateCamera(cameraUpdate);
+	}
+
 }

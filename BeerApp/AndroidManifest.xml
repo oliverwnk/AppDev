@@ -40,7 +40,7 @@
         </activity>
         <activity android:name="com.chro.beerapp.ShowEntryActivity" >
         </activity>
-        <activity android:name="com.chro.beerapp.StartSearchActivity" >
+        <activity android:name="com.chro.beerapp.EntrySearchActivity" >
         </activity>
         <activity android:name="com.chro.beerapp.SettingsActivity" >
         </activity>
