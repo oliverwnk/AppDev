@@ -9,7 +9,8 @@ import java.util.TimeZone;
 
 
 
-public class Entries {	
+public class Entries {
+	
 	public List<Entry> Entries = new LinkedList<Entry>();
 	public List<Entry> LastQuery = new LinkedList<Entry>(); //Zuletzt angeforderten Daten
 	TimeZone tz ; // et Timezone

@@ -9,7 +9,7 @@ import java.util.TimeZone;
 
 
 
-public class Entries {	
+public class Entries {
 	public List<Entry> Entries = new LinkedList<Entry>();
 	public List<Entry> LastQuery = new LinkedList<Entry>(); //Zuletzt angeforderten Daten
 	TimeZone tz ; // et Timezone
@@ -50,11 +50,7 @@ public class Entries {
 		}
 		return instants;
 	}
-	/*@TODO getEntrieByCategory
-	 * @TODO getNameByCategory
-	 * @TOdo getByUser
-	 */
-	public List<Entry> getEntriesByName(String Name,int Category)
+	public List<Entry> getEntriesByName(String Name)
 	{
 		LastQuery = Entries;
 		return Entries;
@@ -71,7 +67,6 @@ public class Entries {
 		return Entries;
 		
 	}
-	
 	public List<Entry> getLastRequest()
 	{
 		return LastQuery;
