@@ -128,8 +128,12 @@ public class Entry {
 		this.longtitude = longtitude;
 	}
 
-	public int getCategory() {
+	public int getCategory(){
 		return category;
+	}
+	public String getCategoryAsString() {  
+        String s = String.valueOf(category); 
+		return (s);
 	}
 
 	public void setCategory(int category) {

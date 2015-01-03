@@ -2,23 +2,23 @@ package com.chro.beerapp;
 
 import java.util.Calendar;
 
-import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.view.View.OnClickListener;
+
 import com.woodchro.bemystore.R;
 
-public class ShowEntryActivity extends Activity {
+public class ShowEntryActivity extends ActionBarActivity {
 
 	Button btn_myEntry;
 	Button btn_search;
 	Entry CurrentEntry;
-	Entries RequestetList = Entries.getInstance();
-	TextView Categorie;
+	Entries RequestedList = Entries.getInstance();
+	TextView Category;
 	TextView PrdctName;
 	TextView BegTime;
 	TextView EndTime;
@@ -26,11 +26,13 @@ public class ShowEntryActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.show_entry);
+		
+		
 		Intent intent = getIntent();
 		int id = intent.getExtras().getInt("id");
-		CurrentEntry = RequestetList.getLastRequest().get(id);
-		Categorie = (TextView) findViewById(R.id.txt_Categorie);
-		Categorie.setText(CurrentEntry.getCategory());
+		CurrentEntry = RequestedList.getLastRequest().get(id);
+		Category = (TextView) findViewById(R.id.txt_Category);
+		Category.setText(CurrentEntry.getCategoryAsString());
 		PrdctName = (TextView) findViewById(R.id.txt_PrdctName);
 		PrdctName.setText(CurrentEntry.getProductName());
 		BegTime = (TextView) findViewById(R.id.txt_timeBegin);
@@ -41,7 +43,14 @@ public class ShowEntryActivity extends Activity {
 		//CurrentEntry.getProductName();
 		//CurrentEntry.getPrice();
 		//CurrentEntry.getQuantity();
+		
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		if (toolbar != null) {
+			setSupportActionBar(toolbar);
+		}
+		getSupportActionBar().setTitle(CurrentEntry.getProductName());
 		addListenerOnButton();
+		
 	}
 
 	@Override

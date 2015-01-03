@@ -8,6 +8,16 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="21" />
 
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -22,12 +32,29 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.chro.beerapp.EntryActivity"></activity>
-        <activity android:name="com.chro.beerapp.CreateEntryActivity"></activity>
-        <activity android:name="com.chro.beerapp.SearchActivity"></activity>
-        <activity android:name="com.chro.beerapp.ShowEntryActivity"></activity>
-        <activity android:name="com.chro.beerapp.StartSearchActivity"></activity>
-        <activity android:name="com.chro.beerapp.SettingsActivity"></activity>
+        <activity android:name="com.chro.beerapp.EntryActivity" >
+        </activity>
+        <activity android:name="com.chro.beerapp.CreateEntryActivity" >
+        </activity>
+        <activity android:name="com.chro.beerapp.SearchActivity" >
+        </activity>
+        <activity android:name="com.chro.beerapp.ShowEntryActivity" >
+        </activity>
+        <activity android:name="com.chro.beerapp.EntrySearchActivity" >
+        </activity>
+        <activity android:name="com.chro.beerapp.SettingsActivity" >
+        </activity>
+        <activity
+            android:name="com.chro.beerapp.MapActivity"
+            android:label="@string/title_activity_map" >
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyAh2e7ZbaWvEaBXOjFwR3zjWnQczN4KFFw" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

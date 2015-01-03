@@ -2,28 +2,133 @@ package com.chro.beerapp;
 
 import java.util.Calendar;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+
 import com.woodchro.bemystore.R;
 
 public class CreateEntryActivity extends ActionBarActivity {
 
 	Button btn_CreateEntry;
+	SeekBar sbarPrice;
+	SeekBar sbarAmount;
+	EditText etextPrice;
+	EditText etextAmount;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_entry);
 		initTime();
 		addListenerOnButton();
+		
+		sbarPrice = (SeekBar)findViewById(R.id.sb_price);
+		etextPrice = (EditText)findViewById(R.id.edit_price);
+		
+		sbarAmount = (SeekBar)findViewById(R.id.sb_amount);
+		etextAmount = (EditText)findViewById(R.id.edit_amount);
+		
+		
+		//connect seekbar with edittext for price
+		sbarPrice.setOnSeekBarChangeListener(new OnSeekBarChangeListener()
+        {
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar)
+            {
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar)
+            {
+            }
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress,
+            boolean fromUser)
+            {
+            //---change the font size of the EditText---
+            float value = (float)progress/2;
+            etextPrice.setText(String.valueOf(value)+"0");
+            etextPrice.setSelection(etextPrice.getText().length());
+            }
+            });
+		
+		etextPrice.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try{
+                    //Update Seekbar value after entering a number
+                  //  sbarPrice.setProgress(Integer.parseInt(s.toString()));
+                } catch(Exception ex) {}
+            }
+
+            
+        });
+		
+		sbarAmount.setOnSeekBarChangeListener(new OnSeekBarChangeListener()
+        {
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar)
+            {
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar)
+            {
+            }
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress,
+            boolean fromUser)
+            {
+            //---change the font size of the EditText---
+            
+            etextAmount.setText(String.valueOf(progress));
+            etextAmount.setSelection(etextAmount.getText().length());
+            }
+            });
+		
+		etextAmount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try{
+                    //Update Seekbar value after entering a number
+                  //  sbarPrice.setProgress(Integer.parseInt(s.toString()));
+                } catch(Exception ex) {}
+            }
+
+            
+        });
+		
+		
 	}
 	DatabaseHandler db = new DatabaseHandler(this);
 	public void showTimePickerDialog(View v) {
