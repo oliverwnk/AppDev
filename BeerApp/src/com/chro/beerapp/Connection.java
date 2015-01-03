@@ -83,6 +83,8 @@ public class Connection extends AsyncTask<Void, String, String>{
 	@Override
 	protected void onPostExecute(String responseStr)
 	{
-		
+		Entries e = Entries.getInstance();
+		//parse response string
+		e.addEntrie(0, "name", 0.1f, 1, "000112", 0.3f, 51.00f, "2014-04-23 16:29","2014-04-23 18:29");
 	}
 }
