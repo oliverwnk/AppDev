@@ -1,12 +1,16 @@
 package com.chro.beerapp;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -16,6 +20,7 @@ public class ShowEntryActivity extends ActionBarActivity {
 
 	Button btn_myEntry;
 	Button btn_search;
+	Button btn_openMap;
 	Entry CurrentEntry;
 	Entries RequestedList = Entries.getInstance();
 	TextView Category;
@@ -62,6 +67,16 @@ public class ShowEntryActivity extends ActionBarActivity {
 	
 
 	public void addListenerOnButton(){
+		btn_openMap = (Button) findViewById(R.id.Btn_OpenMap);
+		btn_openMap.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				String uri = String.format(Locale.ENGLISH,"geo:0,0?q=%f,%f(%s)", CurrentEntry.getLatitude(), CurrentEntry.getLongtitude(),CurrentEntry.getProductName());
+				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+				startActivity(intent);
+			}
+
+		});
 			
 	}
 	

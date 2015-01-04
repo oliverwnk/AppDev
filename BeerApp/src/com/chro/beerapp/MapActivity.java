@@ -1,6 +1,8 @@
 package com.chro.beerapp;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.content.Intent;
 import android.content.IntentSender;
@@ -23,6 +25,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMapLoadedCallback;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -195,7 +198,6 @@ public class MapActivity extends ActionBarActivity implements
 
 	// tells LocationListener what to do when location changes
 	public void onLocationChanged(Location location) {
-		updateWithNewLocation(location);
 		mCurrentLocation = location;
 		
 		// LatLng latLng = new LatLng(location.getLatitude(),
@@ -207,17 +209,17 @@ public class MapActivity extends ActionBarActivity implements
 	}
 
 	// display coordinates in textview
-	private void updateWithNewLocation(Location location) {
-		TextView myLocationText;
-		myLocationText = (TextView) findViewById(R.id.myLocationText);
-		String latLongString = "No location found";
-		if (location != null) {
-			double lat = location.getLatitude();
-			double lng = location.getLongitude();
-			latLongString = "Lat:" + lat + "\nLong:" + lng;
-		}
-		myLocationText.setText("Your Current Position is:\n" + latLongString);
-	}
+//	private void updateWithNewLocation(Location location) {
+//		TextView myLocationText;
+//		myLocationText = (TextView) findViewById(R.id.myLocationText);
+//		String latLongString = "No location found";
+//		if (location != null) {
+//			double lat = location.getLatitude();
+//			double lng = location.getLongitude();
+//			latLongString = "Lat:" + lat + "\nLong:" + lng;
+//		}
+//		myLocationText.setText("Your Current Position is:\n" + latLongString);
+//	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -264,15 +266,35 @@ public class MapActivity extends ActionBarActivity implements
 	public void onMapLoaded() {
 		// TODO Auto-generated method stub
 		LatLngBounds.Builder builder = new LatLngBounds.Builder();
+		
+		//hashmap to map MarkerId with position of entry in entrylist
+		//to start right ShowEntryActivity when clicking on infoWindow
+		final Map<String, Integer> markerToEntryMap = new HashMap<String, Integer>();
+		int position = 0;
 		for (Entry e : entries) {
 			LatLng latlng = new LatLng(e.getLatitude(), e.getLongtitude());
 			Marker marker = map.addMarker(new MarkerOptions().position(latlng
 					).title(
 					e.getProductName()).snippet("Preis: " + String.valueOf(e.getPrice())+ "€   " +
 							"Menge: " + String.valueOf(e.getQuantity())));
+			markerToEntryMap.put(marker.getId(),position);
+			Log.d("AAAAAA",String.valueOf(markerToEntryMap.get(marker.getId())));
 			builder.include(latlng);
 			marker.showInfoWindow();
+			position++;
 		}
+		map.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+			
+			@Override
+			public void onInfoWindowClick(Marker marker) {
+				// TODO Auto-generated method stub
+					Intent intent = new Intent(getApplicationContext(),
+							ShowEntryActivity.class);
+					int markerPosition = markerToEntryMap.get(marker.getId());
+					intent.putExtra("id",markerPosition );
+					startActivity(intent);
+			}
+		});
 		LatLngBounds bounds = builder.build();
 		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, 100);
 		map.animateCamera(cameraUpdate);

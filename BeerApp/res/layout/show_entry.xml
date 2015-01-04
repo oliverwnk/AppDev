@@ -68,17 +68,27 @@
         android:text="@string/Labl_PrdctName"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Andere Artikel des Benutzers"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <ListView
-        android:id="@+id/listView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
+    
+     <Button
+        android:id="@+id/Btn_OpenMap"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        style="@style/CustomStyleButton"
+        android:layout_marginTop="300dp"
+        android:layout_marginLeft="15dp"
+        android:text="@string/Btn_OpenMap"/>
 
 </LinearLayout>
