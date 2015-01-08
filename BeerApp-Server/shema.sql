@@ -1,6 +1,6 @@
 drop table if exists entries;
 create table entries (
-	id integer primary key,
+	id integer primary key autoincrement,
 	user_id integer,
 	categorie integer,
 	productName text not null,
