@@ -33,7 +33,7 @@ public class ConnectionAdd extends AsyncTask<Void, String, String>{
         nameValuePairs.add(new BasicNameValuePair("stringdata", "AndDev is Cool!"));
        	String req = URLEncodedUtils.format(nameValuePairs, "utf-8");
        	
-	    HttpGet httpget = new HttpGet("141.30.224.219"+req);
+	    HttpGet httpget = new HttpGet("141.30.224.219/add"+req);
 	
 	    try {
 	        // Add your data

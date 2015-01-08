@@ -1,6 +1,18 @@
 drop table if exists entries;
 create table entries (
-  id integer primary key autoincrement,
-  title text not null,
-  text text not null
+	id integer primary key,
+	user_id integer,
+	categorie integer,
+	productName text not null,
+	name text not null,
+	price float,
+	quantity integer,
+	contactDetails text,
+	latitude float,
+	longtitude float,
+	Timezone text,
+	beginTime text,
+	endTime text,
+	retry boolean
 );
+
