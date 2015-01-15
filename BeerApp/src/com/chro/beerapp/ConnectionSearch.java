@@ -23,7 +23,7 @@ import android.R.string;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public class ConnectionSearch extends AsyncTask<Void, String, String>{
+public class ConnectionSearch extends AsyncTask<String, String, String>{
 	
 	
 	
@@ -55,24 +55,24 @@ public class ConnectionSearch extends AsyncTask<Void, String, String>{
 		return null;
 	}
 	@Override
-	protected String doInBackground(Void... params) {
+	protected String doInBackground(String... params) {
 		// Create a new HttpClient and Post Header
 	    HttpClient httpclient = new DefaultHttpClient();
-	    HttpGet httpget = new HttpGet("141.30.224.219");
-
+	    HttpGet httpget = new HttpGet("http://www.google.com");
+	    String responseStr = "";
 	    try {
 	        // Add your data
 	        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-	        nameValuePairs.add(new BasicNameValuePair("id", "12345"));
+	        
+	        nameValuePairs.add(new BasicNameValuePair("id", params[0]));
 
-	        nameValuePairs.add(new BasicNameValuePair("stringdata", "AndDev is Cool!"));
+	        nameValuePairs.add(new BasicNameValuePair("stringdata", params[1]));
 	       // httpget.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 	        // Execute HTTP Post Request
 	        HttpResponse response = httpclient.execute(httpget);
-	        String responseStr = EntityUtils.toString(response.getEntity());
+	        responseStr = EntityUtils.toString(response.getEntity());
 		    publishProgress(responseStr);
-	        Log.i(responseStr,"|||||||||||||#########@#@#$@#$Q#|$#@|$#@|$");
 	    } catch (ClientProtocolException e) {
 	    	Log.i(e.toString(),e.toString());
 	        // TODO Auto-generated catch block
@@ -80,7 +80,7 @@ public class ConnectionSearch extends AsyncTask<Void, String, String>{
 	        // TODO Auto-generated catch block
 	    }
 
-	    return "";
+	    return responseStr;
 	}
 	@Override
 	protected void onPostExecute(String responseStr)
@@ -96,5 +96,8 @@ public class ConnectionSearch extends AsyncTask<Void, String, String>{
 		}
 		//parse response string
 		
+	}
+	protected void onProgressUpdate()
+	{
 	}
 }

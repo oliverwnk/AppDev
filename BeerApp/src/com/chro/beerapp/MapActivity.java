@@ -155,7 +155,7 @@ public class MapActivity extends ActionBarActivity implements
 		if (toolbar != null) {
 			setSupportActionBar(toolbar);
 		}
-		getSupportActionBar().setTitle("In der Nähe");
+		getSupportActionBar().setTitle("In der Nï¿½he");
 		
 		
 		Intent intent = getIntent();
@@ -183,7 +183,7 @@ public class MapActivity extends ActionBarActivity implements
 				(MODE_PRIVATE));
 		float Longitude = prefs.getFloat("Longitude", 0);
 		float Latitude = prefs.getFloat("Latitude", 0);
-		Log.i("aösdkfjawoeifj", String.valueOf(Longitude));
+		Log.i("aï¿½sdkfjawoeifj", String.valueOf(Longitude));
 		// mCurrentLocation.setLatitude((double) Longitude);
 		// mCurrentLocation.setLongitude((double) Latitude);
 
@@ -275,7 +275,7 @@ public class MapActivity extends ActionBarActivity implements
 			LatLng latlng = new LatLng(e.getLatitude(), e.getLongtitude());
 			Marker marker = map.addMarker(new MarkerOptions().position(latlng
 					).title(
-					e.getProductName()).snippet("Preis: " + String.valueOf(e.getPrice())+ "€   " +
+					e.getProductName()).snippet("Preis: " + String.valueOf(e.getPrice())+ "ï¿½   " +
 							"Menge: " + String.valueOf(e.getQuantity())));
 			markerToEntryMap.put(marker.getId(),position);
 			Log.d("AAAAAA",String.valueOf(markerToEntryMap.get(marker.getId())));

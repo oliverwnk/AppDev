@@ -28,7 +28,7 @@ public class EntryActivity extends ActionBarActivity implements OnItemClickListe
 
 	private Button btn_CreateEntry;
 	private ListView lst_Entry;
-    ArrayList<Entry> listItems=Entries.getInstance().getEntriesByID(0);
+    ArrayList<Entry> listItems=Entries.getInstance().getEntriesByName("");
     //ArrayAdapter<String> adapter;
     //0 for MyEntries and 1 for Entrylist for Search
     int adapterKind=0; 

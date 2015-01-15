@@ -13,6 +13,7 @@ create table entries (
 	Timezone text,
 	beginTime text,
 	endTime text,
-	retry boolean
+	retry boolean,
+	activ boolean
 );
 

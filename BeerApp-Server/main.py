@@ -52,10 +52,36 @@ def show_entries():
 		entries.append(dict(user_id=row[0], categorie=row[1], productName=row[2], text=row[3], price=row[4], quantity=row[5], contactDetails=row[6], latitude=row[7], longtitude=row[8], Timezone=row[9], beginTime=row[10], endTime=row[11],retry=row[12]) )
 	print entries;
 	return render_template('show_entries.html',entries = entries)
+@app.route('/')
+def show_entries():
+	db = get_db()
+	cur = db.execute('select * from entries')
+	#print cur.fetchall()
+	#entries = cur.fetchall()
+	entries = []
+	for row in cur.fetchall():
+		print "n"
+		entries.append(dict(user_id=row[0], categorie=row[1], productName=row[2], text=row[3], price=row[4], quantity=row[5], contactDetails=row[6], latitude=row[7], longtitude=row[8], Timezone=row[9], beginTime=row[10], endTime=row[11],retry=row[12]) )
+	print entries;
+	return render_template('show_entries.html',entries = entries)
+@app.route('/My')
+def show_entries():
+	db = get_db()
+	user = request.args.get('user')
+	print user;
+	cur = db.execute('select * from entries where user_id = ? ',[user])
+	#print cur.fetchall()
+	#entries = cur.fetchall()
+	entries = []
+	for row in cur.fetchall():
+		print "n"
+		entries.append(dict(user_id=row[0], categorie=row[1], productName=row[2], text=row[3], price=row[4], quantity=row[5], contactDetails=row[6], latitude=row[7], longtitude=row[8], Timezone=row[9], beginTime=row[10], endTime=row[11],retry=row[12]) )
+	print entries;
+	return render_template('show_entries.html',entries = entries)
 
 @app.route('/add',methods=['GET'])
 def show_add():
-	user = 99
+	user = request.args.get('user')
 	print user;
 	categorie = request.args.get('categorie')
 	print categorie
@@ -81,7 +107,9 @@ def show_add():
 	print endTime
 	retry = request.args.get('retry')
 	print retry
-	ret = g.db.execute('insert into entries (categorie,productName,name,price,quantity,contactDetails,latitude,longtitude,Timezone,beginTime,endTime,retry) values ( ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?)',[ categorie, productName, text, price,  quanity, contactDetails, latitude, longtitude, Timezone, beginTime, endTime, retry])
+	activ = request.args.get('activ')
+	print activ
+	ret = g.db.execute('insert into entries (user_id,categorie,productName,name,price,quantity,contactDetails,latitude,longtitude,Timezone,beginTime,endTime,retry,activ) values (?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?)',[user, categorie, productName, text, price,  quanity, contactDetails, latitude, longtitude, Timezone, beginTime, endTime, retry, activ])
 	g.db.commit();
 	return "ok"
 @app.route('/getID',methods=['GET'])
