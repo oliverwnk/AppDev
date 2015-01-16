@@ -51,6 +51,6 @@ public class StartSearchActivity extends Activity implements OnItemClickListener
 		Log.i("HelloListView", "You clicked Item: " + id + " at position:" + pos);
 		
 	}
-
+	
 	
 }

@@ -33,6 +33,10 @@ public class Entries {
 		Entries.add(e2);
 		LastQuery = Entries;
 	}
+	protected void Del()
+	{
+		Entries.clear();
+	}
 	public void SetUpTimeEssentials()
 	{
 		TimeZone tz = TimeZone.getDefault(); // et Timezone
@@ -73,10 +77,19 @@ public class Entries {
 		return Entries;
 		
 	}
-	public ArrayList<Entry> getEntriesByID(int UserID)
+	public List<Entry> getEntriesByID(int UserID)
 	{
 		LastQuery = Entries;
-		return Entries;
+		List<Entry> L = new ArrayList<Entry>();
+		for(int i = 0; i < Entries.size();i++)
+		{
+			Entry e = Entries.get(i);
+			if(e.getUser_id() == UserID)
+			{
+				L.add(e);
+			}
+		}
+		return L;
 		
 	}
 	public ArrayList<Entry> getLastRequest()

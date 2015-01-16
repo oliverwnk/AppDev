@@ -20,6 +20,15 @@ public class Entry {
 	public TimeZone tz;
 	public Calendar beginTime;
 	public Calendar endTime;
+	public int user_id;
+
+	public int getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
 
 	public Entry(int category, String productName, float price, int quantity,
 			String contactDetails, float latitude, float longtitude,

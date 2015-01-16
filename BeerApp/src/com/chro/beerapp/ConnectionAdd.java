@@ -20,11 +20,11 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public class ConnectionAdd extends AsyncTask<Void, String, String>{
+public class ConnectionAdd extends AsyncTask<String, String, String>{
 
 
 	@Override
-	protected String doInBackground(Void... params) {
+	protected String doInBackground(String... params) {
 		// Create a new HttpClient and Post Header
 	    HttpClient httpclient = new DefaultHttpClient();
 	    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);

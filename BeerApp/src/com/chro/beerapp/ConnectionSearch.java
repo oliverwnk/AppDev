@@ -16,14 +16,16 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.R.string;
 import android.os.AsyncTask;
+import android.text.Html;
 import android.util.Log;
 
-public class ConnectionSearch extends AsyncTask<Void, String, String>{
+public class ConnectionSearch extends AsyncTask<String, String, String>{
 	
 	
 	
@@ -55,24 +57,27 @@ public class ConnectionSearch extends AsyncTask<Void, String, String>{
 		return null;
 	}
 	@Override
-	protected String doInBackground(Void... params) {
+	protected String doInBackground(String... params) {
 		// Create a new HttpClient and Post Header
 	    HttpClient httpclient = new DefaultHttpClient();
-	    HttpGet httpget = new HttpGet("141.30.224.219");
-
+	    HttpGet httpget = new HttpGet("http://141.30.224.219:5000");
+	    String responseStr = "";
 	    try {
 	        // Add your data
 	        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-	        nameValuePairs.add(new BasicNameValuePair("id", "12345"));
+	        
+	        nameValuePairs.add(new BasicNameValuePair("description", params[0]));
+	        nameValuePairs.add(new BasicNameValuePair("categorie", params[1]));
+	        nameValuePairs.add(new BasicNameValuePair("longtitude", params[2]));
+	        nameValuePairs.add(new BasicNameValuePair("latitude", params[3]));
+	        nameValuePairs.add(new BasicNameValuePair("radius", params[4]));
 
-	        nameValuePairs.add(new BasicNameValuePair("stringdata", "AndDev is Cool!"));
 	       // httpget.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 	        // Execute HTTP Post Request
 	        HttpResponse response = httpclient.execute(httpget);
-	        String responseStr = EntityUtils.toString(response.getEntity());
+	        responseStr = EntityUtils.toString(response.getEntity());
 		    publishProgress(responseStr);
-	        Log.i(responseStr,"|||||||||||||#########@#@#$@#$Q#|$#@|$#@|$");
 	    } catch (ClientProtocolException e) {
 	    	Log.i(e.toString(),e.toString());
 	        // TODO Auto-generated catch block
@@ -80,21 +85,32 @@ public class ConnectionSearch extends AsyncTask<Void, String, String>{
 	        // TODO Auto-generated catch block
 	    }
 
-	    return "";
+	    return responseStr;
 	}
 	@Override
 	protected void onPostExecute(String responseStr)
 	{
 		Entries e = Entries.getInstance();
 		JSONObject j;
+		JSONArray array;
 		try {
-			j = new JSONObject(responseStr);
-			e.addEntrie(j.getInt("categorie"), j.getString("productName"), (float)(j.getDouble("price")), j.getInt("quantity"), j.getString("contactDetails"), (float)j.getDouble("latitude"), (float)(j.getDouble("longtitude")), j.getString("beginTime"),j.getString("endTime"));
+			responseStr = Html.fromHtml(responseStr).toString();
+			array = new JSONArray(responseStr);
+			e.Del();
+			for(int n = 0; n < array.length();n++)
+			{
+				j = array.getJSONObject(n);
+				e.addEntrie(j.getInt("categorie"), j.getString("productName"), (float)(j.getDouble("price")), j.getInt("quantity"), j.getString("contactDetails"), (float)j.getDouble("latitude"), (float)(j.getDouble("longtitude")), j.getString("beginTime"),j.getString("endTime"));
+			}
+			
 		} catch (JSONException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		//parse response string
 		
+	}
+	protected void onProgressUpdate()
+	{
 	}
 }
