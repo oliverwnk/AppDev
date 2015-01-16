@@ -33,6 +33,10 @@ public class Entries {
 		Entries.add(e2);
 		LastQuery = Entries;
 	}
+	protected void Del()
+	{
+		Entries.clear();
+	}
 	public void SetUpTimeEssentials()
 	{
 		TimeZone tz = TimeZone.getDefault(); // et Timezone

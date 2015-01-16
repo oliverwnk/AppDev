@@ -49,6 +49,7 @@ def show_entries():
 	entries = []
 	for row in cur.fetchall():
 		print "n"
+		row.encode('ascii');
 		entries.append(dict(user_id=row[0], categorie=row[1], productName=row[2], text=row[3], price=row[4], quantity=row[5], contactDetails=row[6], latitude=row[7], longtitude=row[8], Timezone=row[9], beginTime=row[10], endTime=row[11],retry=row[12]) )
 	print entries;
 	return render_template('show_entries.html',entries = entries)

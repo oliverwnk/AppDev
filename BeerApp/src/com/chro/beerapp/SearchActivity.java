@@ -19,7 +19,6 @@ import com.woodchro.bemystore.R;
 public class SearchActivity extends ActionBarActivity {
 
 	Button btn_startSearch;
-	ConnectionSearch SearchDatabase = new ConnectionSearch();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,9 +40,12 @@ public class SearchActivity extends ActionBarActivity {
 
 	public void addListenerOnButton() {
 		btn_startSearch = (Button) findViewById(R.id.Btn_startSearch);
+
 		btn_startSearch.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				ConnectionSearch SearchDatabase = new ConnectionSearch();
+
 				EditText text = (EditText) findViewById(R.id.editText1);
 				Spinner spin = (Spinner) findViewById(R.id.spinner1);
 				SharedPreferences prefs = getSharedPreferences("location",
