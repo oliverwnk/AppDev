@@ -45,6 +45,7 @@ public class MapActivity extends ActionBarActivity implements
 	Location mCurrentLocation;
 	LocationRequest mLocationRequest;
 	ArrayList<Entry> entries = Entries.getInstance().Entries;
+	GpsLocation gpsLocation;
 
 	// constants for Location Update Preferences
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
@@ -68,10 +69,12 @@ public class MapActivity extends ActionBarActivity implements
 	protected void onStart() {
 		super.onStart();
 		// Connect the client.
-		// if (isGooglePlayServicesAvailable()) {
-		mGoogleApiClient.connect();
-
-		// }
+		gpsLocation.isGooglePlayServicesAvailable();
+		if (gpsLocation.isGpsEnabled()) {
+			mGoogleApiClient.connect();
+		} else {
+			gpsLocation.showGpsAlertDialog();
+		}
 	}
 
 	/*
@@ -80,7 +83,9 @@ public class MapActivity extends ActionBarActivity implements
 	@Override
 	protected void onStop() {
 		// Disconnecting the client invalidates it.
-		mGoogleApiClient.disconnect();
+		if (mGoogleApiClient.isConnected()) {
+			mGoogleApiClient.disconnect();
+		}
 		super.onStop();
 	}
 
@@ -93,19 +98,18 @@ public class MapActivity extends ActionBarActivity implements
 		Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
 		// notices when location changes
 		// mLocationClient.requestLocationUpdates(mLocationRequest, this);
-
 		// Location update
 		LocationServices.FusedLocationApi.requestLocationUpdates(
 				mGoogleApiClient, mLocationRequest, this);
 
-		// mCurrentLocation = LocationServices.FusedLocationApi
-		// .getLastLocation(mGoogleApiClient);
-		//
-		// LatLng latLng = new LatLng(mCurrentLocation.getLatitude(),
-		// mCurrentLocation.getLongitude());
-		// CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng,
-		// 15);
-		// map.moveCamera(cameraUpdate);
+//		mCurrentLocation = LocationServices.FusedLocationApi
+//		 .getLastLocation(mGoogleApiClient);
+//		
+//		 LatLng latLng = new LatLng(mCurrentLocation.getLatitude(),
+//		 mCurrentLocation.getLongitude());
+//		 CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng,
+//		 15);
+//		 map.moveCamera(cameraUpdate);
 	}
 
 	public void onDisconnected() {
@@ -150,23 +154,24 @@ public class MapActivity extends ActionBarActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_map);
-		
+
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		if (toolbar != null) {
 			setSupportActionBar(toolbar);
 		}
 		getSupportActionBar().setTitle("In der Nähe");
+
+		gpsLocation = new GpsLocation(this, this);
+		mGoogleApiClient = buildNewGoogleApiClient();
+
+		 Intent intent = getIntent();
 		
-		
-		Intent intent = getIntent();
-		
-		mCurrentLocation = intent
-				.getParcelableExtra(MainActivity.LAST_LOCATION);
+		 mCurrentLocation = intent
+		 .getParcelableExtra(MainActivity.LAST_LOCATION);
 
 		MapFragment mapFragment = (MapFragment) getFragmentManager()
 				.findFragmentById(R.id.map);
 		mapFragment.getMapAsync(this);
-		buildGoogleApiClient();
 
 		// A data object that contains quality of service parameters for
 		// requests
@@ -189,9 +194,8 @@ public class MapActivity extends ActionBarActivity implements
 
 	}
 
-	protected synchronized void buildGoogleApiClient() {
-		mGoogleApiClient = new GoogleApiClient.Builder(this)
-				.addConnectionCallbacks(this)
+	protected GoogleApiClient buildNewGoogleApiClient() {
+		return new GoogleApiClient.Builder(this).addConnectionCallbacks(this)
 				.addOnConnectionFailedListener(this)
 				.addApi(LocationServices.API).build();
 	}
@@ -199,7 +203,7 @@ public class MapActivity extends ActionBarActivity implements
 	// tells LocationListener what to do when location changes
 	public void onLocationChanged(Location location) {
 		mCurrentLocation = location;
-		
+
 		// LatLng latLng = new LatLng(location.getLatitude(),
 		// location.getLongitude());
 		// CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng,
@@ -209,17 +213,17 @@ public class MapActivity extends ActionBarActivity implements
 	}
 
 	// display coordinates in textview
-//	private void updateWithNewLocation(Location location) {
-//		TextView myLocationText;
-//		myLocationText = (TextView) findViewById(R.id.myLocationText);
-//		String latLongString = "No location found";
-//		if (location != null) {
-//			double lat = location.getLatitude();
-//			double lng = location.getLongitude();
-//			latLongString = "Lat:" + lat + "\nLong:" + lng;
-//		}
-//		myLocationText.setText("Your Current Position is:\n" + latLongString);
-//	}
+	// private void updateWithNewLocation(Location location) {
+	// TextView myLocationText;
+	// myLocationText = (TextView) findViewById(R.id.myLocationText);
+	// String latLongString = "No location found";
+	// if (location != null) {
+	// double lat = location.getLatitude();
+	// double lng = location.getLongitude();
+	// latLongString = "Lat:" + lat + "\nLong:" + lng;
+	// }
+	// myLocationText.setText("Your Current Position is:\n" + latLongString);
+	// }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -247,57 +251,60 @@ public class MapActivity extends ActionBarActivity implements
 		this.map = map;
 		map.setOnMapLoadedCallback(this);
 
-		// adds my location button to map
+		//adds my location button to map
 		map.setMyLocationEnabled(true);
+//		LatLng latLng = new LatLng(mCurrentLocation.getLatitude(),
+//				mCurrentLocation.getLongitude());
+//		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng,
+//				15);
+//		map.moveCamera(cameraUpdate);
 
-		LatLng latLng = new LatLng(mCurrentLocation.getLatitude(),
-				mCurrentLocation.getLongitude());
-		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng,
-				15);
-		map.moveCamera(cameraUpdate);
-
-		// sets marker from entry list
 		
 
 	}
-	
-	//sets marker from entry list and moves camera to see all markers
+
+	// sets marker from entry list and moves camera to see all markers
 	@Override
 	public void onMapLoaded() {
 		// TODO Auto-generated method stub
 		LatLngBounds.Builder builder = new LatLngBounds.Builder();
-		
-		//hashmap to map MarkerId with position of entry in entrylist
-		//to start right ShowEntryActivity when clicking on infoWindow
+
+		// hashmap to map MarkerId with position of entry in entrylist
+		// to start right ShowEntryActivity when clicking on infoWindow
 		final Map<String, Integer> markerToEntryMap = new HashMap<String, Integer>();
 		int position = 0;
 		for (Entry e : entries) {
 			LatLng latlng = new LatLng(e.getLatitude(), e.getLongtitude());
-			Marker marker = map.addMarker(new MarkerOptions().position(latlng
-					).title(
-					e.getProductName()).snippet("Preis: " + String.valueOf(e.getPrice())+ "€   " +
-							"Menge: " + String.valueOf(e.getQuantity())));
-			markerToEntryMap.put(marker.getId(),position);
-			Log.d("AAAAAA",String.valueOf(markerToEntryMap.get(marker.getId())));
+			Marker marker = map.addMarker(new MarkerOptions()
+					.position(latlng)
+					.title(e.getProductName())
+					.snippet(
+							"Preis: " + String.valueOf(e.getPrice()) + "€   "
+									+ "Menge: "
+									+ String.valueOf(e.getQuantity())));
+			markerToEntryMap.put(marker.getId(), position);
+			Log.d("AAAAAA",
+					String.valueOf(markerToEntryMap.get(marker.getId())));
 			builder.include(latlng);
 			marker.showInfoWindow();
 			position++;
 		}
 		map.setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
-			
+
 			@Override
 			public void onInfoWindowClick(Marker marker) {
 				// TODO Auto-generated method stub
-					Intent intent = new Intent(getApplicationContext(),
-							ShowEntryActivity.class);
-					int markerPosition = markerToEntryMap.get(marker.getId());
-					intent.putExtra("id",markerPosition );
-					startActivity(intent);
+				Intent intent = new Intent(getApplicationContext(),
+						ShowEntryActivity.class);
+				int markerPosition = markerToEntryMap.get(marker.getId());
+				intent.putExtra("id", markerPosition);
+				startActivity(intent);
 			}
 		});
 		LatLngBounds bounds = builder.build();
-		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, 100);
-		map.animateCamera(cameraUpdate);
+		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds,
+				150);
+		map.moveCamera(cameraUpdate);
 	}
 
 }

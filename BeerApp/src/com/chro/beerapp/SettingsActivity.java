@@ -30,7 +30,9 @@ public class SettingsActivity extends ActionBarActivity {
 			setSupportActionBar(toolbar);
 		}
 		getSupportActionBar().setTitle("Optionen");
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
+	
 		//get shared preferences
 		prefs = getSharedPreferences("settings", MODE_PRIVATE);
 		editor = prefs.edit();
