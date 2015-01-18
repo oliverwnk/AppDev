@@ -3,6 +3,7 @@
 
     <string name="app_name">BeMyStore</string>
     <string name="action_settings">Settings</string>
+    <string name="action_MyEntries">Meine Anzeigen</string>
     <string name="Header">BeMyStore</string>
     <string name="Btn_Search">Suche</string>
     <string name="Btn_OpenMap">Auf Karte anzeigen</string>

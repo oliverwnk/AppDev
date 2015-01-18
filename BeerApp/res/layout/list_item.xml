@@ -6,7 +6,8 @@
     android:layout_height="100dp"
     android:orientation="horizontal"
     android:layout_margin="50dp"
-    android:descendantFocusability="blocksDescendants">
+    android:descendantFocusability="blocksDescendants"
+    card_view:cardUseCompatPadding="true">
     
      <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"

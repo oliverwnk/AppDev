@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Layout;
@@ -26,7 +27,7 @@ import com.woodchro.bemystore.R;
 
 public class EntryActivity extends ActionBarActivity implements OnItemClickListener {
 
-	private Button btn_CreateEntry;
+	protected Button btn_CreateEntry;
 	private ListView lst_Entry;
     ArrayList<Entry> listItems=Entries.getInstance().getEntriesByName("");
     //ArrayAdapter<String> adapter;
@@ -44,7 +45,10 @@ public class EntryActivity extends ActionBarActivity implements OnItemClickListe
 		if (toolbar != null) {
 			setSupportActionBar(toolbar);
 		}
-		getSupportActionBar().setDisplayShowTitleEnabled(false);
+		ActionBar supportActionBar = getSupportActionBar();
+		supportActionBar.setTitle(getString(R.string.action_MyEntries));
+		supportActionBar.setDisplayHomeAsUpEnabled(true);
+		
 		lst_Entry = (ListView) findViewById(R.id.Lst_Entries);
         lst_Entry.setOnItemClickListener(this);
 		//adapter = new ArrayAdapter<String>(this, R.layout.list_item,listItems);
