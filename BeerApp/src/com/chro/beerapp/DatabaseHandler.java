@@ -107,7 +107,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // 4. build book object
         //new Entry(category, productName, price, quantity, contactDetails, latitude, longtitude, beginTime, endTime)
         Entry entry = new Entry(
-        		cursor.getInt(0),
+        		cursor.getString(0),
         		cursor.getString(1),
         		cursor.getFloat(2),
         		cursor.getInt(3),
@@ -136,7 +136,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
             	 	entry = new Entry(
-                 		cursor.getInt(1),
+                 		cursor.getString(1),
                  		cursor.getString(2),
                  		cursor.getFloat(3),
                  		cursor.getInt(4),

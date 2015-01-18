@@ -10,7 +10,7 @@ import java.util.SimpleTimeZone;
 import java.util.TimeZone;
 
 public class Entry {
-	private int category;
+	private String category;
 	private String productName;
 	private float price;
 	private int quantity;
@@ -30,7 +30,7 @@ public class Entry {
 		this.user_id = user_id;
 	}
 
-	public Entry(int category, String productName, float price, int quantity,
+	public Entry(String category, String productName, float price, int quantity,
 			String contactDetails, float latitude, float longtitude,
 			Calendar beginTime, Calendar endTime) {
 		this.category = category;
@@ -45,7 +45,7 @@ public class Entry {
 	}
 
 	// constructor with Times as String for SQLiteDBHandler
-	public Entry(int category, String productName, float price, int quantity,
+	public Entry(String category, String productName, float price, int quantity,
 			String contactDetails, float latitude, float longtitude,
 			String beginTimeString, String endTimeString) {
 		this.category = category;
@@ -137,7 +137,7 @@ public class Entry {
 		this.longtitude = longtitude;
 	}
 
-	public int getCategory(){
+	public String getCategory(){
 		return category;
 	}
 	public String getCategoryAsString() {  
@@ -145,7 +145,7 @@ public class Entry {
 		return (s);
 	}
 
-	public void setCategory(int category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
 

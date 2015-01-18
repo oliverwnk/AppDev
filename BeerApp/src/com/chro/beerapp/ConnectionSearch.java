@@ -82,7 +82,7 @@ public class ConnectionSearch extends AsyncTask<String, String, String>{
 	    	Log.i(e.toString(),e.toString());
 	        // TODO Auto-generated catch block
 	    } catch (IOException e) {
-	        // TODO Auto-generated catch block
+	       Log.i(e.toString(),"execpt"); // TODO Auto-generated catch block
 	    }
 
 	    return responseStr;
@@ -100,7 +100,7 @@ public class ConnectionSearch extends AsyncTask<String, String, String>{
 			for(int n = 0; n < array.length();n++)
 			{
 				j = array.getJSONObject(n);
-				e.addEntrie(j.getInt("categorie"), j.getString("productName"), (float)(j.getDouble("price")), j.getInt("quantity"), j.getString("contactDetails"), (float)j.getDouble("latitude"), (float)(j.getDouble("longtitude")), j.getString("beginTime"),j.getString("endTime"));
+				e.addEntrie(j.getString("categorie"), j.getString("productName"), (float)(j.getDouble("price")), j.getInt("quantity"), j.getString("contactDetails"), (float)j.getDouble("latitude"), (float)(j.getDouble("longtitude")), j.getString("beginTime"),j.getString("endTime"));
 			}
 			
 		} catch (JSONException e1) {

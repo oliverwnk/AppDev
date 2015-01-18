@@ -26,14 +26,28 @@ public class ConnectionAdd extends AsyncTask<String, String, String>{
 	@Override
 	protected String doInBackground(String... params) {
 		// Create a new HttpClient and Post Header
+		
 	    HttpClient httpclient = new DefaultHttpClient();
-	    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-        nameValuePairs.add(new BasicNameValuePair("id", "12345"));
+	    String responseStr = "fail";
+	    //Request.execute(timeBegin.toString(),endBegin.toString(), Kategorie.toString(), price.toString(), amount.toString(),contact.toString(),retry.toString());
 
-        nameValuePairs.add(new BasicNameValuePair("stringdata", "AndDev is Cool!"));
+	    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+        nameValuePairs.add(new BasicNameValuePair("user", params[0]));
+
+        nameValuePairs.add(new BasicNameValuePair("beginTime",	params[1]));
+        nameValuePairs.add(new BasicNameValuePair("endTime",  	params[2]));
+        nameValuePairs.add(new BasicNameValuePair("categorie",	params[3]));
+        nameValuePairs.add(new BasicNameValuePair("price", 		params[4]));
+        nameValuePairs.add(new BasicNameValuePair("quantity", 	params[5]));
+        nameValuePairs.add(new BasicNameValuePair("contactdetails", 	params[6]));
+        nameValuePairs.add(new BasicNameValuePair("retry", 		params[7]));
+        nameValuePairs.add(new BasicNameValuePair("productName", 		params[8]));
+        nameValuePairs.add(new BasicNameValuePair("longtitude", 		"51.3"));
+        nameValuePairs.add(new BasicNameValuePair("latitude", 		"51.1"));
+        nameValuePairs.add(new BasicNameValuePair("text", 		"jojo"));
        	String req = URLEncodedUtils.format(nameValuePairs, "utf-8");
        	
-	    HttpGet httpget = new HttpGet("141.30.224.219/add"+req);
+	    HttpGet httpget = new HttpGet("http://141.30.224.219:5000/add?"+req);
 	
 	    try {
 	        // Add your data
@@ -41,29 +55,24 @@ public class ConnectionAdd extends AsyncTask<String, String, String>{
 	
 	        // Execute HTTP Post Request
 	        HttpResponse response = httpclient.execute(httpget);
-	        String responseStr = EntityUtils.toString(response.getEntity());
+	        responseStr = EntityUtils.toString(response.getEntity());
 		    publishProgress(responseStr);
-	        Log.i(responseStr,"|||||||||||||#########@#@#$@#$Q#|$#@|$#@|$");
 	    } catch (ClientProtocolException e) {
 	    	Log.i(e.toString(),e.toString());
 	        // TODO Auto-generated catch block
 	    } catch (IOException e) {
 	        // TODO Auto-generated catch block
-	    }
+	    }		
 	
-	    return "";
+	    return responseStr;
 	}
 	@Override
 	protected void onPostExecute(String responseStr)
 	{
 		Entries e = Entries.getInstance();
-		JSONObject j;
-		try {
-			j = new JSONObject(responseStr);
-			e.addEntrie(j.getInt("categorie"), j.getString("productName"), (float)(j.getDouble("price")), j.getInt("quantity"), j.getString("contactDetails"), (float)j.getDouble("latitude"), (float)(j.getDouble("longtitude")), j.getString("beginTime"),j.getString("endTime"));
-		} catch (JSONException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		if(responseStr.equals("ok"))
+		{
+			return;
 		}
 		//parse response string
 		
