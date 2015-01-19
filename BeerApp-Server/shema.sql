@@ -16,4 +16,8 @@ create table entries (
 	retry boolean,
 	activ boolean
 );
-
+drop table if exists users;
+create table users (
+	id integer primary key autoincrement,
+	user_id integer
+);

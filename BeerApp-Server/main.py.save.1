@@ -1,6 +1,5 @@
 # all the imports
 import sqlite3
-import json
 from contextlib import closing
 from flask import Flask, request, session, g, redirect, url_for, \
      abort, render_template, flash
@@ -48,77 +47,79 @@ def show_entries():
 	#print cur.fetchall()
 	#entries = cur.fetchall()
 	entries = []
-	i = 0
 	for row in cur.fetchall():
-               	row = list(row)
-		if row[0] == None:
-			row[0]=" "
-		if row[1] == None:
-			row[1]=" "
-		if row[2] == None:
-			row[2] =" "
-		if row[3] == None:
-			row[3]=" "
-		if row[4] == None:
-                        row[4]=" "
-                if row[5] == None:
-                        row[5]=" "
-                if row[6] == None:
-                        row[6] =" "
-		if row[7] == None:
-                        row[7]=" "
-                if row[8] == None:
-                        row[8]=" "
-                if row[9] == None:
-                        row[9] =" "
-		if row[10] == None:
-                        row[10]=" "
-                if row[11] == None:
-                        row[11]=" "
-                if row[12] == None:
-                        row[12] =" "
-		row = tuple(row)  
-		entries.append(dict(id=row[0],user_id=row[1], categorie=row[2].encode('utf-8'), productName=row[3].encode('utf-8'), text=row[4].encode('utf-8'), price=row[5], quantity=row[6], contactDetails=row[7], latitude=row[8], longtitude=row[9], Timezone=row[10].encode('utf-8'), beginTime=row[11].encode('utf-8'), endTime=row[12].encode('utf-8'),retry=row[13].encode('utf-8') ))
+		print "n"
+		entries.append(dict(user_id=row[0], categorie=row[1], productName=row[2], text=row[3], price=row[4], quantity=row[5], contactDetails=row[6], latitude=row[7], longtitude=row[8], Timezone=row[9], beginTime=row[10], endTime=row[11],retry=row[12]) )
+	print entries;
+	return render_template('show_entries.html',entries = entries)
+@app.route('/')
+def show_entries():
+	db = get_db()
+	cur = db.execute('select * from entries')
+	#print cur.fetchall()
+	#entries = cur.fetchall()
+	entries = []
+	for row in cur.fetchall():
+		print "n"
+		entries.append(dict(user_id=row[0], categorie=row[1], productName=row[2], text=row[3], price=row[4], quantity=row[5], contactDetails=row[6], latitude=row[7], longtitude=row[8], Timezone=row[9], beginTime=row[10], endTime=row[11],retry=row[12]) )
+	print entries;
 	return render_template('show_entries.html',entries = entries)
 @app.route('/My')
-def show_my_entries():
+def show_entries():
 	db = get_db()
 	user = request.args.get('user')
-	
+	print user;
 	cur = db.execute('select * from entries where user_id = ? ',[user])
 	#print cur.fetchall()
 	#entries = cur.fetchall()
 	entries = []
 	for row in cur.fetchall():
-		entries.append(dict(user_id=row[0], categorie=row[1], productName=row[2], text=row[3], price=row[4], quantity=row[5], contactDetails=row[6].encode('utf-8'), latitude=row[7], longtitude=row[8], Timezone=row[9], beginTime=row[10], endTime=row[11],retry=row[12]) )
+		print "n"
+		entries.append(dict(user_id=row[0], categorie=row[1], productName=row[2], text=row[3], price=row[4], quantity=row[5], contactDetails=row[6], latitude=row[7], longtitude=row[8], Timezone=row[9], beginTime=row[10], endTime=row[11],retry=row[12]) )
+	print entries;
 	return render_template('show_entries.html',entries = entries)
 
 @app.route('/add',methods=['GET'])
 def show_add():
+	print "adding"
 	user = request.args.get('user')
+	print user;
 	categorie = request.args.get('categorie')
+	print categorie
 	productName = request.args.get('productName')
-	
+	print productName
 	text = request.args.get('text')
+	print text
 	price = request.args.get('price')
+	print price
 	quanity = request.args.get('quantity')
-	contactDetails = request.args.get('contactdetails')
+	print quanity
+	contactDetails = request.args.get('contactDetails')
+	print contactDetails
+	print "halftime"
 	latitude = request.args.get('latitude')
+	print latitude
 	longtitude = request.args.get('longtitude')
+	print longtitude
 	Timezone = request.args.get('Timezone')
+	print Timezone
 	beginTime = request.args.get('beginTime')
+	print beginTime
 	endTime = request.args.get('endTime')
+	print endTime
 	retry = request.args.get('retry')
+	print retry
 	activ = request.args.get('activ')
-	ret = g.db.execute('insert into entries (user_id,categorie,productName,name,price,quantity,contactDetails,latitude,longtitude,Timezone,beginTime,endTime,retry,activ) values (?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?)',[user, categorie, productName, text, price,  quanity, contactDetails, latitude, longtitude, Timezone, beginTime, endTime, retry, activ])
+	print activ
+	ret = g.db.execute('insert into entries (user_id,categorie,productName,name,price,quantity,contactDetails,latitude,longtitude,Timezone,beginTime,endTime,retry,accursor python errortiv) values (?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?)',[user, categorie, productName, text, price,  quanity, contactDetails, latitude, longtitude, Timezone, beginTime, endTime, retry, activ])
+	print ret
 	g.db.commit();
 	return "ok"
 @app.route('/getID',methods=['GET'])
 def getId():
-	cur = g.db.execute('select * from users')
-	i = len(cur.fetchall())
-	g.db.execute('insert into users (user_id) values (?)' ,[""])
+	g.db.execute('select count(*) from users')
+	g.db.execute('insert into users ("")')
 	g.db.commit()
-	return ""+str(i)
+	return render_template('index.html')
 if __name__ == '__main__':
     app.run(host="192.168.1.148",port=5000)
