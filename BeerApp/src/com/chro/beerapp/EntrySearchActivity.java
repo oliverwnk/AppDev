@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.google.android.gms.internal.bt;
 import com.woodchro.bemystore.R;
 
 public class EntrySearchActivity extends EntryActivity {
@@ -16,9 +17,9 @@ public class EntrySearchActivity extends EntryActivity {
 		super.onCreate(savedInstanceState);
 		
 		//change btn_create to "Suchen"
-		Button btn = (Button)findViewById(R.id.btn_CreateEntry);
-		btn.setText(getString(R.string.Btn_New_Search));
-		
+		getSupportActionBar().setTitle("Anzeigen");
+		btn_CreateEntry = (Button) findViewById(R.id.btn_CreateEntry);
+		btn_CreateEntry.setVisibility(View.GONE);
 	}
 	
 	@Override

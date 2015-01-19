@@ -9,13 +9,23 @@
         android:id="@+id/toolbar_entries"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        layout="@layout/toolbar_entries" />
+        layout="@layout/toolbar" />
 
     <ListView
         android:id="@+id/Lst_Entries"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="416dp"
         android:divider="@null" >
     </ListView>
+
+    <Button
+        android:id="@+id/btn_CreateEntry"
+        style="@style/CustomStyleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_action_new"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="@string/Btn_CreateEntry" />
 
 </LinearLayout>

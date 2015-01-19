@@ -9,6 +9,7 @@ import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -160,7 +161,9 @@ public class MapActivity extends ActionBarActivity implements
 			setSupportActionBar(toolbar);
 		}
 
-		getSupportActionBar().setTitle("In der Naehe");
+		ActionBar supportActionBar = getSupportActionBar();
+		supportActionBar.setTitle(getString(R.string.Btn_Map));
+		supportActionBar.setDisplayHomeAsUpEnabled(true);
 
 		gpsLocation = new GpsLocation(this, this);
 		mGoogleApiClient = buildNewGoogleApiClient();
@@ -230,7 +233,7 @@ public class MapActivity extends ActionBarActivity implements
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.map, menu);
+		//getMenuInflater().inflate(R.menu.map, menu);
 		return true;
 	}
 

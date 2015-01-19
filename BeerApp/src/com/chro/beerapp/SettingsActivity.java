@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -29,8 +30,10 @@ public class SettingsActivity extends ActionBarActivity {
 		if (toolbar != null) {
 			setSupportActionBar(toolbar);
 		}
-		getSupportActionBar().setTitle("Optionen");
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		ActionBar supportActionBar = getSupportActionBar();
+		supportActionBar.setTitle(getString(R.string.action_MyEntries));
+		supportActionBar.setDisplayHomeAsUpEnabled(true);
 		
 	
 		//get shared preferences
@@ -52,7 +55,7 @@ public class SettingsActivity extends ActionBarActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		//getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 	
