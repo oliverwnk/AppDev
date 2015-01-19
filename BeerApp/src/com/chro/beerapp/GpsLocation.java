@@ -21,6 +21,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.woodchro.bemystore.R;
 
 public class GpsLocation{
 	
@@ -46,9 +47,9 @@ public class GpsLocation{
 		
 		public void showGpsAlertDialog(){
 				AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
-				dialog.setMessage("this.getResources().getString(R.string.gps_network_not_enabled)");
+				dialog.setMessage(mActivity.getString(R.string.gps_network_not_enabled));
 				dialog.setPositiveButton(
-						"this.getResources().getString(R.string.open_location_settings)",
+						mActivity.getString(R.string.open_location_settings),
 						new DialogInterface.OnClickListener() {
 
 							@Override
@@ -63,7 +64,7 @@ public class GpsLocation{
 								// get gps
 							}
 						});
-				dialog.setNegativeButton("context.getString(R.string.Cancel)",
+				dialog.setNegativeButton(mActivity.getString(R.string.cancel),
 						new DialogInterface.OnClickListener() {
 
 							@Override

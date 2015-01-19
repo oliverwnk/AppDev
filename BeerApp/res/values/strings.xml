@@ -35,5 +35,8 @@
     <string name="Labl_searchRadius">Suchradius</string>
     <string name="title_activity_map">MapActivity</string>
     <string name="hello_world">Hello world!</string>
-
+    
+    <string name="gps_network_not_enabled">GPS not activated. Please enable location services</string>
+	<string name="open_location_settings">Open location settings</string>
+	<string name="cancel">Cancel</string>
 </resources>
