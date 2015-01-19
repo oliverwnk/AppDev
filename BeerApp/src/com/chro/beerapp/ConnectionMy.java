@@ -35,7 +35,7 @@ public class ConnectionMy extends AsyncTask<String, String, String>{
 	
 	Context context;
 	ProgressDialog dialog;
-	ConnectionMy(Context context)//, ProgressDialog dialog)
+	ConnectionMy(Context context, ProgressDialog dialog)
 	{
 		this.dialog=dialog;
 		this.context = context;

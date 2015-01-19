@@ -98,13 +98,14 @@ public class MainActivity extends ActionBarActivity implements
 		btn_myEntry.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				ProgressDialog dialog = ProgressDialog.show(mContext, "Getting Your entries", "Please wait...", true);
 				Intent intent = new Intent(getApplicationContext(),
 						EntryActivity.class);
 				SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
 				SharedPreferences.Editor editor = prefs.edit();
 				int id = prefs.getInt("id", -1);
 				editor.commit();
-				ConnectionMy my = new ConnectionMy(getApplicationContext());//,dialog);
+				ConnectionMy my = new ConnectionMy(getApplicationContext(),dialog);
 				my.execute(String.valueOf(id));
 				//startActivity(intent);
 			}
