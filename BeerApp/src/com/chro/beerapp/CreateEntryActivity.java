@@ -173,6 +173,9 @@ public class CreateEntryActivity extends ActionBarActivity implements
 			}
 
 		});
+		
+		etextPrice.setText(String.valueOf(0.00));
+		etextAmount.setText(String.valueOf(1));
 
 	}
 

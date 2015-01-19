@@ -14,6 +14,8 @@ import java.util.TimeZone;
 public class Entries {
 	public ArrayList<Entry> Entries = new ArrayList<Entry>();
 	public ArrayList<Entry> LastQuery = new ArrayList<Entry>(); //Zuletzt angeforderten Daten
+	public ArrayList<Entry> MyEntries = new ArrayList<Entry>();
+	
 	TimeZone tz ; // et Timezone
 	Calendar calBeg; // initialize Beginning Calendar
 	Calendar calEnd;
@@ -56,6 +58,14 @@ public class Entries {
 	{
 		Entry e = new Entry(category,productName,price,quantity,contactDetails,longtitude, latitude,beginTimeString,endTimeString);
 		Entries.add(e);
+	}
+	
+	public void addMyEntry(String category, String productName, float price, int quantity,
+			String contactDetails, float latitude, float longtitude,
+			String beginTimeString, String endTimeString)
+	{
+		Entry e = new Entry(category,productName,price,quantity,contactDetails,longtitude, latitude,beginTimeString,endTimeString);
+		MyEntries.add(e);
 	}
 	public static Entries getInstance()
 	{

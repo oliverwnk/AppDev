@@ -15,7 +15,6 @@ public class EntrySearchActivity extends EntryActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.adapterKind = 1;
 		super.onCreate(savedInstanceState);
-		
 		//change btn_create to "Suchen"
 		getSupportActionBar().setTitle("Anzeigen");
 		btn_CreateEntry = (Button) findViewById(R.id.btn_CreateEntry);
