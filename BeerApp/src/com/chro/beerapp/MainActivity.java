@@ -34,6 +34,7 @@ public class MainActivity extends ActionBarActivity implements
 		GoogleApiClient.OnConnectionFailedListener
 // , LocationListener
 {
+	//ProgressDialog dialog1 = ProgressDialog.show(this, "Getting Your entries", "Please wait...", true);
 
 	// key for putExtra
 	public static final String LAST_LOCATION = "location";
@@ -90,6 +91,7 @@ public class MainActivity extends ActionBarActivity implements
 		//getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
+	//
 
 	public void addListenerOnButton() {
 		btn_myEntry = (Button) findViewById(R.id.btn_MyEntry);
@@ -102,7 +104,7 @@ public class MainActivity extends ActionBarActivity implements
 				SharedPreferences.Editor editor = prefs.edit();
 				int id = prefs.getInt("id", -1);
 				editor.commit();
-				ConnectionMy my = new ConnectionMy(getApplicationContext());
+				ConnectionMy my = new ConnectionMy(getApplicationContext());//,dialog);
 				my.execute(String.valueOf(id));
 				//startActivity(intent);
 			}

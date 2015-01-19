@@ -17,8 +17,10 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -26,8 +28,11 @@ import android.widget.Toast;
 public class ConnectionAdd extends AsyncTask<String, String, String>{
 
 	Context context;
-	public ConnectionAdd(Context context) {
+	ProgressDialog dialog;
+	public ConnectionAdd(Context context)//,ProgressDialog dialog) {
+	{
 		this.context = context;
+		//this.dialog=dialog;
 	}
 
 	@Override
@@ -82,12 +87,22 @@ public class ConnectionAdd extends AsyncTask<String, String, String>{
 		
 		if(responseStr.equals("ok"))
 		{
-			Intent i = new Intent(context, EntryActivity.class); 
-			i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
-			context.startActivity(i); 
+			//Intent i = new Intent(context, EntryActivity.class); 
+			//i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+			//context.startActivity(i); 
 			//context.startActivity(new Intent(context, EntryActivity.class));
+			CharSequence text = "Successfully added an Entry";
+	    	Toast t = Toast.makeText(context,text,Toast.LENGTH_LONG);
+	    	t.show();
+	    	ConnectionMy my = new  ConnectionMy(context);//,dialog);
+	    	SharedPreferences prefs = context.getSharedPreferences("user", context.MODE_PRIVATE);
+			SharedPreferences.Editor editor = prefs.edit();
+			Integer id = Integer.valueOf(prefs.getInt("id", -1));
+			editor.commit();
+	    	my.execute(String.valueOf(id));
 			return;
 		}else{
+			dialog.cancel();
 	    	CharSequence text = "Error connecting please try again later";
 	    	Toast t = Toast.makeText(context,text,Toast.LENGTH_LONG);
 	    	t.show();

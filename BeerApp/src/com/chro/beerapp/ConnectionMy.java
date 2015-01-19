@@ -22,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.R.string;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -33,8 +34,10 @@ public class ConnectionMy extends AsyncTask<String, String, String>{
 	
 	
 	Context context;
-	ConnectionMy(Context context)
+	ProgressDialog dialog;
+	ConnectionMy(Context context)//, ProgressDialog dialog)
 	{
+		this.dialog=dialog;
 		this.context = context;
 	}
 	public String Search(int Categorie,float latiude,float longitude,int Radius) throws ClientProtocolException, IOException
@@ -101,6 +104,7 @@ public class ConnectionMy extends AsyncTask<String, String, String>{
 		Entries e = Entries.getInstance();
 		JSONObject j;
 		JSONArray array;
+		//dialog.cancel();
 		if(responseStr.equals(""))
 		{
 	    	CharSequence text = "Error connecting please try again later";
@@ -112,13 +116,14 @@ public class ConnectionMy extends AsyncTask<String, String, String>{
 			responseStr = Html.fromHtml(responseStr).toString();
 			array = new JSONArray(responseStr);
 			if(array.length() > 0)
-				e.Del();
+				e.MyEntries.clear();
 			for(int n = 0; n < array.length();n++)
 			{
 				j = array.getJSONObject(n);
-				e.addEntrie(j.getString("categorie"), j.getString("productName"), (float)(j.getDouble("price")), j.getInt("quantity"), j.getString("contactDetails"), (float)j.getDouble("latitude"), (float)(j.getDouble("longtitude")), j.getString("beginTime"),j.getString("endTime"));
+				e.addMyEntry(j.getString("categorie"), j.getString("productName"), (float)(j.getDouble("price")), j.getInt("quantity"), j.getString("contactDetails"), (float)j.getDouble("latitude"), (float)(j.getDouble("longtitude")), j.getString("beginTime"),j.getString("endTime"));
 			}
-			Intent i = new Intent(context, EntrySearchActivity.class); 
+
+			Intent i = new Intent(context, EntryActivity.class); 
 			i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
 			context.startActivity(i); 
 			//context.startActivity(new Intent(context, EntryActivity.class));

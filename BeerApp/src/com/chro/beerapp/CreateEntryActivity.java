@@ -3,6 +3,7 @@ package com.chro.beerapp;
 import java.util.Calendar;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -186,13 +187,16 @@ public class CreateEntryActivity extends ActionBarActivity implements
 		newFragment.show(getSupportFragmentManager(), "timePicker");
 	}
 
+	//ProgressDialog dialog = ProgressDialog.show(this, "Getting ID", "Please wait...", true);
 	public void addListenerOnButton() {
 		btn_CreateEntry = (Button) findViewById(R.id.btn_Save_New_Entry);
 		btn_CreateEntry.setOnClickListener(new OnClickListener() {
+			
 			@Override
 			public void onClick(View v) {
 				int i = 1;
-				ConnectionAdd Request = new ConnectionAdd(getApplicationContext());
+				
+				ConnectionAdd Request = new ConnectionAdd(getApplicationContext());//,dialog);
 				TextView timeBegin 	= (TextView) findViewById(R.id.timeBegin);
 				TextView endBegin 	= (TextView) findViewById(R.id.timeEnd);
 				CheckBox retry   = (CheckBox) findViewById(R.id.checkBox1);
@@ -227,6 +231,8 @@ public class CreateEntryActivity extends ActionBarActivity implements
 						.toString(), price.getText().toString(), amount
 						.getText().toString(), contact.getText().toString(), s,
 						productName.getText().toString(),longt,lalt);
+				ConnectionMy My = new ConnectionMy(getApplicationContext());//,dialog);
+				My.execute(String.valueOf(id));
 				}else
 				{
 			    	CharSequence text = "please insert a productName";
