@@ -215,7 +215,11 @@ public class CreateEntryActivity extends ActionBarActivity implements
 					double n = mCurrentLocation.getLongitude();
 				String longt =	String.valueOf(l);
 				String lalt =	String.valueOf(n);
-				Request.execute("0", timeBegin.getText().toString(), endBegin
+				SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
+				SharedPreferences.Editor editor = prefs.edit();
+				Integer id = Integer.valueOf(prefs.getInt("id", -1));
+				editor.commit();
+				Request.execute(id.toString(), timeBegin.getText().toString(), endBegin
 						.getText().toString(), Kategorie.getSelectedItem()
 						.toString(), price.getText().toString(), amount
 						.getText().toString(), contact.getText().toString(), s,

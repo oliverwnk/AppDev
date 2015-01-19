@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -53,6 +54,18 @@ public class MainActivity extends ActionBarActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		int id = prefs.getInt("id", -1);
+		if(id == -1)
+		{
+			
+			ProgressDialog dialog = ProgressDialog.show(this, "Getting ID", "Please wait...", true);
+			ConnectionGetID getID = new ConnectionGetID(this, dialog);
+			getID.execute();
+			//editor.putFloat("id",  );
+		}
+		editor.commit();
 		mContext = this;
 		gpsLocation = new GpsLocation(mContext, this);
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -85,7 +98,13 @@ public class MainActivity extends ActionBarActivity implements
 			public void onClick(View v) {
 				Intent intent = new Intent(getApplicationContext(),
 						EntryActivity.class);
-				startActivity(intent);
+				SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
+				SharedPreferences.Editor editor = prefs.edit();
+				int id = prefs.getInt("id", -1);
+				editor.commit();
+				ConnectionMy my = new ConnectionMy(getApplicationContext());
+				my.execute(String.valueOf(id));
+				//startActivity(intent);
 			}
 
 		});
