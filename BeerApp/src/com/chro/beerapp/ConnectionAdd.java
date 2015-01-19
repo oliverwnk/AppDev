@@ -29,10 +29,10 @@ public class ConnectionAdd extends AsyncTask<String, String, String>{
 
 	Context context;
 	ProgressDialog dialog;
-	public ConnectionAdd(Context context)//,ProgressDialog dialog) {
-	{
+	public ConnectionAdd(Context context, ProgressDialog dialog) {
+	
 		this.context = context;
-		//this.dialog=dialog;
+		this.dialog=dialog;
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class ConnectionAdd extends AsyncTask<String, String, String>{
 	protected void onPostExecute(String responseStr)
 	{
 		Entries e = Entries.getInstance();
-		
+		dialog.cancel();
 		if(responseStr.equals("ok"))
 		{
 			//Intent i = new Intent(context, EntryActivity.class); 
@@ -94,7 +94,7 @@ public class ConnectionAdd extends AsyncTask<String, String, String>{
 			CharSequence text = "Successfully added an Entry";
 	    	Toast t = Toast.makeText(context,text,Toast.LENGTH_LONG);
 	    	t.show();
-	    	ConnectionMy my = new  ConnectionMy(context);//,dialog);
+	    	ConnectionMy my = new  ConnectionMy(context,dialog);
 	    	SharedPreferences prefs = context.getSharedPreferences("user", context.MODE_PRIVATE);
 			SharedPreferences.Editor editor = prefs.edit();
 			Integer id = Integer.valueOf(prefs.getInt("id", -1));
@@ -102,7 +102,6 @@ public class ConnectionAdd extends AsyncTask<String, String, String>{
 	    	my.execute(String.valueOf(id));
 			return;
 		}else{
-			dialog.cancel();
 	    	CharSequence text = "Error connecting please try again later";
 	    	Toast t = Toast.makeText(context,text,Toast.LENGTH_LONG);
 	    	t.show();
