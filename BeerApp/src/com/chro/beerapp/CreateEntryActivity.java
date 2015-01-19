@@ -199,19 +199,33 @@ public class CreateEntryActivity extends ActionBarActivity implements
 				TextView amount		= (TextView) findViewById(R.id.edit_amount);
 				TextView contact	= (TextView) findViewById(R.id.txt_Handy_Number);
 				String s = String.valueOf(retry.isChecked());
+				
 				if(!productName.getText().toString().equals(""))
 				{
-					
+					if(mCurrentLocation == null)
+					{
+				    	CharSequence text = "Unable to find your current Location please try again";
+				    	Toast t = Toast.makeText(getApplicationContext(),text,Toast.LENGTH_LONG);
+				    	t.show();
+				    	mCurrentLocation = LocationServices.FusedLocationApi
+								.getLastLocation(mGoogleApiClient);
+						return;
+					}
+					double l = mCurrentLocation.getLatitude();
+					double n = mCurrentLocation.getLongitude();
+				String longt =	String.valueOf(l);
+				String lalt =	String.valueOf(n);
 				Request.execute("0", timeBegin.getText().toString(), endBegin
 						.getText().toString(), Kategorie.getSelectedItem()
 						.toString(), price.getText().toString(), amount
 						.getText().toString(), contact.getText().toString(), s,
-						productName.getText().toString());
+						productName.getText().toString(),longt,lalt);
 				}else
 				{
 			    	CharSequence text = "please insert a productName";
 			    	Toast t = Toast.makeText(getApplicationContext(),text,Toast.LENGTH_LONG);
 			    	t.show();
+			    	
 					return ;
 				}
 				// Entry entry1 = new
@@ -311,8 +325,13 @@ public class CreateEntryActivity extends ActionBarActivity implements
 		
 			mCurrentLocation = LocationServices.FusedLocationApi
 					.getLastLocation(mGoogleApiClient);
-			
-			Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
+			if(mCurrentLocation == null)
+			{
+				Toast.makeText(this, "Problem finding your location", Toast.LENGTH_SHORT).show();
+				
+			}else{
+				Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
+			}
 			
 	}
 
