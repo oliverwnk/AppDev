@@ -104,7 +104,7 @@ public class ConnectionMy extends AsyncTask<String, String, String>{
 		Entries e = Entries.getInstance();
 		JSONObject j;
 		JSONArray array;
-		//dialog.cancel();
+		dialog.cancel();
 		if(responseStr.equals(""))
 		{
 	    	CharSequence text = "Error connecting please try again later";

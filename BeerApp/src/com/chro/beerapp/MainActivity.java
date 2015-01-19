@@ -34,7 +34,6 @@ public class MainActivity extends ActionBarActivity implements
 		GoogleApiClient.OnConnectionFailedListener
 // , LocationListener
 {
-	//ProgressDialog dialog1 = ProgressDialog.show(this, "Getting Your entries", "Please wait...", true);
 
 	// key for putExtra
 	public static final String LAST_LOCATION = "location";
