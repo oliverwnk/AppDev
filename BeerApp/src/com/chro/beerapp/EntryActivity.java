@@ -29,7 +29,7 @@ public class EntryActivity extends ActionBarActivity implements OnItemClickListe
 
 	protected Button btn_CreateEntry;
 	private ListView lst_Entry;
-    ArrayList<Entry> listItems=Entries.getInstance().getEntriesByName("");
+    ArrayList<Entry> listItems;
     //ArrayAdapter<String> adapter;
     //0 for MyEntries and 1 for Entrylist for Search
     int adapterKind=0; 
@@ -48,6 +48,12 @@ public class EntryActivity extends ActionBarActivity implements OnItemClickListe
 		ActionBar supportActionBar = getSupportActionBar();
 		supportActionBar.setTitle(getString(R.string.action_MyEntries));
 		supportActionBar.setDisplayHomeAsUpEnabled(true);
+		
+		if(adapterKind==0)
+		listItems = Entries.getInstance().MyEntries;
+		else{
+			listItems = Entries.getInstance().Entries;
+		}
 		
 		lst_Entry = (ListView) findViewById(R.id.Lst_Entries);
         lst_Entry.setOnItemClickListener(this);
