@@ -17,11 +17,18 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 public class ConnectionAdd extends AsyncTask<String, String, String>{
 
+	Context context;
+	public ConnectionAdd(Context context) {
+		this.context = context;
+	}
 
 	@Override
 	protected String doInBackground(String... params) {
@@ -59,8 +66,10 @@ public class ConnectionAdd extends AsyncTask<String, String, String>{
 		    publishProgress(responseStr);
 	    } catch (ClientProtocolException e) {
 	    	Log.i(e.toString(),e.toString());
+	    	return "";
 	        // TODO Auto-generated catch block
 	    } catch (IOException e) {
+	    	return "";
 	        // TODO Auto-generated catch block
 	    }		
 	
@@ -70,9 +79,18 @@ public class ConnectionAdd extends AsyncTask<String, String, String>{
 	protected void onPostExecute(String responseStr)
 	{
 		Entries e = Entries.getInstance();
+		
 		if(responseStr.equals("ok"))
 		{
+			Intent i = new Intent(context, EntryActivity.class); 
+			i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+			context.startActivity(i); 
+			//context.startActivity(new Intent(context, EntryActivity.class));
 			return;
+		}else{
+	    	CharSequence text = "Error connecting please try again later";
+	    	Toast t = Toast.makeText(context,text,Toast.LENGTH_LONG);
+	    	t.show();
 		}
 		//parse response string
 		

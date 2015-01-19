@@ -1,11 +1,9 @@
 
 {% block body %}
-[
-  {% for entry in entries %}
-   {{ entry }}
+  {% if entries %}
+   {{ entries }}
   {% else %}
     <li><em>Unbelievable.  No entries here so far</em>
-  {% endfor %}
-]
+  {% endif %}
 {% endblock %}
 

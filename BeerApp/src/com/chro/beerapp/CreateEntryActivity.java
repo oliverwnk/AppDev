@@ -189,21 +189,31 @@ public class CreateEntryActivity extends ActionBarActivity implements
 			@Override
 			public void onClick(View v) {
 				int i = 1;
-				ConnectionAdd Request = new ConnectionAdd();
-				TextView timeBegin = (TextView) findViewById(R.id.timeBegin);
-				TextView endBegin = (TextView) findViewById(R.id.timeEnd);
-				CheckBox retry = (CheckBox) findViewById(R.id.checkBox1);
-				Spinner Kategorie = (Spinner) findViewById(R.id.spinner1);
-				TextView productName = (TextView) findViewById(R.id.editText3);
-				TextView price = (TextView) findViewById(R.id.edit_price);
-				TextView amount = (TextView) findViewById(R.id.edit_amount);
-				TextView contact = (TextView) findViewById(R.id.txt_Handy_Number);
+				ConnectionAdd Request = new ConnectionAdd(getApplicationContext());
+				TextView timeBegin 	= (TextView) findViewById(R.id.timeBegin);
+				TextView endBegin 	= (TextView) findViewById(R.id.timeEnd);
+				CheckBox retry   = (CheckBox) findViewById(R.id.checkBox1);
+				Spinner Kategorie 	= (Spinner) findViewById(R.id.spinner1);
+				TextView productName= (TextView) findViewById(R.id.editText3);
+				TextView price		= (TextView) findViewById(R.id.edit_price);
+				TextView amount		= (TextView) findViewById(R.id.edit_amount);
+				TextView contact	= (TextView) findViewById(R.id.txt_Handy_Number);
 				String s = String.valueOf(retry.isChecked());
+				if(!productName.getText().toString().equals(""))
+				{
+					
 				Request.execute("0", timeBegin.getText().toString(), endBegin
 						.getText().toString(), Kategorie.getSelectedItem()
 						.toString(), price.getText().toString(), amount
 						.getText().toString(), contact.getText().toString(), s,
 						productName.getText().toString());
+				}else
+				{
+			    	CharSequence text = "please insert a productName";
+			    	Toast t = Toast.makeText(getApplicationContext(),text,Toast.LENGTH_LONG);
+			    	t.show();
+					return ;
+				}
 				// Entry entry1 = new
 				// Entry(i,"entry"+i,i*0,67,"details",234,456,"2014-04-23 16:29","2014-04-23 18:29");
 				// db.addEntry(entry1);

@@ -21,14 +21,21 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.R.string;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.text.Html;
 import android.util.Log;
+import android.widget.Toast;
 
 public class ConnectionSearch extends AsyncTask<String, String, String>{
 	
 	
-	
+	Context context;
+	ConnectionSearch(Context context)
+	{
+		this.context = context;
+	}
 	public String Search(int Categorie,float latiude,float longitude,int Radius) throws ClientProtocolException, IOException
 	{
 		return "";
@@ -80,9 +87,11 @@ public class ConnectionSearch extends AsyncTask<String, String, String>{
 		    publishProgress(responseStr);
 	    } catch (ClientProtocolException e) {
 	    	Log.i(e.toString(),e.toString());
+	    	return "";
 	        // TODO Auto-generated catch block
 	    } catch (IOException e) {
 	       Log.i(e.toString(),"execpt"); // TODO Auto-generated catch block
+	       return "";
 	    }
 
 	    return responseStr;
@@ -93,19 +102,36 @@ public class ConnectionSearch extends AsyncTask<String, String, String>{
 		Entries e = Entries.getInstance();
 		JSONObject j;
 		JSONArray array;
+		if(responseStr.equals(""))
+		{
+	    	CharSequence text = "Error connecting please try again later";
+	    	Toast t = Toast.makeText(context,text,Toast.LENGTH_LONG);
+	    	t.show();
+			return ;
+		}
 		try {
 			responseStr = Html.fromHtml(responseStr).toString();
 			array = new JSONArray(responseStr);
-			e.Del();
+			if(array.length() > 0)
+				e.Del();
 			for(int n = 0; n < array.length();n++)
 			{
 				j = array.getJSONObject(n);
 				e.addEntrie(j.getString("categorie"), j.getString("productName"), (float)(j.getDouble("price")), j.getInt("quantity"), j.getString("contactDetails"), (float)j.getDouble("latitude"), (float)(j.getDouble("longtitude")), j.getString("beginTime"),j.getString("endTime"));
 			}
+			Intent i = new Intent(context, EntrySearchActivity.class); 
+			i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+			context.startActivity(i); 
+			//context.startActivity(new Intent(context, EntryActivity.class));
+			return;
 			
 		} catch (JSONException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+	    	CharSequence text = "Something somewhere went terribly wrong";
+	    	Toast t = Toast.makeText(context,text,Toast.LENGTH_LONG);
+	    	t.show();
+			return ;
 		}
 		//parse response string
 		
