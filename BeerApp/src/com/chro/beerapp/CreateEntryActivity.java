@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
@@ -167,11 +168,21 @@ public class CreateEntryActivity extends ActionBarActivity {
 				TextView amount		= (TextView) findViewById(R.id.edit_amount);
 				TextView contact	= (TextView) findViewById(R.id.txt_Handy_Number);
 				String s = String.valueOf(retry.isChecked());
+				if(!productName.getText().toString().equals(""))
+				{
+					
 				Request.execute("0", timeBegin.getText().toString(), endBegin
 						.getText().toString(), Kategorie.getSelectedItem()
 						.toString(), price.getText().toString(), amount
 						.getText().toString(), contact.getText().toString(), s,
 						productName.getText().toString());
+				}else
+				{
+			    	CharSequence text = "please insert a productName";
+			    	Toast t = Toast.makeText(getApplicationContext(),text,Toast.LENGTH_LONG);
+			    	t.show();
+					return ;
+				}
 				// Entry entry1 = new
 				// Entry(i,"entry"+i,i*0,67,"details",234,456,"2014-04-23 16:29","2014-04-23 18:29");
 				// db.addEntry(entry1);

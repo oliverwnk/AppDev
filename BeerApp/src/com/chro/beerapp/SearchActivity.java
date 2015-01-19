@@ -48,7 +48,7 @@ public class SearchActivity extends ActionBarActivity {
 		btn_startSearch.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				ConnectionSearch SearchDatabase = new ConnectionSearch();
+				ConnectionSearch SearchDatabase = new ConnectionSearch(getApplicationContext());
 
 				EditText text = (EditText) findViewById(R.id.editText1);
 				Spinner spin = (Spinner) findViewById(R.id.spinner1);
@@ -63,7 +63,7 @@ public class SearchActivity extends ActionBarActivity {
 				Intent intent = new Intent(getApplicationContext(),
 						EntrySearchActivity.class);
 				
-				startActivity(intent);
+				//startActivity(intent);
 			}
 
 		});
