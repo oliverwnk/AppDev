@@ -145,7 +145,7 @@ public class CreateEntryActivity extends ActionBarActivity {
 			@Override
 			public void onClick(View v) {
 				int i = 1;
-				ConnectionAdd Request = new ConnectionAdd();
+				ConnectionAdd Request = new ConnectionAdd(getApplicationContext());
 				TextView timeBegin 	= (TextView) findViewById(R.id.timeBegin);
 				TextView endBegin 	= (TextView) findViewById(R.id.timeEnd);
 				CheckBox retry   = (CheckBox) findViewById(R.id.checkBox1);

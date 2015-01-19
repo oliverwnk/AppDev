@@ -96,7 +96,8 @@ public class ConnectionSearch extends AsyncTask<String, String, String>{
 		try {
 			responseStr = Html.fromHtml(responseStr).toString();
 			array = new JSONArray(responseStr);
-			e.Del();
+			if(array.length() > 0)
+				e.Del();
 			for(int n = 0; n < array.length();n++)
 			{
 				j = array.getJSONObject(n);
