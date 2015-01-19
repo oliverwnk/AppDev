@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -51,7 +53,7 @@ public class EntryAdapter extends BaseAdapter {
 			holder.txtName = (TextView) convertView
 					.findViewById(R.id.entry_content);
 
-			holder.tButton = (TextView) convertView
+			holder.tButton = (Switch) convertView
 					.findViewById(R.id.toggleButton1);
 			if (adapterKind == 1) {
 				holder.tButton.setVisibility(View.INVISIBLE);
@@ -70,20 +72,26 @@ public class EntryAdapter extends BaseAdapter {
 		// set on click listener for multiple views within the listitem
 
 		if (adapterKind == 0) {
-			holder.tButton.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					Toast.makeText(context, "ImageClickClick ",
-							Toast.LENGTH_LONG).show();
-				}
-			});
+			holder.tButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			        if (isChecked) {
+			            // The toggle is enabled
+			        	Toast.makeText(context, "switch enabled ",
+								Toast.LENGTH_SHORT).show();
+			        } else {
+			            // The toggle is disabled
+			        	Toast.makeText(context, "switch disabled ",
+								Toast.LENGTH_SHORT).show();
+			        }
+			    }
+			});			
 		}
 		return convertView;
 	}
 
 	static class ViewHolder {
 		TextView txtName;
-		TextView tButton;
+		Switch tButton;
 		TextView txtCategory;
 	}
 
