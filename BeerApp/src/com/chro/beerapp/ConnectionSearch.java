@@ -117,7 +117,7 @@ public class ConnectionSearch extends AsyncTask<String, String, String>{
 			for(int n = 0; n < array.length();n++)
 			{
 				j = array.getJSONObject(n);
-				e.addEntrie(j.getString("categorie"), j.getString("productName"), (float)(j.getDouble("price")), j.getInt("quantity"), j.getString("contactDetails"), (float)j.getDouble("latitude"), (float)(j.getDouble("longtitude")), j.getString("beginTime"),j.getString("endTime"),j.getBoolean("active"));
+				e.addEntrie(j.getInt("id"), j.getString("categorie"), j.getString("productName"), (float)(j.getDouble("price")), j.getInt("quantity"), j.getString("contactDetails"), (float)j.getDouble("latitude"), (float)(j.getDouble("longtitude")), j.getString("beginTime"),j.getString("endTime"),j.getBoolean("active"));
 			}
 			Intent i = new Intent(context, EntrySearchActivity.class); 
 			i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
