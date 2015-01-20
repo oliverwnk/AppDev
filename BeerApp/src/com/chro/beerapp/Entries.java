@@ -27,9 +27,9 @@ public class Entries {
 		/*@TODO add the calendars here aswell */
 
 		int i=2;
-		Entry e = new Entry("Beer","Becks"+i,0.67f,4,"details",51.039926f, 13.731029f,"2014-04-23 16:29","2014-04-23 18:29");
-		Entry e1 = new Entry("Beer","Chips"+i,i*0.67f,5,"details",51.044055f, 13.733217f,"2014-04-23 16:29","2014-04-23 18:29");
-		Entry e2 = new Entry("Beer","Fanta"+i,i*0.67f,3,"details",51.044459f, 13.738882f,"2014-04-23 16:29","2014-04-23 18:29");
+		Entry e = new Entry("Beer","Becks"+i,0.67f,4,"details",51.039926f, 13.731029f,"2014-04-23 16:29","2014-04-23 18:29",true);
+		Entry e1 = new Entry("Beer","Chips"+i,i*0.67f,5,"details",51.044055f, 13.733217f,"2014-04-23 16:29","2014-04-23 18:29",true);
+		Entry e2 = new Entry("Beer","Fanta"+i,i*0.67f,3,"details",51.044459f, 13.738882f,"2014-04-23 16:29","2014-04-23 18:29",true);
 		Entries.add(e);
 		Entries.add(e1);
 		Entries.add(e2);
@@ -54,17 +54,17 @@ public class Entries {
 	}
 	public void addEntrie(String category, String productName, float price, int quantity,
 			String contactDetails, float latitude, float longtitude,
-			String beginTimeString, String endTimeString)
+			String beginTimeString, String endTimeString,boolean active)
 	{
-		Entry e = new Entry(category,productName,price,quantity,contactDetails,longtitude, latitude,beginTimeString,endTimeString);
+		Entry e = new Entry(category,productName,price,quantity,contactDetails,longtitude, latitude,beginTimeString,endTimeString,active);
 		Entries.add(e);
 	}
 	
 	public void addMyEntry(String category, String productName, float price, int quantity,
 			String contactDetails, float latitude, float longtitude,
-			String beginTimeString, String endTimeString)
+			String beginTimeString, String endTimeString,boolean active)
 	{
-		Entry e = new Entry(category,productName,price,quantity,contactDetails,longtitude, latitude,beginTimeString,endTimeString);
+		Entry e = new Entry(category,productName,price,quantity,contactDetails,longtitude, latitude,beginTimeString,endTimeString,active);
 		MyEntries.add(e);
 	}
 	public static Entries getInstance()

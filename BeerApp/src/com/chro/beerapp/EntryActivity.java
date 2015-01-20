@@ -49,6 +49,7 @@ public class EntryActivity extends ActionBarActivity implements OnItemClickListe
 		supportActionBar.setTitle(getString(R.string.action_MyEntries));
 		supportActionBar.setDisplayHomeAsUpEnabled(true);
 		
+		
 		if(adapterKind==0)
 		listItems = Entries.getInstance().MyEntries;
 		else{

@@ -106,7 +106,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      
         // 4. build book object
         //new Entry(category, productName, price, quantity, contactDetails, latitude, longtitude, beginTime, endTime)
-        Entry entry = new Entry(
+        /*Entry entry = new Entry(
         		cursor.getString(0),
         		cursor.getString(1),
         		cursor.getFloat(2),
@@ -115,10 +115,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         		cursor.getFloat(5),
         		cursor.getFloat(6),
         		cursor.getString(7),
-        		cursor.getString(8));
+        		cursor.getString(8));*/
      
         // 5. return book
-        return entry;
+       // return entry;
+        return null;
     }
     
     public ArrayList<Entry> getAllEntries() {
@@ -135,7 +136,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Entry entry = null;
         if (cursor.moveToFirst()) {
             do {
-            	 	entry = new Entry(
+            	 /*	entry = new Entry(
                  		cursor.getString(1),
                  		cursor.getString(2),
                  		cursor.getFloat(3),
@@ -144,7 +145,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                  		cursor.getFloat(6),
                  		cursor.getFloat(7),
                  		cursor.getString(8),
-                 		cursor.getString(9));
+                 		cursor.getString(9)
+                 		cursor.getInt(10));*/
   
                 // Add book to books
                 entryList.add(entry);
