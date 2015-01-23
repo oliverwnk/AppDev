@@ -30,6 +30,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String LONGTITUDE = "longtitude";
 	private static final String BEGIN_TIME = "beginTime";
 	private static final String END_TIME = "endTime";
+	private static final String USER_ID = "userId";
 	
 	
 	
@@ -49,7 +50,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + LATITUDE + " TEXT, "
                 + LONGTITUDE + " TEXT, "
                 + BEGIN_TIME + " TEXT, " 
-                + END_TIME + " TEXT" + " )";
+                + END_TIME + " TEXT, " 
+                + USER_ID + " INT )";
         
         db.execSQL(CREATE_ENTRIES_TABLE);
     }
@@ -77,6 +79,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(LONGTITUDE, entry.getLongtitude());
         values.put(BEGIN_TIME, entry.getBeginTimeAsString());
         values.put(END_TIME, entry.getEndTimeAsString());
+        values.put(USER_ID, entry.getUser_id());
  
         // Inserting Row
         db.insert(ENTRIES_TABLE, null, values);
@@ -92,7 +95,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = 
                 db.query(ENTRIES_TABLE, // a. table
                 		new String[] { QUANTITY, PRODUCT_NAME, PRICE,QUANTITY,CONTACT_DETAILS,
-                			LATITUDE,LONGTITUDE,BEGIN_TIME,END_TIME }, // b. column names
+                			LATITUDE,LONGTITUDE,BEGIN_TIME,END_TIME,USER_ID }, // b. column names
                 KEY_ID + "=?", // c. selections 
                 new String[] { String.valueOf(id) }, // d. selections args
                 null, // e. group by
@@ -106,7 +109,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      
         // 4. build book object
         //new Entry(category, productName, price, quantity, contactDetails, latitude, longtitude, beginTime, endTime)
-        /*Entry entry = new Entry(
+        Entry entry = new Entry(
         		cursor.getString(0),
         		cursor.getString(1),
         		cursor.getFloat(2),
@@ -115,11 +118,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         		cursor.getFloat(5),
         		cursor.getFloat(6),
         		cursor.getString(7),
-        		cursor.getString(8));*/
+        		cursor.getString(8),
+        		cursor.getInt(9),true);
      
         // 5. return book
-       // return entry;
-        return null;
+        return entry;
     }
     
     public ArrayList<Entry> getAllEntries() {
@@ -136,7 +139,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Entry entry = null;
         if (cursor.moveToFirst()) {
             do {
-            	 /*	entry = new Entry(
+            	 	entry = new Entry(
                  		cursor.getString(1),
                  		cursor.getString(2),
                  		cursor.getFloat(3),
@@ -145,8 +148,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                  		cursor.getFloat(6),
                  		cursor.getFloat(7),
                  		cursor.getString(8),
-                 		cursor.getString(9)
-                 		cursor.getInt(10));*/
+                 		cursor.getString(9),
+                 		cursor.getInt(10),
+                 		true);
   
                 // Add book to books
                 entryList.add(entry);

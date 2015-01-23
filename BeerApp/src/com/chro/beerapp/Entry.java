@@ -20,20 +20,20 @@ public class Entry {
 	public TimeZone tz;
 	public Calendar beginTime;
 	public Calendar endTime;
-	public int user_id;
+	public int userId;
 	public boolean active;
 
 	public int getUser_id() {
-		return user_id;
+		return userId;
 	}
 
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUser_id(int userId) {
+		this.userId = userId;
 	}
 
 	public Entry(String category, String productName, float price, int quantity,
 			String contactDetails, float latitude, float longtitude,
-			Calendar beginTime, Calendar endTime, boolean active) {
+			Calendar beginTime, Calendar endTime, int userId, boolean active) {
 		this.category = category;
 		this.productName = productName;
 		this.price = price;
@@ -43,12 +43,14 @@ public class Entry {
 		this.longtitude = longtitude;
 		this.beginTime = beginTime;
 		this.endTime = endTime;
+		this.userId = userId;
+		this.active = active;
 	}
 
 	// constructor with Times as String for SQLiteDBHandler
 	public Entry(String category, String productName, float price, int quantity,
 			String contactDetails, float latitude, float longtitude,
-			String beginTimeString, String endTimeString,boolean active) {
+			String beginTimeString, String endTimeString,int user_id,boolean active) {
 		this.category = category;
 		this.productName = productName;
 		this.price = price;
@@ -58,6 +60,8 @@ public class Entry {
 		this.longtitude = longtitude;
 		this.setBeginTimeFromString(beginTimeString);
 		this.setEndTimeFromString(endTimeString);
+		this.userId = user_id;
+		this.active = active;
 	}
 
 	public Entry(String productName) {
