@@ -74,7 +74,7 @@ public class ConnectionSearch extends AsyncTask<String, String, String>{
 	        // Add your data
 	        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 	        
-	        nameValuePairs.add(new BasicNameValuePair("description", params[0]));
+	        //nameValuePairs.add(new BasicNameValuePair("description", params[0]));
 	        nameValuePairs.add(new BasicNameValuePair("categorie", params[1]));
 	        nameValuePairs.add(new BasicNameValuePair("longtitude", params[2]));
 	        nameValuePairs.add(new BasicNameValuePair("latitude", params[3]));
@@ -109,12 +109,15 @@ public class ConnectionSearch extends AsyncTask<String, String, String>{
 	    	CharSequence text = "Error connecting please try again later";
 	    	Toast t = Toast.makeText(context,text,Toast.LENGTH_LONG);
 	    	t.show();
+			Intent i = new Intent(context, EntrySearchActivity.class); 
+			i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+			context.startActivity(i); 
 			return ;
 		}
 		try {
 			responseStr = Html.fromHtml(responseStr).toString();
 			array = new JSONArray(responseStr);
-			if(array.length() > 0)
+			//if(array.length() > 0)
 				e.Del();
 			for(int n = 0; n < array.length();n++)
 			{
