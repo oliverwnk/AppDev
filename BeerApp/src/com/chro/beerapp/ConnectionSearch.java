@@ -12,6 +12,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -67,7 +68,7 @@ public class ConnectionSearch extends AsyncTask<String, String, String>{
 	protected String doInBackground(String... params) {
 		// Create a new HttpClient and Post Header
 	    HttpClient httpclient = new DefaultHttpClient();
-	    HttpGet httpget = new HttpGet("http://141.30.224.219:5000");
+
 	    String responseStr = "";
 	    try {
 	        // Add your data
@@ -78,7 +79,8 @@ public class ConnectionSearch extends AsyncTask<String, String, String>{
 	        nameValuePairs.add(new BasicNameValuePair("longtitude", params[2]));
 	        nameValuePairs.add(new BasicNameValuePair("latitude", params[3]));
 	        nameValuePairs.add(new BasicNameValuePair("radius", params[4]));
-
+	    	String req = URLEncodedUtils.format(nameValuePairs, "utf-8");
+		    HttpGet httpget = new HttpGet("http://141.30.224.219:5000?"+ req);
 	       // httpget.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 	        // Execute HTTP Post Request
