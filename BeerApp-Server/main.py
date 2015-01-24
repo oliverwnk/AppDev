@@ -48,7 +48,9 @@ def show_entries():
 	productName = ""
 	productName = request.args.get('productName')
 	latitude = request.args.get('latitude')
+	print latitude
 	longtitude = request.args.get('longtitude')
+	print longtitude
 	rad = float(request.args.get('radius'))
 	print categorie
 	#assert half_side_in_miles > 0
@@ -87,7 +89,8 @@ def show_entries():
 	if(productName == None):
 		cur = db.execute('select * from entries where categorie = ? and longtitude > ? and longtitude < ? and latitude > ? and latitude < ?', [categorie,lon_min,lon_max,lat_min,lat_max])
 	else:
-		cur = db.execute('select * from entries where categorie = ? and longtitude = ? and latitude = ? and productName = ?', [categorie,longtitude,latitude,productName])
+		print productName
+		cur = db.execute('select * from entries where categorie = ? and longtitude > ? and longtitude < ? and latitude > ? and latitude < ? and productName = ?', [categorie,lon_min,lon_max,lat_min,lat_max,productName])
 	#print cur.fetchall()
 	#entries = cur.fetchall()
 	entries = []

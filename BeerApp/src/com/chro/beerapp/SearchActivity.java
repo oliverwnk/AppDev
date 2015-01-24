@@ -89,8 +89,13 @@ GoogleApiClient.OnConnectionFailedListener {
 				Float Latitude = prefs.getFloat("Latitude", 0);	
 				prefs = getSharedPreferences("settings", MODE_PRIVATE);
 				Integer radius = prefs.getInt("radius", 0);
-				SearchDatabase.execute(text.getText().toString(), spin.getSelectedItem().toString(),Longitude.toString(),Latitude.toString(),radius.toString());
+				String i = text.getText().toString();
+				//{
+					//SearchDatabase.execute(text.getText().toString(), spin.getSelectedItem().toString(),Longitude.toString(),Latitude.toString(),radius.toString());
 
+				//}else{
+					SearchDatabase.execute(text.getText().toString(), spin.getSelectedItem().toString(),Longitude.toString(),Latitude.toString(),radius.toString(),text.getText().toString());
+				//}
 				Intent intent = new Intent(getApplicationContext(),
 						EntrySearchActivity.class);
 				

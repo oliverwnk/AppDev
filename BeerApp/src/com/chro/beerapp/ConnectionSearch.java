@@ -79,6 +79,11 @@ public class ConnectionSearch extends AsyncTask<String, String, String>{
 	        nameValuePairs.add(new BasicNameValuePair("longtitude", params[2]));
 	        nameValuePairs.add(new BasicNameValuePair("latitude", params[3]));
 	        nameValuePairs.add(new BasicNameValuePair("radius", params[4]));
+	        if(!params[5].equals(""))
+	        {
+		        nameValuePairs.add(new BasicNameValuePair("productName", params[5]));
+
+	        }
 	    	String req = URLEncodedUtils.format(nameValuePairs, "utf-8");
 		    HttpGet httpget = new HttpGet("http://141.30.224.219:5000?"+ req);
 	       // httpget.setEntity(new UrlEncodedFormEntity(nameValuePairs));
