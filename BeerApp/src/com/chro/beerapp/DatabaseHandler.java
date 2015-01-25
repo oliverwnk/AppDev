@@ -21,7 +21,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	
 	
 	private static final String KEY_ID = "id";
-	private static final String ID = "id";
+	private static final String ID = "entryId";
 	private static final String CATEGORY = "category";
 	private static final String PRODUCT_NAME = "productName";
 	private static final String PRICE = "price";
@@ -70,7 +70,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	// Adding new entry
     void addEntry(Entry entry) {
         SQLiteDatabase db = this.getWritableDatabase();
- 
+        
+        //if(Exists(entry, db)){
         ContentValues values = new ContentValues();
         values.put(CATEGORY, entry.getID());
         values.put(CATEGORY,entry.getCategory());
@@ -86,6 +87,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
  
         // Inserting Row
         db.insert(ENTRIES_TABLE, null, values);
+       // }
         db.close(); // Closing database connection
     }
     
@@ -126,9 +128,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         		cursor.getInt(10),
         		true);
      
+        db.close();
+        cursor.close();
         // 5. return book
         return entry;
     }
+    
+    public void deleteEntry(int entryId){
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	db.delete(ENTRIES_TABLE, ID + "=" + entryId, null);
+    	db.close();
+    }
+    
+    //checks if entry exists
+    public boolean Exists(Entry entry, SQLiteDatabase db) {
+    	   Cursor cursor = db.rawQuery("SELECT  * FROM " + ENTRIES_TABLE + "where " + ID + "=" + entry.getID(), 
+    	        null);
+    	   boolean exists = (cursor.getCount() > 0);
+    	   cursor.close();
+    	   return exists;
+    	}
     
     public ArrayList<Entry> getAllEntries() {
         ArrayList<Entry> entryList = new ArrayList<Entry>();
@@ -162,7 +181,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 entryList.add(entry);
             } while (cursor.moveToNext());
         }
-  
+        cursor.close();
+        db.close();
         return entryList;
     }
 	

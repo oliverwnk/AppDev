@@ -92,6 +92,7 @@ public class EntryActivity extends ActionBarActivity implements OnItemClickListe
 	public void onItemClick(AdapterView<?> l, View v, int id, long pos) {
 		Intent intent = new Intent(getApplicationContext(),ShowEntryActivity.class);
 		intent.putExtra("id", id);
+		intent.putExtra("adapterKind", adapterKind);
 		startActivity(intent);
 		Log.i("HelloListView", "You clicked Item: " + id + " at position:" + pos);
 		
