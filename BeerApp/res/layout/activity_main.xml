@@ -49,6 +49,16 @@
         style="@style/CustomStyleButton"
         android:layout_margin="15dp"
         android:text="@string/action_MyEntries" />
+    
+    <Button
+        android:id="@+id/Btn_MyFavorites"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        style="@style/CustomStyleButton"
+        android:layout_margin="15dp"
+        android:text="@string/Btn_MyFavorites" />
 
     <Button
         android:id="@+id/Btn_Settings"

@@ -13,6 +13,7 @@
     <string name="Btn_Settings">Optionen</string>
     <string name="Btn_CreateEntry">Eintrag erstellen</string>
     <string name="Btn_FirstEntry">Ein Eintrag</string>
+    <string name="Btn_MyFavorites">My Favorites</string>
     <string name="Labl_Begin">Von:</string>
     <string name="Labl_End">Bis:</string>
     <string name="Labl_Category">Kategorie:</string>

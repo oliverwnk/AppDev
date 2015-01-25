@@ -49,18 +49,23 @@ public class EntryActivity extends ActionBarActivity implements OnItemClickListe
 		supportActionBar.setTitle(getString(R.string.action_MyEntries));
 		supportActionBar.setDisplayHomeAsUpEnabled(true);
 		
+		DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 		
 		if(adapterKind==0)
 		listItems = Entries.getInstance().MyEntries;
 		else{
+			if(adapterKind==1)
 			listItems = Entries.getInstance().Entries;
+			else{
+				listItems = db.getAllEntries();
+			}
 		}
 		
 		lst_Entry = (ListView) findViewById(R.id.Lst_Entries);
         lst_Entry.setOnItemClickListener(this);
 		//adapter = new ArrayAdapter<String>(this, R.layout.list_item,listItems);
         
-        //DatabaseHandler db = new DatabaseHandler(this);
+        
         
         
         

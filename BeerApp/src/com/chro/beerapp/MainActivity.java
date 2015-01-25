@@ -41,6 +41,7 @@ public class MainActivity extends ActionBarActivity implements
 	Button btn_myEntry;
 	Button btn_search;
 	Button btn_settings;
+	Button btn_myFavorites;
 	Button btn_map;
 	GoogleApiClient mGoogleApiClient;
 	LocationManager lm;
@@ -128,6 +129,17 @@ public class MainActivity extends ActionBarActivity implements
 				Intent intent = new Intent(getApplicationContext(),
 						MapActivity.class);
 				intent.putExtra(LAST_LOCATION, mCurrentLocation);
+				startActivity(intent);
+			}
+
+		});
+		
+		btn_myFavorites = (Button) findViewById(R.id.Btn_MyFavorites);
+		btn_myFavorites.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getApplicationContext(),
+						EntryFavoritesActivity.class);
 				startActivity(intent);
 			}
 

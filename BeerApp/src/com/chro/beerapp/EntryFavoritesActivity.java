@@ -1,4 +1,4 @@
- package com.chro.beerapp;
+package com.chro.beerapp;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,19 +13,21 @@ import android.widget.ListView;
 import com.google.android.gms.internal.bt;
 import com.woodchro.bemystore.R;
 
-public class EntrySearchActivity extends EntryActivity {
+public class EntryFavoritesActivity extends EntryActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.adapterKind = 1;
+		super.adapterKind = 2;
 		super.onCreate(savedInstanceState);
 		//change btn_create to "Suchen"
-		getSupportActionBar().setTitle("Anzeigen");
+		getSupportActionBar().setTitle("My Favorites");
 		btn_CreateEntry = (Button) findViewById(R.id.btn_CreateEntry);
 		btn_CreateEntry.setVisibility(View.GONE);
 		
 		ListView listView = (ListView)findViewById(R.id.Lst_Entries);
 		listView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+		
+		
 	}
 	
 	@Override
@@ -40,3 +42,4 @@ public class EntrySearchActivity extends EntryActivity {
 		});
 	}
 }
+

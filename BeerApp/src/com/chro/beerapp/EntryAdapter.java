@@ -55,7 +55,7 @@ public class EntryAdapter extends BaseAdapter {
 
 			holder.tButton = (Switch) convertView
 					.findViewById(R.id.toggleButton1);
-			if (adapterKind == 1) {
+			if (adapterKind == 1 || adapterKind == 2) {
 				holder.tButton.setVisibility(View.INVISIBLE);
 			}
 			holder.txtCategory = (TextView) convertView
