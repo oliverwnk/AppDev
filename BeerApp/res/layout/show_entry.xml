@@ -100,5 +100,15 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="15dp"
         android:text="Delete from my favorites"/>
+     
+      <Button
+        android:id="@+id/Btn_addToFavorites"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        style="@style/CustomStyleButton"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:text="Add to my favorites"/>
 
 </LinearLayout>

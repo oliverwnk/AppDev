@@ -27,14 +27,14 @@ public class Entries {
 		/*@TODO add the calendars here aswell */
 
 
-		int i=2;
-		Entry e = new Entry(0,"Beer","Becks"+i,0.67f,4,"details",51.039926f, 13.731029f,"2014-04-23 16:29","2014-04-23 18:29",-2,true);
-		Entry e1 = new Entry(1,"Beer","Chips"+i,i*0.67f,5,"details",51.044055f, 13.733217f,"2014-04-23 16:29","2014-04-23 18:29",-2,true);
-		Entry e2 = new Entry(2,"Beer","Fanta"+i,i*0.67f,3,"details",51.044459f, 13.738882f,"2014-04-23 16:29","2014-04-23 18:29",-2,true);
-		Entries.add(e);
-		Entries.add(e1);
-		Entries.add(e2);
-		LastQuery = Entries;
+//		int i=2;
+//		Entry e = new Entry(0,"Beer","Becks"+i,0.67f,4,"details",51.039926f, 13.731029f,"2014-04-23 16:29","2014-04-23 18:29",-2,true);
+//		Entry e1 = new Entry(1,"Beer","Chips"+i,i*0.67f,5,"details",51.044055f, 13.733217f,"2014-04-23 16:29","2014-04-23 18:29",-2,true);
+//		Entry e2 = new Entry(2,"Beer","Fanta"+i,i*0.67f,3,"details",51.044459f, 13.738882f,"2014-04-23 16:29","2014-04-23 18:29",-2,true);
+//		Entries.add(e);
+//		Entries.add(e1);
+//		Entries.add(e2);
+//		LastQuery = Entries;
 	}
 	protected void Del()
 	{

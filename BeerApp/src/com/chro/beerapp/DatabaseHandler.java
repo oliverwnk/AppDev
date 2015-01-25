@@ -71,7 +71,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     void addEntry(Entry entry) {
         SQLiteDatabase db = this.getWritableDatabase();
         
-        //if(Exists(entry, db)){
+        //if(!exists(entry, db)){
         ContentValues values = new ContentValues();
         values.put(CATEGORY, entry.getID());
         values.put(CATEGORY,entry.getCategory());
@@ -87,7 +87,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
  
         // Inserting Row
         db.insert(ENTRIES_TABLE, null, values);
-       // }
+        //}
         db.close(); // Closing database connection
     }
     
@@ -115,17 +115,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // 4. build book object
         //new Entry(category, productName, price, quantity, contactDetails, latitude, longtitude, beginTime, endTime)
         Entry entry = new Entry(
-        		cursor.getInt(0),
-        		cursor.getString(1),
+        		cursor.getInt(1),
         		cursor.getString(2),
-        		cursor.getFloat(3),
-        		cursor.getInt(4),
-        		cursor.getString(5),
-        		cursor.getFloat(6),
+        		cursor.getString(3),
+        		cursor.getFloat(4),
+        		cursor.getInt(5),
+        		cursor.getString(6),
         		cursor.getFloat(7),
-        		cursor.getString(8),
+        		cursor.getFloat(8),
         		cursor.getString(9),
-        		cursor.getInt(10),
+        		cursor.getString(10),
+        		cursor.getInt(11),
         		true);
      
         db.close();
@@ -134,15 +134,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return entry;
     }
     
-    public void deleteEntry(int entryId){
+    public boolean deleteEntry(String productName){
     	SQLiteDatabase db = this.getWritableDatabase();
-    	db.delete(ENTRIES_TABLE, ID + "=" + entryId, null);
+    	boolean success = db.delete(ENTRIES_TABLE, PRODUCT_NAME + "=?",
+                new String[] { productName})>0;
     	db.close();
+    	return success;
     }
     
     //checks if entry exists
-    public boolean Exists(Entry entry, SQLiteDatabase db) {
-    	   Cursor cursor = db.rawQuery("SELECT  * FROM " + ENTRIES_TABLE + "where " + ID + "=" + entry.getID(), 
+    public boolean exists(Entry entry, SQLiteDatabase db) {
+    	   Cursor cursor = db.rawQuery("SELECT  * FROM " + ENTRIES_TABLE + " where " + PRODUCT_NAME + "=" + entry.getProductName(), 
     	        null);
     	   boolean exists = (cursor.getCount() > 0);
     	   cursor.close();
@@ -164,17 +166,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
             	 	entry = new Entry(
-            	 		cursor.getInt(0),
-                 		cursor.getString(1),
+            	 		cursor.getInt(1),
                  		cursor.getString(2),
-                 		cursor.getFloat(3),
-                 		cursor.getInt(4),
-                 		cursor.getString(5),
-                 		cursor.getFloat(6),
+                 		cursor.getString(3),
+                 		cursor.getFloat(4),
+                 		cursor.getInt(5),
+                 		cursor.getString(6),
                  		cursor.getFloat(7),
-                 		cursor.getString(8),
+                 		cursor.getFloat(8),
                  		cursor.getString(9),
-                 		cursor.getInt(10),
+                 		cursor.getString(10),
+                 		cursor.getInt(11),
                  		true);
   
                 // Add book to books

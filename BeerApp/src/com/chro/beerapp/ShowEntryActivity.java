@@ -4,11 +4,13 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,7 +25,8 @@ public class ShowEntryActivity extends ActionBarActivity {
 	Button btn_search;
 	Button btn_openMap;
 	Button btn_deleteFromFavorites;
-	Entry CurrentEntry;
+	Button btn_addToFavorites;
+	public Entry CurrentEntry;
 	Entries RequestedList = Entries.getInstance();
 	TextView Category;
 	TextView PrdctName;
@@ -38,7 +41,20 @@ public class ShowEntryActivity extends ActionBarActivity {
 		Intent intent = getIntent();
 		int id = intent.getExtras().getInt("id");
 		int adapterKind = intent.getExtras().getInt("adapterKind");
-		CurrentEntry = RequestedList.getLastRequest().get(id);
+		switch (adapterKind) {
+		case 0:
+			CurrentEntry = RequestedList.MyEntries.get(id);
+			break;
+		case 1:
+			CurrentEntry = RequestedList.Entries.get(id);
+			break;
+		case 2:
+			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+			CurrentEntry = db.getAllEntries().get(id);
+		default:
+			break;
+		}
+		//CurrentEntry = RequestedList.MyEntries.get(id);
 		Category = (TextView) findViewById(R.id.txt_Category);
 		Category.setText(CurrentEntry.getCategoryAsString());
 		PrdctName = (TextView) findViewById(R.id.txt_PrdctName);
@@ -93,7 +109,20 @@ public class ShowEntryActivity extends ActionBarActivity {
 			@Override
 			public void onClick(View v) {
 				DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-				db.deleteEntry(CurrentEntry.getID());
+				boolean isDeleted = db.deleteEntry(CurrentEntry.getProductName());
+				db.close();
+				if(isDeleted)Log.i("deleted","deleted");
+				Intent intent = new Intent(getApplicationContext(),EntryFavoritesActivity.class);
+				startActivity(intent);
+			}
+		});
+		
+		btn_addToFavorites = (Button) findViewById(R.id.Btn_addToFavorites);
+		btn_addToFavorites.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+				db.addEntry(CurrentEntry);
 				db.close();
 				Intent intent = new Intent(getApplicationContext(),EntryFavoritesActivity.class);
 				startActivity(intent);
