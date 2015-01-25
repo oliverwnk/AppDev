@@ -21,6 +21,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	
 	
 	private static final String KEY_ID = "id";
+	private static final String ID = "id";
 	private static final String CATEGORY = "category";
 	private static final String PRODUCT_NAME = "productName";
 	private static final String PRICE = "price";
@@ -42,7 +43,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_ENTRIES_TABLE = "CREATE TABLE " + ENTRIES_TABLE + "("
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-        		+ CATEGORY + " INT, "
+                + ID + " INT, "
+        		+ CATEGORY + " TEXT, "
                 + PRODUCT_NAME + " TEXT, " 
         		+ PRICE + " REAL, " 
                 + QUANTITY + " INT, " 
@@ -70,6 +72,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
  
         ContentValues values = new ContentValues();
+        values.put(CATEGORY, entry.getID());
         values.put(CATEGORY,entry.getCategory());
         values.put(PRODUCT_NAME, entry.getProductName());
         values.put(PRICE, entry.getPrice());
@@ -110,16 +113,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // 4. build book object
         //new Entry(category, productName, price, quantity, contactDetails, latitude, longtitude, beginTime, endTime)
         Entry entry = new Entry(
-        		cursor.getString(0),
+        		cursor.getInt(0),
         		cursor.getString(1),
-        		cursor.getFloat(2),
-        		cursor.getInt(3),
-        		cursor.getString(4),
-        		cursor.getFloat(5),
+        		cursor.getString(2),
+        		cursor.getFloat(3),
+        		cursor.getInt(4),
+        		cursor.getString(5),
         		cursor.getFloat(6),
-        		cursor.getString(7),
+        		cursor.getFloat(7),
         		cursor.getString(8),
-        		cursor.getInt(9),true);
+        		cursor.getString(9),
+        		cursor.getInt(10),
+        		true);
      
         // 5. return book
         return entry;
@@ -140,6 +145,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
             	 	entry = new Entry(
+            	 		cursor.getInt(0),
                  		cursor.getString(1),
                  		cursor.getString(2),
                  		cursor.getFloat(3),

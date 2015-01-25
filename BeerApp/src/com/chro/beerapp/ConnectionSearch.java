@@ -12,6 +12,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -67,18 +68,24 @@ public class ConnectionSearch extends AsyncTask<String, String, String>{
 	protected String doInBackground(String... params) {
 		// Create a new HttpClient and Post Header
 	    HttpClient httpclient = new DefaultHttpClient();
-	    HttpGet httpget = new HttpGet("http://141.30.224.219:5000");
+
 	    String responseStr = "";
 	    try {
 	        // Add your data
 	        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 	        
-	        nameValuePairs.add(new BasicNameValuePair("description", params[0]));
+	        //nameValuePairs.add(new BasicNameValuePair("description", params[0]));
 	        nameValuePairs.add(new BasicNameValuePair("categorie", params[1]));
 	        nameValuePairs.add(new BasicNameValuePair("longtitude", params[2]));
 	        nameValuePairs.add(new BasicNameValuePair("latitude", params[3]));
 	        nameValuePairs.add(new BasicNameValuePair("radius", params[4]));
+	        if(!params[5].equals(""))
+	        {
+		        nameValuePairs.add(new BasicNameValuePair("productName", params[5]));
 
+	        }
+	    	String req = URLEncodedUtils.format(nameValuePairs, "utf-8");
+		    HttpGet httpget = new HttpGet("http://141.30.224.219:5000?"+ req);
 	       // httpget.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 	        // Execute HTTP Post Request
@@ -107,17 +114,21 @@ public class ConnectionSearch extends AsyncTask<String, String, String>{
 	    	CharSequence text = "Error connecting please try again later";
 	    	Toast t = Toast.makeText(context,text,Toast.LENGTH_LONG);
 	    	t.show();
+			Intent i = new Intent(context, EntrySearchActivity.class); 
+			i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+			context.startActivity(i); 
 			return ;
 		}
 		try {
 			responseStr = Html.fromHtml(responseStr).toString();
 			array = new JSONArray(responseStr);
-			if(array.length() > 0)
+			//if(array.length() > 0)
 				e.Del();
 			for(int n = 0; n < array.length();n++)
 			{
 				j = array.getJSONObject(n);
-				e.addEntrie(j.getString("categorie"), j.getString("productName"), (float)(j.getDouble("price")), j.getInt("quantity"), j.getString("contactDetails"), (float)j.getDouble("latitude"), (float)(j.getDouble("longtitude")), j.getString("beginTime"),j.getString("endTime"),-1,j.getBoolean("active"));
+				e.addEntrie(j.getInt("id"), j.getString("categorie"), j.getString("productName"), (float)(j.getDouble("price")), j.getInt("quantity"), j.getString("contactDetails"), (float)j.getDouble("latitude"), (float)(j.getDouble("longtitude")), j.getString("beginTime"),j.getString("endTime"),-1,j.getBoolean("active"));
+
 			}
 			Intent i = new Intent(context, EntrySearchActivity.class); 
 			i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 

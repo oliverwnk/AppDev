@@ -120,7 +120,7 @@ public class ConnectionMy extends AsyncTask<String, String, String>{
 			for(int n = 0; n < array.length();n++)
 			{
 				j = array.getJSONObject(n);
-				e.addMyEntry(j.getString("categorie"), j.getString("productName"), (float)(j.getDouble("price")), j.getInt("quantity"), j.getString("contactDetails"), (float)j.getDouble("latitude"), (float)(j.getDouble("longtitude")), j.getString("beginTime"),j.getString("endTime"),j.getBoolean("active"));
+				e.addMyEntry(j.getInt("id"), j.getString("categorie"), j.getString("productName"), (float)(j.getDouble("price")), j.getInt("quantity"), j.getString("contactDetails"), (float)j.getDouble("latitude"), (float)(j.getDouble("longtitude")), j.getString("beginTime"),j.getString("endTime"),-1,j.getBoolean("active"));
 			}
 
 			Intent i = new Intent(context, EntryActivity.class); 

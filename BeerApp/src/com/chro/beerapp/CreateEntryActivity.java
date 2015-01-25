@@ -220,8 +220,8 @@ public class CreateEntryActivity extends ActionBarActivity implements
 					}
 					double l = mCurrentLocation.getLatitude();
 					double n = mCurrentLocation.getLongitude();
-				String longt =	String.valueOf(l);
-				String lalt =	String.valueOf(n);
+				String lalt =	String.valueOf(l);
+				String longt =	String.valueOf(n);
 				SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
 				SharedPreferences.Editor editor = prefs.edit();
 				Integer id = Integer.valueOf(prefs.getInt("id", -1));

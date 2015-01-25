@@ -22,6 +22,7 @@ public class Entry {
 	public Calendar endTime;
 	public int userId;
 	public boolean active;
+	public int id;
 
 	public int getUser_id() {
 		return userId;
@@ -31,9 +32,10 @@ public class Entry {
 		this.userId = userId;
 	}
 
-	public Entry(String category, String productName, float price, int quantity,
+	public Entry(int id, String category, String productName, float price, int quantity,
 			String contactDetails, float latitude, float longtitude,
 			Calendar beginTime, Calendar endTime, int userId, boolean active) {
+		this.id=id;
 		this.category = category;
 		this.productName = productName;
 		this.price = price;
@@ -48,9 +50,10 @@ public class Entry {
 	}
 
 	// constructor with Times as String for SQLiteDBHandler
-	public Entry(String category, String productName, float price, int quantity,
+	public Entry(int id, String category, String productName, float price, int quantity,
 			String contactDetails, float latitude, float longtitude,
 			String beginTimeString, String endTimeString,int user_id,boolean active) {
+		this.id = id;
 		this.category = category;
 		this.productName = productName;
 		this.price = price;
@@ -63,13 +66,16 @@ public class Entry {
 		this.userId = user_id;
 		this.active = active;
 	}
-
 	public Entry(String productName) {
 		this.productName = productName;
 	}
 
 	public Calendar getBeginTime() {
 		return beginTime;
+	}
+	public int getID()
+	{
+		return id;
 	}
 
 	public void setBeginTime(Calendar beginTime) {

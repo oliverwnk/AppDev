@@ -2,6 +2,7 @@ package com.chro.beerapp;
 
 import java.util.ArrayList;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -45,7 +46,7 @@ public class EntryAdapter extends BaseAdapter {
 		return position;
 	}
 
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		final ViewHolder holder;
 		if (convertView == null) {
 			convertView = mInflater.inflate(R.layout.list_item, null);
@@ -74,12 +75,18 @@ public class EntryAdapter extends BaseAdapter {
 		if (adapterKind == 0) {
 			holder.tButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			    	ProgressDialog dialog = ProgressDialog.show(context, "Sending Activation", "Please wait ...",true);
+		        	ConnectionActivate req = new ConnectionActivate(context,dialog);
 			        if (isChecked) {
 			            // The toggle is enabled
-			        	Toast.makeText(context, "switch enabled ",
+			    		
+			        	
+			        	req.execute(String.valueOf(entryList.get(position).getID()),"true");
+			        	Toast.makeText(context, String.valueOf(entryList.get(position).getID()) ,
 								Toast.LENGTH_SHORT).show();
 			        } else {
 			            // The toggle is disabled
+			        	req.execute(String.valueOf(entryList.get(position).getID()),"false");
 			        	Toast.makeText(context, "switch disabled ",
 								Toast.LENGTH_SHORT).show();
 			        }
