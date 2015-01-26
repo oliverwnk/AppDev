@@ -109,7 +109,7 @@ public class ShowEntryActivity extends ActionBarActivity {
 			@Override
 			public void onClick(View v) {
 				DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-				boolean isDeleted = db.deleteEntry(CurrentEntry.getProductName());
+				boolean isDeleted = db.deleteEntry(String.valueOf(CurrentEntry.getID()));
 				db.close();
 				if(isDeleted)Log.i("deleted","deleted");
 				Intent intent = new Intent(getApplicationContext(),EntryFavoritesActivity.class);
