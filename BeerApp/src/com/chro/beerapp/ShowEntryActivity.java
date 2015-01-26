@@ -1,6 +1,8 @@
 package com.chro.beerapp;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import android.content.Intent;
@@ -41,6 +43,13 @@ public class ShowEntryActivity extends ActionBarActivity {
 		Intent intent = getIntent();
 		int id = intent.getExtras().getInt("id");
 		int adapterKind = intent.getExtras().getInt("adapterKind");
+		
+		DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+		btn_deleteFromFavorites = (Button) findViewById(R.id.Btn_deleteFromFavorites);
+		btn_addToFavorites = (Button) findViewById(R.id.Btn_addToFavorites);
+		
+		//loading entryList depending on adpaterKind--> 0=MyEntries,1=Searched Entries, 2=Favorites
+		//to get the right element/position from intent.extra
 		switch (adapterKind) {
 		case 0:
 			CurrentEntry = RequestedList.MyEntries.get(id);
@@ -49,11 +58,20 @@ public class ShowEntryActivity extends ActionBarActivity {
 			CurrentEntry = RequestedList.Entries.get(id);
 			break;
 		case 2:
-			DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 			CurrentEntry = db.getAllEntries().get(id);
+			TextView dateTextView = (TextView)findViewById(R.id.txt_date);
+			dateTextView.setVisibility(View.VISIBLE);
+			dateTextView.setText("Entry from " + db.getDate(CurrentEntry));
 		default:
 			break;
 		}
+		
+		//show addToFavorite or deleteFromFavorite button depending if entry exists in database
+		if(db.exists(CurrentEntry))btn_deleteFromFavorites.setVisibility(View.VISIBLE);
+		else{
+			btn_addToFavorites.setVisibility(View.VISIBLE);
+		}
+		
 		//CurrentEntry = RequestedList.MyEntries.get(id);
 		Category = (TextView) findViewById(R.id.txt_Category);
 		Category.setText(CurrentEntry.getCategoryAsString());
@@ -104,7 +122,7 @@ public class ShowEntryActivity extends ActionBarActivity {
 			}
 		});
 		
-		btn_deleteFromFavorites = (Button) findViewById(R.id.Btn_deleteFromFavorites);
+		
 		btn_deleteFromFavorites.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -117,12 +135,13 @@ public class ShowEntryActivity extends ActionBarActivity {
 			}
 		});
 		
-		btn_addToFavorites = (Button) findViewById(R.id.Btn_addToFavorites);
+		
 		btn_addToFavorites.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-				db.addEntry(CurrentEntry);
+				String date = new SimpleDateFormat("dd-MM-yyyy HH:mm").format(new Date());
+				db.addEntry(CurrentEntry,date);
 				db.close();
 				Intent intent = new Intent(getApplicationContext(),EntryFavoritesActivity.class);
 				startActivity(intent);

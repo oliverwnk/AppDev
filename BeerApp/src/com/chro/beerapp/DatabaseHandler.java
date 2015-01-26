@@ -32,6 +32,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String BEGIN_TIME = "beginTime";
 	private static final String END_TIME = "endTime";
 	private static final String USER_ID = "userId";
+	private static final String DATE = "date";
 	
 	
 	
@@ -53,7 +54,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + LONGTITUDE + " TEXT, "
                 + BEGIN_TIME + " TEXT, " 
                 + END_TIME + " TEXT, " 
-                + USER_ID + " INT )";
+                + USER_ID + " INT, "
+                + DATE + " TEXT)";
         
         db.execSQL(CREATE_ENTRIES_TABLE);
     }
@@ -68,10 +70,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 	
 	// Adding new entry
-    void addEntry(Entry entry) {
+    void addEntry(Entry entry,String date) {
         SQLiteDatabase db = this.getWritableDatabase();
         
-        if(!exists(entry, db)){
+        if(!exists(entry)){
         ContentValues values = new ContentValues();
         values.put(ID, entry.getID());
         values.put(CATEGORY,entry.getCategory());
@@ -84,6 +86,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(BEGIN_TIME, entry.getBeginTimeAsString());
         values.put(END_TIME, entry.getEndTimeAsString());
         values.put(USER_ID, entry.getUser_id());
+        values.put(DATE, date);
  
         // Inserting Row
         db.insert(ENTRIES_TABLE, null, values);
@@ -113,7 +116,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             cursor.moveToFirst();
      
         // 4. build book object
-        //new Entry(category, productName, price, quantity, contactDetails, latitude, longtitude, beginTime, endTime)
+        //new Entry(id,category, productName, price, quantity, contactDetails, latitude, longtitude, beginTime, endTime)
         Entry entry = new Entry(
         		cursor.getInt(1),
         		cursor.getString(2),
@@ -134,22 +137,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return entry;
     }
     
-    public boolean deleteEntry(String productName){
+    public boolean deleteEntry(String entryId){
     	SQLiteDatabase db = this.getWritableDatabase();
     	boolean success = db.delete(ENTRIES_TABLE, ID + "=?",
-                new String[] { productName})>0;
+                new String[] { entryId})>0;
     	db.close();
     	return success;
     }
     
     //checks if entry exists
-    public boolean exists(Entry entry, SQLiteDatabase db) {
+    public boolean exists(Entry entry) {
+    	SQLiteDatabase db = this.getReadableDatabase();
     	   Cursor cursor = db.rawQuery("SELECT  * FROM " + ENTRIES_TABLE + " where " + ID + "=" + Integer.toString(entry.getID()), 
     	        null);
     	   boolean exists = (cursor.getCount() > 0);
     	   cursor.close();
     	   return exists;
     	}
+    
+    public String getDate(Entry entry){
+    	SQLiteDatabase db = this.getReadableDatabase();
+    	Cursor cursor = db.rawQuery("SELECT  * FROM " + ENTRIES_TABLE + " where " + ID + "=" + Integer.toString(entry.getID()), 
+    	        null);
+    	cursor.moveToFirst();
+    	return cursor.getString(12);
+    }
     
     public ArrayList<Entry> getAllEntries() {
         ArrayList<Entry> entryList = new ArrayList<Entry>();

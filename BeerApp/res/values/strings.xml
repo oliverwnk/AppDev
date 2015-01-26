@@ -40,4 +40,6 @@
     <string name="gps_network_not_enabled">GPS not activated. Please enable location services</string>
 	<string name="open_location_settings">Open location settings</string>
 	<string name="cancel">Cancel</string>
+	
+	<string name="txt_dateEntryFrom">"Entry not up to date"</string>
 </resources>

@@ -1,4 +1,4 @@
- package com.chro.beerapp;
+package com.chro.beerapp;
 
 import android.content.Intent;
 import android.os.Bundle;
