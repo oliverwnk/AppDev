@@ -1,6 +1,7 @@
 package com.chro.beerapp;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -79,7 +80,8 @@ GoogleApiClient.OnConnectionFailedListener {
 		btn_startSearch.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				ConnectionSearch SearchDatabase = new ConnectionSearch(getApplicationContext());
+				ProgressDialog dialog = ProgressDialog.show(mContext, "Getting Your entries", "Please wait...", true);
+				ConnectionSearch SearchDatabase = new ConnectionSearch(getApplicationContext(),dialog,EntrySearchActivity.class);
 
 				EditText text = (EditText) findViewById(R.id.editText1);
 				Spinner spin = (Spinner) findViewById(R.id.spinner1);
@@ -94,7 +96,7 @@ GoogleApiClient.OnConnectionFailedListener {
 					//SearchDatabase.execute(text.getText().toString(), spin.getSelectedItem().toString(),Longitude.toString(),Latitude.toString(),radius.toString());
 
 				//}else{
-					SearchDatabase.execute(text.getText().toString(), spin.getSelectedItem().toString(),Longitude.toString(),Latitude.toString(),radius.toString(),text.getText().toString());
+					SearchDatabase.execute(text.getText().toString(),Longitude.toString(),Latitude.toString(),radius.toString(),spin.getSelectedItem().toString(),text.getText().toString());
 				//}
 				Intent intent = new Intent(getApplicationContext(),
 						EntrySearchActivity.class);

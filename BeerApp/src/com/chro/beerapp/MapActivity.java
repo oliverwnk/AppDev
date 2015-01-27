@@ -45,9 +45,8 @@ public class MapActivity extends ActionBarActivity implements
 	GoogleApiClient mGoogleApiClient;
 	Location mCurrentLocation;
 	LocationRequest mLocationRequest;
-	ArrayList<Entry> entries = Entries.getInstance().Entries;
 	GpsLocation gpsLocation;
-
+	ArrayList<Entry> entries;
 	// constants for Location Update Preferences
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 	// Milliseconds per second
@@ -167,6 +166,7 @@ public class MapActivity extends ActionBarActivity implements
 
 		gpsLocation = new GpsLocation(this, this);
 		mGoogleApiClient = buildNewGoogleApiClient();
+		entries = Entries.getInstance().Entries;
 
 		 Intent intent = getIntent();
 

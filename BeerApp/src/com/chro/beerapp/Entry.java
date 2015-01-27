@@ -147,7 +147,13 @@ public class Entry {
 	public void setLongtitude(float longtitude) {
 		this.longtitude = longtitude;
 	}
-
+	public boolean getActive(){
+		return active;
+	}
+	public void setActive(boolean b)
+	{
+		active = b;
+	}
 	public String getCategory(){
 		return category;
 	}
