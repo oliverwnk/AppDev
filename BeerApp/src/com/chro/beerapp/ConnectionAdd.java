@@ -56,6 +56,10 @@ public class ConnectionAdd extends AsyncTask<String, String, String>{
         nameValuePairs.add(new BasicNameValuePair("productName", 		params[8]));
         nameValuePairs.add(new BasicNameValuePair("longtitude", 		params[9]));
         nameValuePairs.add(new BasicNameValuePair("latitude", 		params[10]));
+        if(!params[11].equals(""))
+        {
+            nameValuePairs.add(new BasicNameValuePair("id", 		params[11]));
+        }
         nameValuePairs.add(new BasicNameValuePair("text", 		"jojo"));
        	String req = URLEncodedUtils.format(nameValuePairs, "utf-8");
        	

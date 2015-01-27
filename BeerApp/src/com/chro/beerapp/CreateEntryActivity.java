@@ -43,8 +43,8 @@ public class CreateEntryActivity extends ActionBarActivity implements
 	Toolbar toolbar;
 	SeekBar sbarPrice;
 	SeekBar sbarAmount;
-	protected EditText etextPrice;
-	protected EditText etextAmount;
+	EditText etextPrice;
+	EditText etextAmount;
 	
 	//Location
 	GoogleApiClient mGoogleApiClient;
