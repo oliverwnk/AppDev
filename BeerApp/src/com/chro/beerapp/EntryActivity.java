@@ -80,6 +80,7 @@ public class EntryActivity extends ActionBarActivity implements OnItemClickListe
 				Intent intent = new Intent(getApplicationContext(),CreateEntryActivity.class);
 
 				startActivity(intent);
+				finish();
 			}
 		});
 	}

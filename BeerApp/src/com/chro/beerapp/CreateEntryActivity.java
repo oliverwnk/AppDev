@@ -194,9 +194,7 @@ public class CreateEntryActivity extends ActionBarActivity implements
 			@Override
 			public void onClick(View v) {
 				int i = 1;
-				ProgressDialog dialog = ProgressDialog.show(mContext, "Sending Changes", "Please wait...", true);
 
-				ConnectionAdd Request = new ConnectionAdd(mContext,dialog);
 				TextView timeBegin 	= (TextView) findViewById(R.id.timeBegin);
 				TextView endBegin 	= (TextView) findViewById(R.id.timeEnd);
 				CheckBox retry   = (CheckBox) findViewById(R.id.checkBox1);
@@ -220,6 +218,8 @@ public class CreateEntryActivity extends ActionBarActivity implements
 					}
 					double l = mCurrentLocation.getLatitude();
 					double n = mCurrentLocation.getLongitude();
+				ProgressDialog dialog = ProgressDialog.show(mContext, "Sending Changes", "Please wait...", true);
+				ConnectionAdd Request = new ConnectionAdd(mContext,dialog);
 				String lalt =	String.valueOf(l);
 				String longt =	String.valueOf(n);
 				SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
@@ -231,8 +231,9 @@ public class CreateEntryActivity extends ActionBarActivity implements
 						.toString(), price.getText().toString(), amount
 						.getText().toString(), contact.getText().toString(), s,
 						productName.getText().toString(),longt,lalt);
-				ConnectionMy My = new ConnectionMy(mContext,dialog);
-				My.execute(String.valueOf(id));
+				finish();
+				//ConnectionMy My = new ConnectionMy(mContext,dialog);
+				//My.execute(String.valueOf(id));
 				}else
 				{
 			    	CharSequence text = "please insert a productName";

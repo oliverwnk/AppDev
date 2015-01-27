@@ -105,6 +105,7 @@ public class ConnectionMy extends AsyncTask<String, String, String>{
 		JSONObject j;
 		JSONArray array;
 		dialog.cancel();
+		e.MyEntries.clear();
 		if(responseStr.equals(""))
 		{
 	    	CharSequence text = "Error connecting please try again later";
@@ -115,8 +116,6 @@ public class ConnectionMy extends AsyncTask<String, String, String>{
 		try {
 			responseStr = Html.fromHtml(responseStr).toString();
 			array = new JSONArray(responseStr);
-			if(array.length() > 0)
-				e.MyEntries.clear();
 			for(int n = 0; n < array.length();n++)
 			{
 				j = array.getJSONObject(n);
