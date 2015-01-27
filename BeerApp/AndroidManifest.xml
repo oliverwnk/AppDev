@@ -42,6 +42,11 @@
             android:name="android.support.PARENT_ACTIVITY"
             android:value="com.chro.beerapp.EntryActivity" />  
         </activity>
+         <activity android:name="com.chro.beerapp.EditMyEntryActivity" >
+             <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.chro.beerapp.EntryActivity" />  
+        </activity>
         <activity android:name="com.chro.beerapp.SearchActivity" >
              <meta-data
             android:name="android.support.PARENT_ACTIVITY"

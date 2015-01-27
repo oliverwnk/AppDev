@@ -62,6 +62,27 @@ public class Entries {
 		Entries.add(e);
 	}
 	
+	public ArrayList<Entry> getEntriesByUserID(int userId){
+		ArrayList<Entry> entriesByUserId = new ArrayList<Entry>();
+		for(Entry e:Entries){
+			if(e.getUser_id() == userId){
+				entriesByUserId.add(e);
+			}
+		}
+		return entriesByUserId;
+	}
+	
+	public ArrayList<Entry> getMyEntriesByUserID(int userId){
+		ArrayList<Entry> entriesByUserId = new ArrayList<Entry>();
+		for(Entry e:MyEntries){
+			if(e.getUser_id() == userId){
+				entriesByUserId.add(e);
+			}
+		}
+		return entriesByUserId;
+	}
+	
+	
 	public void addMyEntry(int id, String category, String productName, float price, int quantity,
 			String contactDetails, float latitude, float longtitude,
 			String beginTimeString, String endTimeString,int userId,boolean active)

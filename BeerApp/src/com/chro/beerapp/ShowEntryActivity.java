@@ -1,6 +1,7 @@
 package com.chro.beerapp;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -16,13 +17,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.woodchro.bemystore.R;
 
-public class ShowEntryActivity extends ActionBarActivity {
+public class ShowEntryActivity extends ActionBarActivity implements OnItemClickListener {
 
 	Button btn_myEntry;
 	Button btn_search;
@@ -35,6 +39,11 @@ public class ShowEntryActivity extends ActionBarActivity {
 	TextView PrdctName;
 	TextView BegTime;
 	TextView EndTime;
+	TextView otherEntriesFromUser;
+	
+	ListView listView;
+	
+	int adapterKind;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,20 +52,34 @@ public class ShowEntryActivity extends ActionBarActivity {
 
 		Intent intent = getIntent();
 		int id = intent.getExtras().getInt("id");
-		int adapterKind = intent.getExtras().getInt("adapterKind");
+		adapterKind = intent.getExtras().getInt("adapterKind");
 		
 		DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 		btn_deleteFromFavorites = (Button) findViewById(R.id.Btn_deleteFromFavorites);
 		btn_addToFavorites = (Button) findViewById(R.id.Btn_addToFavorites);
+		listView = (ListView) findViewById(R.id.listview_showEntry);
+		listView.setOnItemClickListener(this);
+		
 		
 		//loading entryList depending on adpaterKind--> 0=MyEntries,1=Searched Entries, 2=Favorites
 		//to get the right element/position from intent.extra
+		
 		switch (adapterKind) {
 		case 0:
 			CurrentEntry = RequestedList.MyEntries.get(id);
 			break;
 		case 1:
 			CurrentEntry = RequestedList.Entries.get(id);
+			
+			otherEntriesFromUser = (TextView) findViewById(R.id.txt_otherEntriesFromUsers);
+			otherEntriesFromUser.setVisibility(View.VISIBLE);
+			listView.setVisibility(View.VISIBLE);
+			
+			ArrayList<Entry> listItems;
+			listItems = Entries.getInstance().getEntriesByUserID(CurrentEntry.getUser_id());
+			listItems.remove(CurrentEntry);
+			if(listItems.isEmpty())otherEntriesFromUser.setText("No other entries offered by this User");
+			listView.setAdapter(new EntryAdapter(this, listItems, adapterKind));
 			break;
 		case 2:
 			CurrentEntry = db.getAllEntries().get(id);
@@ -66,6 +89,7 @@ public class ShowEntryActivity extends ActionBarActivity {
 		default:
 			break;
 		}
+		
 		
 		//show addToFavorite or deleteFromFavorite button depending if entry exists in database
 		if(db.exists(CurrentEntry))btn_deleteFromFavorites.setVisibility(View.VISIBLE);
@@ -131,6 +155,8 @@ public class ShowEntryActivity extends ActionBarActivity {
 				boolean isDeleted = db.deleteEntry(String.valueOf(CurrentEntry.getID()));
 				db.close();
 				if(isDeleted)Log.i("deleted","deleted");
+				Intent intent = new Intent(getApplicationContext(),EntryFavoritesActivity.class);
+				startActivity(intent);
 				Toast.makeText(getApplicationContext(), "Entry is deleted from Favorites", Toast.LENGTH_SHORT).show();
 			}
 		});
@@ -143,10 +169,21 @@ public class ShowEntryActivity extends ActionBarActivity {
 				String date = new SimpleDateFormat("dd-MM-yyyy HH:mm").format(new Date());
 				db.addEntry(CurrentEntry,date);
 				db.close();
-				Toast.makeText(getApplicationContext(), "Entry is added to Favorites", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), "Entry is added from Favorites", Toast.LENGTH_SHORT).show();
 			}
 		});
 
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		// TODO Auto-generated method stub
+		Intent intent = new Intent(getApplicationContext(),ShowEntryActivity.class);
+		intent.putExtra("id", id);
+		intent.putExtra("adapterKind", adapterKind);
+		startActivity(intent);
+		
 	}
 
 }
