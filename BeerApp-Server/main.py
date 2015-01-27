@@ -48,18 +48,17 @@ def show_entries():
 	productName = ""
 	productName = request.args.get('productName')
 	latitude = request.args.get('latitude')
-	print latitude
+	
 	longtitude = request.args.get('longtitude')
-	print longtitude
-	rad = float(request.args.get('radius'))
-	print categorie
+	rad = request.args.get('radius')
 	#assert half_side_in_miles > 0
 	latitude_in_degrees = (latitude)
 	longitude_in_degrees = (longtitude)
 	#assert latitude_in_degrees >= -180.0 and latitude_in_degrees  <= 180.0
 	#assert longitude_in_degrees >= -180.0 and longitude_in_degrees <= 180.0
-
-	half_side_in_km = rad/2#half_side_in_miles * 1.609344
+	if(rad == None):
+		rad=0.0
+	half_side_in_km = float(rad)/2#half_side_in_miles * 1.609344
 	lat = math.radians(float(latitude_in_degrees))
 	lon = math.radians(float(longitude_in_degrees))
 	radius  = 6371
@@ -77,27 +76,21 @@ def show_entries():
 	lon_min = rad2deg(lon_min)
 	lat_max = rad2deg(lat_max)
 	lon_max = rad2deg(lon_max)
-	print "latit_min"
-	print lat_min
-	print "latit_max"
-	print lat_max
-	print "lon_min"
-	print lon_min
-	print "lon_max"
-	print lon_max
 	db = get_db()
-	if(productName == None):
-		cur = db.execute('select * from entries where categorie = ? and longtitude > ? and longtitude < ? and latitude > ? and latitude < ?', [categorie,lon_min,lon_max,lat_min,lat_max])
+	if(categorie == None):
+		cur = db.execute('select * from entries where longtitude > ? and longtitude < ? and latitude > ? and latitude < ? and activ = "true"',[lon_min,lon_max,lat_min,lat_max])
 	else:
-		print productName
-		cur = db.execute('select * from entries where categorie = ? and longtitude > ? and longtitude < ? and latitude > ? and latitude < ? and productName = ?', [categorie,lon_min,lon_max,lat_min,lat_max,productName])
+		if(productName == None):
+			cur = db.execute('select * from entries where categorie = ? and longtitude > ? and longtitude < ? and latitude > ? and latitude < ? and activ = "true"', [categorie,lon_min,lon_max,lat_min,lat_max])
+		else:
+			cur = db.execute('select * from entries where categorie = ? and longtitude > ? and longtitude < ? and latitude > ? and latitude < ? and productName = ? and activ = "true"', [categorie,lon_min,lon_max,lat_min,lat_max,productName])
 	#print cur.fetchall()
 	#entries = cur.fetchall()
 	entries = []
 	i = 0
 	for row in cur.fetchall():
-		print row[0]
-               	row = list(row)
+		print row;
+          	row = list(row)
 		if row[0] == None:
 			row[0]=" "
 		if row[1] == None:
@@ -127,7 +120,7 @@ def show_entries():
 		if row[14] == None:
 			row[14] = "false";
 		row = tuple(row)  
-		entries.append(dict(id=row[0],user_id=row[1], categorie=row[2].encode('utf-8'), productName=row[3].encode('utf-8'), text=row[4].encode('utf-8'), price=row[5], quantity=row[6], contactDetails=row[7].encode('utf-8'), latitude=row[8], longtitude=row[9], Timezone=row[10].encode('utf-8'), beginTime=row[11].encode('utf-8'), endTime=row[12].encode('utf-8'),retry=row[13].encode('utf-8'),active=row[14].encode('utf-8') ))
+		entries.append(dict(id=row[0],user_id=row[1], categorie=row[2].encode('utf-8'), productName=row[3].encode('utf-8'), text=row[4].encode('utf-8'), price=row[5], quantity=row[6], contactDetails=row[7].encode('utf-8'), longtitude=row[8], latitude=row[9], Timezone=row[10].encode('utf-8'), beginTime=row[11].encode('utf-8'), endTime=row[12].encode('utf-8'),retry=row[13].encode('utf-8'),active=row[14].encode('utf-8') ))
 	return render_template('show_entries.html',entries = entries)
 @app.route('/My')
 def show_my_entries():
@@ -148,13 +141,15 @@ def show_my_entries():
 @app.route('/activate',methods=['GET'])
 def activate():
 	id = request.args.get('id');
-	ret = g.db.execute("update entries set activ = 'true' where id = ?",[1]);
+	print id;
+	ret = g.db.execute("update entries set activ = 'true' where id = ?",[id]);
 	g.db.commit();
 	return"ok"
 @app.route('/deactivate',methods=['GET'])
 def deactivate():
         id = request.args.get('id');
-        ret = g.db.execute("update entries set activ = 'false' where id = ?",[1]);
+	print id;
+        ret = g.db.execute("update entries set activ = 'false' where id = ?",[id]);
         g.db.commit();
         return"ok"
 
