@@ -34,7 +34,7 @@ public class Entry {
 
 	public Entry(int id, String category, String productName, float price, int quantity,
 			String contactDetails, float latitude, float longtitude,
-			Calendar beginTime, Calendar endTime, int userId, boolean active) {
+			Calendar beginTime, Calendar endTime, int userId, boolean active,boolean retry) {
 		this.id=id;
 		this.category = category;
 		this.productName = productName;
@@ -52,7 +52,7 @@ public class Entry {
 	// constructor with Times as String for SQLiteDBHandler
 	public Entry(int id, String category, String productName, float price, int quantity,
 			String contactDetails, float latitude, float longtitude,
-			String beginTimeString, String endTimeString,int user_id,boolean active) {
+			String beginTimeString, String endTimeString,int user_id,boolean active,boolean retry) {
 		this.id = id;
 		this.category = category;
 		this.productName = productName;

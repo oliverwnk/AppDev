@@ -55,9 +55,9 @@ public class Entries {
 	}
 	public void addEntrie(int id, String category, String productName, float price, int quantity,
 			String contactDetails, float latitude, float longtitude,
-			String beginTimeString, String endTimeString,int userId,boolean active)
+			String beginTimeString, String endTimeString,int userId,boolean active,boolean retry)
 	{
-		Entry e = new Entry(id, category,productName,price,quantity,contactDetails,longtitude, latitude,beginTimeString,endTimeString,userId,active);
+		Entry e = new Entry(id, category,productName,price,quantity,contactDetails,longtitude, latitude,beginTimeString,endTimeString,userId,active,retry);
 
 		Entries.add(e);
 	}
@@ -85,9 +85,9 @@ public class Entries {
 	
 	public void addMyEntry(int id, String category, String productName, float price, int quantity,
 			String contactDetails, float latitude, float longtitude,
-			String beginTimeString, String endTimeString,int userId,boolean active)
+			String beginTimeString, String endTimeString,int userId,boolean active,boolean retry)
 	{
-		Entry e = new Entry(id, category,productName,price,quantity,contactDetails,longtitude, latitude,beginTimeString,endTimeString,userId,active);
+		Entry e = new Entry(id, category,productName,price,quantity,contactDetails,longtitude, latitude,beginTimeString,endTimeString,userId,active,retry);
 		MyEntries.add(e);
 	}
 	

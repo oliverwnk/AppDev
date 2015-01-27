@@ -129,6 +129,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         		cursor.getString(9),
         		cursor.getString(10),
         		cursor.getInt(11),
+        		true,
         		true);
      
         db.close();
@@ -189,6 +190,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                  		cursor.getString(9),
                  		cursor.getString(10),
                  		cursor.getInt(11),
+                 		true,
                  		true);
   
                 // Add book to books
