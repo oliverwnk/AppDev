@@ -9,7 +9,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        layout="@layout/toolbar"/>
+        layout="@layout/toolbar_entries"/>
    
     
     <LinearLayout
@@ -73,4 +73,5 @@
     
 
 </LinearLayout>
+
 </LinearLayout>

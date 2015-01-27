@@ -69,7 +69,7 @@ public class MainActivity extends ActionBarActivity implements
 		editor.commit();
 		mContext = this;
 		gpsLocation = new GpsLocation(mContext, this);
-		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_entries);
 		if (toolbar != null) {
 			setSupportActionBar(toolbar);
 		}
