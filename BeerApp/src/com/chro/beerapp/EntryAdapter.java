@@ -62,6 +62,10 @@ public class EntryAdapter extends BaseAdapter {
 			holder.txtCategory = (TextView) convertView
 					.findViewById(R.id.entry_category);
 			convertView.setTag(holder);
+			int n = position;
+			boolean b = entryList.get(position).getActive();
+			holder.tButton.setChecked(entryList.get(position).getActive());
+
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 
@@ -70,22 +74,35 @@ public class EntryAdapter extends BaseAdapter {
 		holder.txtName.setText(entryList.get(position).getProductName());
 		holder.txtCategory.setText(String.valueOf(entryList.get(position)
 				.getCategory()));
+
 		// set on click listener for multiple views within the listitem
 
 		if (adapterKind == 0) {
+			/**
+			*    Ensure no other setOnCheckedChangeListener is attached before you manually
+			*    change its state.
+			*/
+			holder.tButton.setOnCheckedChangeListener(null);
+			if(entryList.get(position).getActive()) holder.tButton.setChecked(true);
+			else holder.tButton.setChecked(false);
 			holder.tButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+				
 			    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 			    	ProgressDialog dialog = ProgressDialog.show(context, "Sending Activation", "Please wait ...",true);
 		        	ConnectionActivate req = new ConnectionActivate(context,dialog);
+		        	int n = position;
 			        if (isChecked) {
+			        	
 			            // The toggle is enabled
 			    		
-			        	
+			        	entryList.get(position).setActive(true);
 			        	req.execute(String.valueOf(entryList.get(position).getID()),"true");
 			        	Toast.makeText(context, String.valueOf(entryList.get(position).getID()) ,
 								Toast.LENGTH_SHORT).show();
 			        } else {
 			            // The toggle is disabled
+			        	entryList.get(position).setActive(false);
+
 			        	req.execute(String.valueOf(entryList.get(position).getID()),"false");
 			        	Toast.makeText(context, "switch disabled ",
 								Toast.LENGTH_SHORT).show();

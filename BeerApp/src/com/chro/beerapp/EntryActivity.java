@@ -52,7 +52,7 @@ public class EntryActivity extends ActionBarActivity implements OnItemClickListe
 		DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 		
 		if(adapterKind==0)
-		listItems = Entries.getInstance().MyEntries;
+			listItems = Entries.getInstance().MyEntries;
 		else{
 			if(adapterKind==1)
 			listItems = Entries.getInstance().Entries;

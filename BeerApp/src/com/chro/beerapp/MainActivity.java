@@ -129,7 +129,16 @@ public class MainActivity extends ActionBarActivity implements
 				Intent intent = new Intent(getApplicationContext(),
 						MapActivity.class);
 				intent.putExtra(LAST_LOCATION, mCurrentLocation);
-				startActivity(intent);
+				ProgressDialog dialog = ProgressDialog.show(mContext, "Getting Your entries", "Please wait...", true);
+				SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
+				SharedPreferences.Editor editor = prefs.edit();
+				int id = prefs.getInt("id", -1);
+				editor.commit();
+				prefs = getSharedPreferences("settings", MODE_PRIVATE);
+				Integer radius = prefs.getInt("radius", 0);
+				ConnectionSearch search = new ConnectionSearch(getApplicationContext(),dialog,MapActivity.class);
+				search.execute("",String.valueOf(mCurrentLocation.getLongitude()),String.valueOf(mCurrentLocation.getLatitude()),radius.toString(),"","");
+				//startActivity(intent);
 			}
 
 		});

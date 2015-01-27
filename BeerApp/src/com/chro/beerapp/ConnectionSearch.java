@@ -22,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.R.string;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -33,9 +34,13 @@ public class ConnectionSearch extends AsyncTask<String, String, String>{
 	
 	
 	Context context;
-	ConnectionSearch(Context context)
+	ProgressDialog dialog;
+	Class<?> cls;
+	ConnectionSearch(Context context,ProgressDialog dialog,Class <?> cls)
 	{
+		this.cls = cls;
 		this.context = context;
+		this.dialog = dialog;
 	}
 	public String Search(int Categorie,float latiude,float longitude,int Radius) throws ClientProtocolException, IOException
 	{
@@ -75,10 +80,13 @@ public class ConnectionSearch extends AsyncTask<String, String, String>{
 	        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 	        
 	        //nameValuePairs.add(new BasicNameValuePair("description", params[0]));
-	        nameValuePairs.add(new BasicNameValuePair("categorie", params[1]));
-	        nameValuePairs.add(new BasicNameValuePair("longtitude", params[2]));
-	        nameValuePairs.add(new BasicNameValuePair("latitude", params[3]));
-	        nameValuePairs.add(new BasicNameValuePair("radius", params[4]));
+	        nameValuePairs.add(new BasicNameValuePair("longtitude", params[1]));
+	        nameValuePairs.add(new BasicNameValuePair("latitude", params[2]));
+	        nameValuePairs.add(new BasicNameValuePair("radius", params[3]));
+	        if(!params[4].equals(""))
+	        {
+	        	nameValuePairs.add(new BasicNameValuePair("categorie", params[4]));
+	        }
 	        if(!params[5].equals(""))
 	        {
 		        nameValuePairs.add(new BasicNameValuePair("productName", params[5]));
@@ -109,12 +117,13 @@ public class ConnectionSearch extends AsyncTask<String, String, String>{
 		Entries e = Entries.getInstance();
 		JSONObject j;
 		JSONArray array;
+		dialog.cancel();
 		if(responseStr.equals(""))
 		{
 	    	CharSequence text = "Error connecting please try again later";
 	    	Toast t = Toast.makeText(context,text,Toast.LENGTH_LONG);
 	    	t.show();
-			Intent i = new Intent(context, EntrySearchActivity.class); 
+			Intent i = new Intent(context, cls); 
 			i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
 			context.startActivity(i); 
 			return ;
@@ -130,7 +139,7 @@ public class ConnectionSearch extends AsyncTask<String, String, String>{
 				e.addEntrie(j.getInt("id"), j.getString("categorie"), j.getString("productName"), (float)(j.getDouble("price")), j.getInt("quantity"), j.getString("contactDetails"), (float)j.getDouble("latitude"), (float)(j.getDouble("longtitude")), j.getString("beginTime"),j.getString("endTime"),-1,j.getBoolean("active"));
 
 			}
-			Intent i = new Intent(context, EntrySearchActivity.class); 
+			Intent i = new Intent(context, cls); 
 			i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
 			context.startActivity(i); 
 			//context.startActivity(new Intent(context, EntryActivity.class));
