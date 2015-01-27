@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.woodchro.bemystore.R;
 
@@ -130,8 +131,7 @@ public class ShowEntryActivity extends ActionBarActivity {
 				boolean isDeleted = db.deleteEntry(String.valueOf(CurrentEntry.getID()));
 				db.close();
 				if(isDeleted)Log.i("deleted","deleted");
-				Intent intent = new Intent(getApplicationContext(),EntryFavoritesActivity.class);
-				startActivity(intent);
+				Toast.makeText(getApplicationContext(), "Entry is deleted from Favorites", Toast.LENGTH_SHORT).show();
 			}
 		});
 		
@@ -143,8 +143,7 @@ public class ShowEntryActivity extends ActionBarActivity {
 				String date = new SimpleDateFormat("dd-MM-yyyy HH:mm").format(new Date());
 				db.addEntry(CurrentEntry,date);
 				db.close();
-				Intent intent = new Intent(getApplicationContext(),EntryFavoritesActivity.class);
-				startActivity(intent);
+				Toast.makeText(getApplicationContext(), "Entry is added to Favorites", Toast.LENGTH_SHORT).show();
 			}
 		});
 

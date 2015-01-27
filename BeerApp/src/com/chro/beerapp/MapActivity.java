@@ -305,6 +305,7 @@ public class MapActivity extends ActionBarActivity implements
 						ShowEntryActivity.class);
 				int markerPosition = markerToEntryMap.get(marker.getId());
 				intent.putExtra("id", markerPosition);
+				intent.putExtra("adapterKind", 1);
 				startActivity(intent);
 			}
 		});
