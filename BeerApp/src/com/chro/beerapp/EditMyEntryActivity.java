@@ -1,7 +1,9 @@
 package com.chro.beerapp;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -11,6 +13,7 @@ import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.MediaRouter.SimpleCallback;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
@@ -65,9 +68,10 @@ public class EditMyEntryActivity extends CreateEntryActivity {
 		editNumber.setText(currentEntry.getContactDetails());
 		
 		TextView timeBegin = (TextView)findViewById(R.id.timeBegin);
-		timeBegin.setText(currentEntry.getBeginTimeAsString());
-		
+		String timeBeginString = new SimpleDateFormat("HH:mm").format(currentEntry.getBeginTime().getTime());
+		timeBegin.setText(timeBeginString);
 		TextView timeEnd = (TextView)findViewById(R.id.timeEnd);
-		timeEnd.setText(currentEntry.getEndTimeAsString());
+		String timeEndString = new SimpleDateFormat("HH:mm").format(currentEntry.getEndTime().getTime());
+		timeEnd.setText(timeEndString);
 	}
 }
