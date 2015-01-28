@@ -9,130 +9,225 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         layout="@layout/toolbar" />
-    
+
     <View
-    android:layout_width="fill_parent"
-    android:layout_height="1dp"
-    android:background="@android:color/darker_gray"/>
-    
-    <TextView
-            android:id="@+id/txt_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/txt_dateEntryFrom"
-            android:layout_margin="10dp"
-            android:layout_gravity="center"
-            android:visibility="gone"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        
-        
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Labl_Begin"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="" />
-
-        <TextView
-            android:id="@+id/txt_timeBegin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="11:00"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Labl_End"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/txt_timeEnd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="12:00"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </LinearLayout>
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
 
     <TextView
-        android:id="@+id/txt_Category"
+        android:id="@+id/txt_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Labl_Kategorie"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:text="@string/txt_dateEntryFrom"
+        android:visibility="gone" />
 
-    <TextView
-        android:id="@+id/txt_PrdctName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Labl_PrdctName"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
 
-    
-    <TextView
-        android:id="@+id/txt_otherEntriesFromUsers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Andere Artikel des Benutzers"
-        android:textAppearance="?android:attr/textAppearanceLarge" 
-        android:layout_marginTop="10dp"
-        android:visibility="gone"/>
-    
-    <ListView
-        android:id="@+id/listview_showEntry"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone" >
-    </ListView>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
 
-    
-    
-     <Button
-        android:id="@+id/Btn_OpenMap"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        style="@style/CustomStyleButton"
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="15dp"
-        android:text="@string/Btn_OpenMap"/>
-     
-     <Button
-        android:id="@+id/Btn_deleteFromFavorites"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        style="@style/CustomStyleButton"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="15dp"
-        android:text="Delete from my favorites"
-        android:visibility="gone"/>
-     
-      <Button
-        android:id="@+id/Btn_addToFavorites"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        style="@style/CustomStyleButton"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="15dp"
-        android:text="Add to my favorites"
-        android:visibility="gone"/>
+
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="@string/Labl_Begin" />
+
+               
+
+                <TextView
+                    android:id="@+id/txt_timeBegin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="11:00"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+          
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="@android:color/darker_gray" />
+
+            
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Labl_End" />
+
+                <TextView
+                    android:id="@+id/txt_timeEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12:00"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+         
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Labl_PrdctName" />
+
+            <TextView
+                android:id="@+id/txt_PrdctName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Labl_PrdctName"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Labl_Kategorie" />
+
+            <TextView
+                android:id="@+id/txt_Category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Labl_Kategorie"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Labl_Price" />
+
+            <TextView
+                android:id="@+id/txt_PriceShowEntry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Labl_PrdctName"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            
+             <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Labl_Quantity" />
+
+            <TextView
+                android:id="@+id/txt_AmountShowEntry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Labl_PrdctName"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Labl_Contact" />
+            
+            <TextView
+                android:id="@+id/txt_numberShowEntry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Labl_PrdctName"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="@android:color/darker_gray" />
+
+             <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+             >
+            <Button
+                android:id="@+id/Btn_OpenMap"
+                style="@style/CustomStyleButton"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:gravity="center_horizontal"
+                android:text="@string/Btn_OpenMap" />
+
+            <Button
+                android:id="@+id/Btn_deleteFromFavorites"
+                style="@style/CustomStyleButton"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:gravity="center_horizontal"
+                android:text="Delete from my favorites"
+                android:layout_toRightOf="@id/Btn_OpenMap"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/Btn_addToFavorites"
+                style="@style/CustomStyleButton"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:gravity="center_horizontal"
+                android:layout_toRightOf="@id/Btn_OpenMap"
+                android:text="Add to my favorites"
+                android:visibility="gone" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/txt_otherEntriesFromUsers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/Lbl_articelsOfUser"
+                android:visibility="gone" />
+
+            <ListView
+                android:id="@+id/listview_showEntry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone" >
+            </ListView>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

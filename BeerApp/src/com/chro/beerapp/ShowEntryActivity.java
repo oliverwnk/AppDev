@@ -40,6 +40,9 @@ public class ShowEntryActivity extends ActionBarActivity implements OnItemClickL
 	TextView BegTime;
 	TextView EndTime;
 	TextView otherEntriesFromUser;
+	TextView price;
+	TextView amount;
+	TextView number;
 	
 	ListView listView;
 	
@@ -114,10 +117,12 @@ public class ShowEntryActivity extends ActionBarActivity implements OnItemClickL
 		EndTime = (TextView) findViewById(R.id.txt_timeEnd);
 		EndTime.setText(CurrentEntry.getEndTime().get(Calendar.HOUR_OF_DAY)
 				+ ":" + CurrentEntry.getEndTime().get(Calendar.MINUTE));
-		/* @TODO Add Quantity and Price to the view */
-		// CurrentEntry.getProductName();
-		// CurrentEntry.getPrice();
-		// CurrentEntry.getQuantity();
+		price = (TextView)findViewById(R.id.txt_PriceShowEntry);
+		price.setText(String.valueOf(CurrentEntry.getPrice())+"0 €");
+		amount = (TextView)findViewById(R.id.txt_AmountShowEntry);
+		amount.setText(String.valueOf(CurrentEntry.getQuantity()));
+		number = (TextView)findViewById(R.id.txt_numberShowEntry);
+		number.setText(String.valueOf(CurrentEntry.getContactDetails()));
 
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		if (toolbar != null) {
@@ -190,6 +195,7 @@ public class ShowEntryActivity extends ActionBarActivity implements OnItemClickL
 		intent.putExtra("adapterKind", adapterKind);
 		intent.putExtra("userId", CurrentEntry.getUser_id());
 		startActivity(intent);
+		finish();
 		
 	}
 
