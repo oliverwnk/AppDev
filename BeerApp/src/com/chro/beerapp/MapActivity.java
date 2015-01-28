@@ -285,7 +285,7 @@ public class MapActivity extends ActionBarActivity implements
 					.position(latlng)
 					.title(e.getProductName())
 					.snippet(
-							"Preis: " + String.valueOf(e.getPrice()) + "Euro   "
+							"Preis: " + String.valueOf(e.getPrice()) + " €   "
 									+ "Menge: "
 									+ String.valueOf(e.getQuantity())));
 			markerToEntryMap.put(marker.getId(), position);
@@ -311,7 +311,7 @@ public class MapActivity extends ActionBarActivity implements
 		});
 		LatLngBounds bounds = builder.build();
 		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds,
-				150);
+				250);
 		map.moveCamera(cameraUpdate);
 	}
 

@@ -12,11 +12,10 @@
         
         layout="@layout/toolbar"/>
 
-     <TextView
-         android:id="@+id/myLocationText"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:ems="10" />
+     <View
+    android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:color/darker_gray"/>
 
     
     <fragment
