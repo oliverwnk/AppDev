@@ -53,6 +53,7 @@ public class CreateEntryActivity extends ActionBarActivity implements
 	GpsLocation gpsLocation;
 	boolean gpsResult;
 	private Location mCurrentLocation;
+	int id = -1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -230,7 +231,7 @@ public class CreateEntryActivity extends ActionBarActivity implements
 						.getText().toString(), Kategorie.getSelectedItem()
 						.toString(), price.getText().toString(), amount
 						.getText().toString(), contact.getText().toString(), s,
-						productName.getText().toString(),longt,lalt);
+						productName.getText().toString(),longt,lalt,String.valueOf(id));
 				finish();
 				//ConnectionMy My = new ConnectionMy(mContext,dialog);
 				//My.execute(String.valueOf(id));
