@@ -122,6 +122,48 @@ def show_entries():
 		row = tuple(row)  
 		entries.append(dict(id=row[0],user_id=row[1], categorie=row[2].encode('utf-8'), productName=row[3].encode('utf-8'), text=row[4].encode('utf-8'), price=row[5], quantity=row[6], contactDetails=row[7].encode('utf-8'), longtitude=row[8], latitude=row[9], Timezone=row[10].encode('utf-8'), beginTime=row[11].encode('utf-8'), endTime=row[12].encode('utf-8'),retry=row[13].encode('utf-8'),active=row[14].encode('utf-8') ))
 	return render_template('show_entries.html',entries = entries)
+@app.route('/getentrybyid')
+def show_id_entry():
+	user_id = request.args.get('user_id')
+	db = get_db()
+	cur = db.execute('select * from entries where id = ? and activ = "true"', [user_id]) 
+        entries = []
+        i = 0
+        for row in cur.fetchall():
+                print row;
+                row = list(row)
+                if row[0] == None:
+                        row[0]=" "
+                if row[1] == None:
+                        row[1]=" "
+                if row[2] == None:
+                        row[2] =" "
+                if row[3] == None:
+                        row[3]=" "
+                if row[4] == None:
+                        row[4]=" "
+                if row[5] == None:
+                        row[5]=" "
+                if row[6] == None:
+                        row[6] =" "
+                if row[7] == None:
+                        row[7]=" "
+                if row[8] == None:
+                        row[8]=" "
+                if row[9] == None:
+                        row[9] =" "
+                if row[10] == None:
+                        row[10]=" "
+                if row[11] == None:
+                        row[11]=" "
+                if row[12] == None:
+                        row[12] =" "
+                if row[14] == None:
+                        row[14] = "false";
+                row = tuple(row)
+                entries.append(dict(id=row[0],user_id=row[1], categorie=row[2].encode('utf-8'), productName=row[3].encode('utf-8'), text=row[4].encode('utf-8'), price=row[5], quantity=row[6], contactDetails=row[7].encode('utf-8'), longtitude=row[8], latitude=row[9], Timezone=row[10].encode('utf-8'), beginTime=row[11].encode('utf-8'), endTime=row[12].encode('utf-8'),retry=row[13].encode('utf-8'),active=row[14].encode('utf-8') ))
+        return render_template('show_entries.html',entries = entries)
+
 @app.route('/My')
 def show_my_entries():
 	db = get_db()
@@ -170,8 +212,14 @@ def show_add():
 	endTime = request.args.get('endTime')
 	retry = request.args.get('retry')
 	activ = request.args.get('activ')
-	ret = g.db.execute('insert into entries (user_id,categorie,productName,name,price,quantity,contactDetails,latitude,longtitude,Timezone,beginTime,endTime,retry,activ) values (?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?)',[user, categorie, productName, text, price,  quanity, contactDetails, latitude, longtitude, Timezone, beginTime, endTime, retry, activ])
-	g.db.commit();
+	id = request.args.get('id')
+	cur = g.db.execute('select * from entries')
+	i = len(cur.fetchall())
+	if id >= i :
+		ret = g.db.execute('update entries set user_id = ? ,categorie = ?,productName = ?,name = ?,price = ?,quantity = ?,contactDetails = ?,latitude = ?,longtitude = ?,Timezone = ?,beginTime = ?,endTime = ?,retry = ?,activ = ? where id = ?',[user, categorie, productName, text, price,  quanity, contactDetails, latitude, longtitude, Timezone, beginTime, endTime, retry, activ,id])	
+	else:
+		ret = g.db.execute('insert into entries (user_id,categorie,productName,name,price,quantity,contactDetails,latitude,longtitude,Timezone,beginTime,endTime,retry,activ) values (?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?, ?)',[user, categorie, productName, text, price,  quanity, contactDetails, latitude, longtitude, Timezone, beginTime, endTime, retry, activ])
+		g.db.commit();
 	return "ok"
 @app.route('/getID',methods=['GET'])
 def getId():
@@ -179,6 +227,7 @@ def getId():
 	i = len(cur.fetchall())
 	g.db.execute('insert into users (user_id) values (?)' ,[""])
 	g.db.commit()
+	i+=1
 	return ""+str(i)
 if __name__ == '__main__':
     app.run(host="192.168.1.148",port=5000)
