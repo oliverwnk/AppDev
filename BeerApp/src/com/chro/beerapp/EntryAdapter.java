@@ -77,7 +77,7 @@ public class EntryAdapter extends BaseAdapter {
 		holder.txtName.setText(entryList.get(position).getProductName());
 		holder.txtCategory.setText(String.valueOf(entryList.get(position)
 				.getCategory()));
-		holder.txtPrice.setText("Price: " + String.valueOf(entryList.get(position)
+		holder.txtPrice.setText("Price: " + String.format("%.2f",entryList.get(position)
 				.getPrice()) + " €");
 		holder.txtAmount.setText("Amount: " + String.valueOf(entryList.get(position)
 				.getQuantity()));

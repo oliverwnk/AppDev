@@ -114,10 +114,10 @@ public class ShowEntryActivity extends ActionBarActivity implements OnItemClickL
 		PrdctName.setText(CurrentEntry.getProductName());
 		BegTime = (TextView) findViewById(R.id.txt_timeBegin);
 		BegTime.setText(CurrentEntry.getBeginTime().get(Calendar.HOUR_OF_DAY)
-				+ ":" + CurrentEntry.getBeginTime().get(Calendar.MINUTE));
+				+ ":" + String.format("%02d",CurrentEntry.getBeginTime().get(Calendar.MINUTE)));
 		EndTime = (TextView) findViewById(R.id.txt_timeEnd);
 		EndTime.setText(CurrentEntry.getEndTime().get(Calendar.HOUR_OF_DAY)
-				+ ":" + CurrentEntry.getEndTime().get(Calendar.MINUTE));
+				+ ":" + String.format("%02d",CurrentEntry.getEndTime().get(Calendar.MINUTE)));
 		price = (TextView)findViewById(R.id.txt_PriceShowEntry);
 		price.setText(String.valueOf(CurrentEntry.getPrice())+"0 €");
 		amount = (TextView)findViewById(R.id.txt_AmountShowEntry);
