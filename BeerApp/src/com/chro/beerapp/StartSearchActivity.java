@@ -46,7 +46,8 @@ public class StartSearchActivity extends Activity implements OnItemClickListener
 	@Override
 	public void onItemClick(AdapterView<?> l, View v, int id, long pos) {
 		Intent intent = new Intent(getApplicationContext(),ShowEntryActivity.class);
-		intent.putExtra("id", id);
+		long lid = ((long)id);
+		intent.putExtra("id", lid);
 		startActivity(intent);
 		Log.i("HelloListView", "You clicked Item: " + id + " at position:" + pos);
 		

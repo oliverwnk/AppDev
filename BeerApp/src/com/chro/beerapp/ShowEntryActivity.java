@@ -51,7 +51,9 @@ public class ShowEntryActivity extends ActionBarActivity implements OnItemClickL
 		setContentView(R.layout.show_entry);
 
 		Intent intent = getIntent();
-		int id = intent.getExtras().getInt("id");
+		int id = (int)intent.getExtras().getLong("id");
+		if(id == 0)
+			id = (int)intent.getExtras().getInt("id");
 		adapterKind = intent.getExtras().getInt("adapterKind");
 		int userId = intent.getExtras().getInt("userId");
 		

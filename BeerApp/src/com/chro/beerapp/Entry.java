@@ -112,12 +112,15 @@ public class Entry {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm",
 				Locale.US);
 		Calendar cal = Calendar.getInstance();
-		try {
-			cal.setTime(sdf.parse(dateString));
-		} catch (ParseException e) {
+		//try {
+			String[] s = dateString.split(":");
+			cal.set(Calendar.HOUR_OF_DAY, Integer.valueOf(s[0]));
+			cal.set(Calendar.MINUTE, Integer.valueOf(s[1]));
+			//cal.setTime(sdf.parse(dateString));
+		//} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//	e.printStackTrace();
+		//}
 		return cal;
 	}
 
