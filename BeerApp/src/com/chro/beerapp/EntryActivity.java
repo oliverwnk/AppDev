@@ -103,6 +103,7 @@ public class EntryActivity extends ActionBarActivity implements
 			intent.putExtra("adapterKind", adapterKind);
 		}
 		startActivity(intent);
+		finish();
 	}
 
 }
