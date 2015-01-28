@@ -68,10 +68,12 @@ public class EditMyEntryActivity extends CreateEntryActivity {
 		editNumber.setText(currentEntry.getContactDetails());
 		
 		TextView timeBegin = (TextView)findViewById(R.id.timeBegin);
+		Calendar c = currentEntry.getBeginTime();
 		String timeBeginString = new SimpleDateFormat("HH:mm").format(currentEntry.getBeginTime().getTime());
 		timeBegin.setText(timeBeginString);
 		TextView timeEnd = (TextView)findViewById(R.id.timeEnd);
 		String timeEndString = new SimpleDateFormat("HH:mm").format(currentEntry.getEndTime().getTime());
 		timeEnd.setText(timeEndString);
+		super.id = currentEntry.getID();
 	}
 }

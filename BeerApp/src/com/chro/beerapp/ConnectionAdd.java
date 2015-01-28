@@ -56,7 +56,7 @@ public class ConnectionAdd extends AsyncTask<String, String, String>{
         nameValuePairs.add(new BasicNameValuePair("productName", 		params[8]));
         nameValuePairs.add(new BasicNameValuePair("longtitude", 		params[9]));
         nameValuePairs.add(new BasicNameValuePair("latitude", 		params[10]));
-        if(!params[11].equals(""))
+        if(!params[11].equals("-1"))
         {
             nameValuePairs.add(new BasicNameValuePair("id", 		params[11]));
         }

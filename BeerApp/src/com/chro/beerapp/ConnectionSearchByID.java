@@ -30,15 +30,16 @@ import android.text.Html;
 import android.util.Log;
 import android.widget.Toast;
 
-public class ConnectionMy extends AsyncTask<String, String, String>{
+public class ConnectionSearchByID extends AsyncTask<String, String, String>{
 	
 	
 	Context context;
 	ProgressDialog dialog;
-	ConnectionMy(Context context, ProgressDialog dialog)
+	Class<?> cls;
+	ConnectionSearchByID(Context context,ProgressDialog dialog)
 	{
-		this.dialog=dialog;
 		this.context = context;
+		this.dialog = dialog;
 	}
 	public String Search(int Categorie,float latiude,float longitude,int Radius) throws ClientProtocolException, IOException
 	{
@@ -71,16 +72,17 @@ public class ConnectionMy extends AsyncTask<String, String, String>{
 	protected String doInBackground(String... params) {
 		// Create a new HttpClient and Post Header
 	    HttpClient httpclient = new DefaultHttpClient();
-	    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-        
-        nameValuePairs.add(new BasicNameValuePair("user", params[0]));
-  
-    	String req = URLEncodedUtils.format(nameValuePairs, "utf-8");
-	    HttpGet httpget = new HttpGet("http://141.30.224.219:5000/My?"+req);
+
 	    String responseStr = "";
 	    try {
 	        // Add your data
-	       
+	        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+	        
+	        //nameValuePairs.add(new BasicNameValuePair("description", params[0]));
+	        nameValuePairs.add(new BasicNameValuePair("user_id", params[0]));
+	        
+	    	String req = URLEncodedUtils.format(nameValuePairs, "utf-8");
+		    HttpGet httpget = new HttpGet("http://141.30.224.219:5000/getentrybyid?"+ req);
 	       // httpget.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 	        // Execute HTTP Post Request
@@ -105,7 +107,6 @@ public class ConnectionMy extends AsyncTask<String, String, String>{
 		JSONObject j;
 		JSONArray array;
 		dialog.cancel();
-		e.MyEntries.clear();
 		if(responseStr.equals(""))
 		{
 	    	CharSequence text = "Error connecting please try again later";
@@ -116,15 +117,14 @@ public class ConnectionMy extends AsyncTask<String, String, String>{
 		try {
 			responseStr = Html.fromHtml(responseStr).toString();
 			array = new JSONArray(responseStr);
+			//if(array.length() > 0)
+				e.Del();
 			for(int n = 0; n < array.length();n++)
 			{
 				j = array.getJSONObject(n);
-				e.addMyEntry(j.getInt("id"), j.getString("categorie"), j.getString("productName"), (float)(j.getDouble("price")), j.getInt("quantity"), j.getString("contactDetails"), (float)j.getDouble("latitude"), (float)(j.getDouble("longtitude")), j.getString("beginTime"),j.getString("endTime"),j.getInt("user_id"),j.getBoolean("active"),j.getBoolean("retry"));
-			}
+				e.addEntrie(j.getInt("id"), j.getString("categorie"), j.getString("productName"), (float)(j.getDouble("price")), j.getInt("quantity"), j.getString("contactDetails"), (float)j.getDouble("latitude"), (float)(j.getDouble("longtitude")), j.getString("beginTime"),j.getString("endTime"),j.getInt("user_id"),j.getBoolean("active"),j.getBoolean("retry"));
 
-			Intent i = new Intent(context, EntryActivity.class); 
-			i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
-			context.startActivity(i); 
+			}
 			//context.startActivity(new Intent(context, EntryActivity.class));
 			return;
 			
