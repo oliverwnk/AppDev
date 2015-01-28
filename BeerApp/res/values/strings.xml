@@ -3,25 +3,26 @@
 
     <string name="app_name">BeMyStore</string>
     <string name="action_settings">Settings</string>
-    <string name="action_MyEntries">Meine Anzeigen</string>
+    <string name="action_MyEntries">My Entries</string>
     <string name="Header">BeMyStore</string>
-    <string name="Btn_Search">Suche</string>
-    <string name="Btn_OpenMap">Auf Karte anzeigen</string>
-    <string name="Btn_New_Search">neue Suche</string>
-    <string name="Btn_Map">Umgebung</string>
-    <string name="Btn_MyEntry">Meine Eintraege</string>
-    <string name="Btn_Settings">Optionen</string>
-    <string name="Btn_CreateEntry">Eintrag erstellen</string>
+    <string name="Btn_Search">Search</string>
+    <string name="Btn_OpenMap">Show Entry on Map</string>
+    <string name="Btn_New_Search">New Search</string>
+    <string name="Btn_Map">Map</string>
+    <string name="Btn_MyEntry">My Entries</string>
+    <string name="Btn_Settings">Settings</string>
+    <string name="Btn_CreateEntry">Create New Entry</string>
     <string name="Btn_FirstEntry">Ein Eintrag</string>
     <string name="Btn_MyFavorites">My Favorites</string>
-    <string name="Labl_Begin">Von:</string>
-    <string name="Labl_End">Bis:</string>
-    <string name="Labl_Category">Kategorie:</string>
-    <string name="Bx_Period">Regelmässig</string>
+    <string name="Labl_Begin">From</string>
+    <string name="Labl_End">To</string>
+    <string name="Labl_Category">Category</string>
+    <string name="Lbl_articelsOfUser">All articels of User</string>
+    <string name="Bx_Period">Repeat</string>
     <string name="Labl_PrdctName">Productname</string>
-    <string name="Labl_Price">Preis</string>
-    <string name="Labl_Quantity">Menge</string>
-    <string name="Labl_Contact">HandyNr:</string>
+    <string name="Labl_Price">Price</string>
+    <string name="Labl_Quantity">Amount</string>
+    <string name="Labl_Contact">Contact</string>
 
     <string-array name="Categories">
         <item>Beer</item>
@@ -29,11 +30,11 @@
         <item>Snacks</item>
     </string-array>
 
-    <string name="Labl_Kategorie">Kategorie</string>
-    <string name="Labl_Search">Suche</string>
-    <string name="Labl_save">Speichern</string>
-    <string name="Labl_ShopName">Dein Name</string>
-    <string name="Labl_searchRadius">Suchradius</string>
+    <string name="Labl_Kategorie">Category</string>
+    <string name="Labl_Search">Search</string>
+    <string name="Labl_save">Save</string>
+    <string name="Labl_ShopName">Your Name</string>
+    <string name="Labl_searchRadius">Radius</string>
     <string name="title_activity_map">MapActivity</string>
     <string name="hello_world">Hello world!</string>
     
