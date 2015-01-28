@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.android.gms.analytics.t;
 import com.woodchro.bemystore.R;
 
 public class EntryAdapter extends BaseAdapter {
@@ -53,6 +54,8 @@ public class EntryAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			holder.txtName = (TextView) convertView
 					.findViewById(R.id.entry_content);
+			holder.txtPrice = (TextView)convertView.findViewById(R.id.entry_price);
+			holder.txtAmount = (TextView)convertView.findViewById(R.id.entry_amount);
 
 			holder.tButton = (Switch) convertView
 					.findViewById(R.id.toggleButton1);
@@ -74,6 +77,10 @@ public class EntryAdapter extends BaseAdapter {
 		holder.txtName.setText(entryList.get(position).getProductName());
 		holder.txtCategory.setText(String.valueOf(entryList.get(position)
 				.getCategory()));
+		holder.txtPrice.setText("Price: " + String.valueOf(entryList.get(position)
+				.getPrice()) + " €");
+		holder.txtAmount.setText("Amount: " + String.valueOf(entryList.get(position)
+				.getQuantity()));
 
 		// set on click listener for multiple views within the listitem
 
@@ -117,6 +124,8 @@ public class EntryAdapter extends BaseAdapter {
 		TextView txtName;
 		Switch tButton;
 		TextView txtCategory;
+		TextView txtPrice;
+		TextView txtAmount;
 	}
 
 }

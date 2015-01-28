@@ -10,35 +10,61 @@
         android:layout_height="wrap_content"
         layout="@layout/toolbar"/>
     
+    <View
+    android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:color/darker_gray"/>
+    
 <LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center|center_horizontal"
     android:orientation="vertical" >
+   
+   
+     
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Labl_Search" />
+        android:text="@string/Labl_Search"
+         />
 
        <Spinner
         android:id="@+id/spinner1"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:entries="@array/Categories" />
+        android:entries="@array/Categories"
+        android:layout_width="200dp"
+       
+         />
+       
+       <View
+    android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:color/darker_gray"
+    android:layout_margin="10dp"/>
 
        <TextView
            android:id="@+id/textView2"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:text="@string/Labl_PrdctName" />
+           android:text="@string/Labl_PrdctName"
+           
+            />
 
     <EditText
         android:id="@+id/editText1"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:ems="10" />
+        android:ems="10"
+        />
 
+    <View
+    android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:color/darker_gray"
+    android:layout_margin="10dp"/>
+    
     <Button
         android:id="@+id/Btn_startSearch"
         android:layout_width="120dp"

@@ -32,7 +32,7 @@ public class SettingsActivity extends ActionBarActivity {
 		}
 		
 		ActionBar supportActionBar = getSupportActionBar();
-		supportActionBar.setTitle(getString(R.string.action_MyEntries));
+		supportActionBar.setTitle(getString(R.string.action_settings));
 		supportActionBar.setDisplayHomeAsUpEnabled(true);
 		
 	

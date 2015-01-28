@@ -53,6 +53,7 @@ public class ShowEntryActivity extends ActionBarActivity implements OnItemClickL
 		Intent intent = getIntent();
 		int id = intent.getExtras().getInt("id");
 		adapterKind = intent.getExtras().getInt("adapterKind");
+		int userId = intent.getExtras().getInt("userId");
 		
 		DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 		btn_deleteFromFavorites = (Button) findViewById(R.id.Btn_deleteFromFavorites);
@@ -69,15 +70,18 @@ public class ShowEntryActivity extends ActionBarActivity implements OnItemClickL
 			CurrentEntry = RequestedList.MyEntries.get(id);
 			break;
 		case 1:
+			if(userId==0){
 			CurrentEntry = RequestedList.Entries.get(id);
-			
+			}else{
+				CurrentEntry = RequestedList.getEntriesByUserID(userId).get(id);
+			}
 			otherEntriesFromUser = (TextView) findViewById(R.id.txt_otherEntriesFromUsers);
 			otherEntriesFromUser.setVisibility(View.VISIBLE);
 			listView.setVisibility(View.VISIBLE);
 			
 			ArrayList<Entry> listItems;
 			listItems = Entries.getInstance().getEntriesByUserID(CurrentEntry.getUser_id());
-			listItems.remove(CurrentEntry);
+			//listItems.remove(CurrentEntry);
 			if(listItems.isEmpty())otherEntriesFromUser.setText("No other entries offered by this User");
 			listView.setAdapter(new EntryAdapter(this, listItems, adapterKind));
 			break;
@@ -182,6 +186,7 @@ public class ShowEntryActivity extends ActionBarActivity implements OnItemClickL
 		Intent intent = new Intent(getApplicationContext(),ShowEntryActivity.class);
 		intent.putExtra("id", id);
 		intent.putExtra("adapterKind", adapterKind);
+		intent.putExtra("userId", CurrentEntry.getUser_id());
 		startActivity(intent);
 		
 	}

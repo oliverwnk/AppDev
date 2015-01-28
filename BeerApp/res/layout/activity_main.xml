@@ -10,6 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         layout="@layout/toolbar_entries"/>
+    
+    <View
+    android:layout_width="fill_parent"
+    android:layout_height="1dp"
+    android:background="@android:color/darker_gray"/>
    
     
     <LinearLayout
@@ -49,6 +54,8 @@
         style="@style/CustomStyleButton"
         android:layout_margin="15dp"
         android:text="@string/action_MyEntries" />
+    
+    
     
     <Button
         android:id="@+id/Btn_MyFavorites"
