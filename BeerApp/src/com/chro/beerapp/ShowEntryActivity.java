@@ -64,6 +64,7 @@ public class ShowEntryActivity extends ActionBarActivity implements OnItemClickL
 		btn_deleteFromFavorites = (Button) findViewById(R.id.Btn_deleteFromFavorites);
 		btn_addToFavorites = (Button) findViewById(R.id.Btn_addToFavorites);
 		listView = (ListView) findViewById(R.id.listview_showEntry);
+		listView.setVerticalScrollBarEnabled(false);
 		listView.setOnItemClickListener(this);
 		
 		

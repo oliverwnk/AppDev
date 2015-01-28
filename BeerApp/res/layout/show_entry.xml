@@ -221,12 +221,16 @@
                 android:text="@string/Lbl_articelsOfUser"
                 android:visibility="gone" />
 
-            <ListView
+            <com.chro.beerapp.NonScrollListView
                 android:id="@+id/listview_showEntry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone" >
-            </ListView>
+                android:visibility="gone"
+                android:divider="@null"
+                >
+            </com.chro.beerapp.NonScrollListView>
+            
+            
         </LinearLayout>
     </ScrollView>
 
