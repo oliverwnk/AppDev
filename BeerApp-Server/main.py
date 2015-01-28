@@ -5,7 +5,7 @@ import math
 from contextlib import closing
 from flask import Flask, request, session, g, redirect, url_for, \
      abort, render_template, flash
-
+import datetime
 # configuration
 DATABASE = '/tmp/flaskr.db'
 DEBUG = True
@@ -42,6 +42,14 @@ def get_db():
 	if not hasattr(g, 'sqlite_db'):
 		g.sqlite_db = connect_db()
 		return g.sqlite_db
+def check_for_actuallity():
+	cur = g.db.execute('select * from entries');
+	current = datetime.time.now()
+	for row in cur.fetchall():
+		s[] = row[12].split(":")
+		if s[0] > current.hour or (s[0] = current.hour and s[1] > current.minute):
+			if row[13] != true:
+				g.db.execute('update entries set active=false where id = ?',[row[0]])
 @app.route('/')
 def show_entries():
 	categorie = request.args.get('categorie')

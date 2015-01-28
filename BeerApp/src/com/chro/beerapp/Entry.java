@@ -113,7 +113,18 @@ public class Entry {
 				Locale.US);
 		Calendar cal = Calendar.getInstance();
 		//try {
-			String[] s = dateString.split(":");
+			String[] f = dateString.split(" ");
+			String[] s;
+			if(f.length > 1)
+			{
+				String[] l =f[0].split("-");
+				cal.set(Calendar.YEAR, Integer.valueOf(l[0]));
+				cal.set(Calendar.MONTH, Integer.valueOf(l[1]));
+				cal.set(Calendar.DAY_OF_MONTH, Integer.valueOf(l[2]));
+				s = f[1].split(":");
+			}else{
+				s = dateString.split(":");
+			}
 			cal.set(Calendar.HOUR_OF_DAY, Integer.valueOf(s[0]));
 			cal.set(Calendar.MINUTE, Integer.valueOf(s[1]));
 			//cal.setTime(sdf.parse(dateString));
