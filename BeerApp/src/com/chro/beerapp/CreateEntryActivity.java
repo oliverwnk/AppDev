@@ -17,6 +17,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.style.TtsSpan.TimeBuilder;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -45,6 +46,8 @@ public class CreateEntryActivity extends ActionBarActivity implements
 	SeekBar sbarAmount;
 	EditText etextPrice;
 	EditText etextAmount;
+	TextView timeBegin;
+	TextView timeEnd;
 	
 	//Location
 	GoogleApiClient mGoogleApiClient;
@@ -82,6 +85,29 @@ public class CreateEntryActivity extends ActionBarActivity implements
 		} else {
 			gpsLocation.showGpsAlertDialog();
 		}
+		
+		timeBegin 	= (TextView) findViewById(R.id.timeBegin);
+		timeBegin.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				DialogFragment newFragment = new TimePickerFragment(v);
+				newFragment.show(getSupportFragmentManager(), "timePicker");
+				
+			}
+		});
+		
+		
+		timeEnd 	= (TextView) findViewById(R.id.timeEnd);
+		timeEnd.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				DialogFragment newFragment = new TimePickerFragment(v);
+				newFragment.show(getSupportFragmentManager(), "timePicker");
+				
+			}
+		});
 		
 		sbarPrice = (SeekBar) findViewById(R.id.sb_price);
 		etextPrice = (EditText) findViewById(R.id.edit_price);
@@ -181,12 +207,9 @@ public class CreateEntryActivity extends ActionBarActivity implements
 
 	}
 
-	DatabaseHandler db = new DatabaseHandler(this);
+	//DatabaseHandler db = new DatabaseHandler(this);
 
-	public void showTimePickerDialog(View v) {
-		DialogFragment newFragment = new TimePickerFragment();
-		newFragment.show(getSupportFragmentManager(), "timePicker");
-	}
+	
 
 	public void addListenerOnButton() {
 		btn_CreateEntry = (Button) findViewById(R.id.btn_Save_New_Entry);
@@ -232,7 +255,7 @@ public class CreateEntryActivity extends ActionBarActivity implements
 						.toString(), price.getText().toString(), amount
 						.getText().toString(), contact.getText().toString(), s,
 						productName.getText().toString(),longt,lalt,String.valueOf(id));
-				finish();
+				
 				//ConnectionMy My = new ConnectionMy(mContext,dialog);
 				//My.execute(String.valueOf(id));
 				}else
@@ -307,6 +330,7 @@ public class CreateEntryActivity extends ActionBarActivity implements
 			}
 					
 		super.onStop();
+		finish();
 	}
 
 	

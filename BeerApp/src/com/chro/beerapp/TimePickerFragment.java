@@ -7,41 +7,51 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.format.DateFormat;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import com.woodchro.bemystore.R;
 
-public class TimePickerFragment extends DialogFragment
-implements TimePickerDialog.OnTimeSetListener{
+public class TimePickerFragment extends DialogFragment implements
+		TimePickerDialog.OnTimeSetListener {
 	int hour;
 	int minute;
-	
+	View v;
+
+	public TimePickerFragment(View v) {
+		this.v = v;
+	}
+
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the current time as the default values for the picker
-        final Calendar c = Calendar.getInstance();
-        hour = c.get(Calendar.HOUR_OF_DAY);
-        minute = c.get(Calendar.MINUTE);
+		// Use the current time as the default values for the picker
+		final Calendar c = Calendar.getInstance();
+		hour = c.get(Calendar.HOUR_OF_DAY);
+		minute = c.get(Calendar.MINUTE);
 
-        // Create a new instance of TimePickerDialog and return it
-        return new TimePickerDialog(getActivity(), this, hour, minute,
-                DateFormat.is24HourFormat(getActivity()));
-    }
+		// Create a new instance of TimePickerDialog and return it
+		return new TimePickerDialog(getActivity(), this, hour, minute,
+				DateFormat.is24HourFormat(getActivity()));
+	}
 
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        // Do something with the time chosen by the user
-    	hour = hourOfDay;
-    	this.minute = minute;
-    	TextView textBegin=(TextView)getActivity().findViewById(R.id.timeBegin);
-    	if(minute<10)textBegin.setText(hour+":"+"0"+this.minute);
-    	else textBegin.setText(hour+":"+this.minute);
-    	
-    	TextView textEnd=(TextView)getActivity().findViewById(R.id.timeEnd);
-    	if(minute<10)textEnd.setText(hour+":"+"0"+this.minute);
-    	else textEnd.setText(hour+":"+this.minute);
-    }
+	public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+		// Do something with the time chosen by the user
+		hour = hourOfDay;
+		this.minute = minute;
+		TextView textBegin = (TextView) getActivity().findViewById(
+				R.id.timeBegin);
+		if (textBegin.getId()==v.getId()) {
+			if (minute < 10)
+				textBegin.setText(hour + ":" + "0" + this.minute);
+			else
+				textBegin.setText(hour + ":" + this.minute);
+		} else {
+
+			TextView textEnd = (TextView) getActivity().findViewById(
+					R.id.timeEnd);
+			if (minute < 10)
+				textEnd.setText(hour + ":" + "0" + this.minute);
+			else
+				textEnd.setText(hour + ":" + this.minute);
+		}
+	}
 }
-	
-	
-	
-
-
