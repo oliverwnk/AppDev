@@ -53,7 +53,7 @@ public class CreateEntryActivity extends ActionBarActivity implements
 	GpsLocation gpsLocation;
 	boolean gpsResult;
 	private Location mCurrentLocation;
-	int id = -1;
+	protected int id = -1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

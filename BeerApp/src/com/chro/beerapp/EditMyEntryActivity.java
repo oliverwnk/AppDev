@@ -73,5 +73,6 @@ public class EditMyEntryActivity extends CreateEntryActivity {
 		TextView timeEnd = (TextView)findViewById(R.id.timeEnd);
 		String timeEndString = new SimpleDateFormat("HH:mm").format(currentEntry.getEndTime().getTime());
 		timeEnd.setText(timeEndString);
+		super.id = currentEntry.getID();
 	}
 }
