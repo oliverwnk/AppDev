@@ -20,7 +20,7 @@ public class EntrySearchActivity extends EntryActivity {
 		super.adapterKind = 1;
 		super.onCreate(savedInstanceState);
 		//change btn_create to "Suchen"
-		getSupportActionBar().setTitle("Anzeigen");
+		getSupportActionBar().setTitle("Searched Entries");
 		btn_CreateEntry = (Button) findViewById(R.id.btn_CreateEntry);
 		btn_CreateEntry.setVisibility(View.GONE);
 		
