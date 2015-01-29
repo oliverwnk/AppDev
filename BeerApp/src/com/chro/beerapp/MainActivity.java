@@ -136,6 +136,10 @@ public class MainActivity extends ActionBarActivity implements
 				editor.commit();
 				prefs = getSharedPreferences("settings", MODE_PRIVATE);
 				Integer radius = prefs.getInt("radius", 0);
+				if(mCurrentLocation == null)
+				{
+					startActivity(intent);
+				}
 				ConnectionSearch search = new ConnectionSearch(getApplicationContext(),dialog,MapActivity.class);
 				search.execute("",String.valueOf(mCurrentLocation.getLongitude()),String.valueOf(mCurrentLocation.getLatitude()),radius.toString(),"","");
 				//startActivity(intent);
