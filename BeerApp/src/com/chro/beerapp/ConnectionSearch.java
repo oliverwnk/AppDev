@@ -3,6 +3,7 @@ package com.chro.beerapp;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
@@ -25,6 +26,7 @@ import android.R.string;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.text.Html;
 import android.util.Log;
@@ -36,6 +38,8 @@ public class ConnectionSearch extends AsyncTask<String, String, String>{
 	Context context;
 	ProgressDialog dialog;
 	Class<?> cls;
+	float longt=0.0f;
+	float lalt=0.0f;
 	ConnectionSearch(Context context,ProgressDialog dialog,Class <?> cls)
 	{
 		this.cls = cls;
@@ -78,7 +82,8 @@ public class ConnectionSearch extends AsyncTask<String, String, String>{
 	    try {
 	        // Add your data
 	        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-	        
+	        longt = Float.valueOf(params[1]);
+	        lalt = Float.valueOf(params[2]);
 	        //nameValuePairs.add(new BasicNameValuePair("description", params[0]));
 	        nameValuePairs.add(new BasicNameValuePair("longtitude", params[1]));
 	        nameValuePairs.add(new BasicNameValuePair("latitude", params[2]));
@@ -117,12 +122,35 @@ public class ConnectionSearch extends AsyncTask<String, String, String>{
 		Entries e = Entries.getInstance();
 		JSONObject j;
 		JSONArray array;
+
 		dialog.cancel();
 		if(responseStr.equals(""))
 		{
 	    	CharSequence text = "Error connecting please try again later";
 	    	Toast t = Toast.makeText(context,text,Toast.LENGTH_LONG);
 	    	t.show();
+			SharedPreferences prefs = context.getSharedPreferences("location", context.MODE_PRIVATE);
+			float Longitude = prefs.getFloat("Longitude", 0);
+			float Latitude = prefs.getFloat("Latitude", 0);
+			float R = 6371.0f; // Radius of the earth in km
+			float dLat = (Latitude-lalt);  // deg2rad below
+			float dLon = (Longitude-longt); 
+			double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+			    Math.cos(lalt) * Math.cos(Latitude) * 
+			    Math.sin(dLon/2) * Math.sin(dLon/2)
+			    ; 
+			double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+			double d = R * c; // Distance in km
+			if(d > 1)
+				e.Del();
+			Calendar cal = Calendar.getInstance();
+
+			int h = prefs.getInt("hour", 24);
+			if(h+1 < cal.get(Calendar.HOUR_OF_DAY))
+				e.Del();
+			SharedPreferences.Editor editor = prefs.edit();
+			editor.commit();
+
 			Intent i = new Intent(context, cls); 
 			i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
 			context.startActivity(i); 
@@ -139,6 +167,11 @@ public class ConnectionSearch extends AsyncTask<String, String, String>{
 				e.addEntrie(j.getInt("id"), j.getString("categorie"), j.getString("productName"), (float)(j.getDouble("price")), j.getInt("quantity"), j.getString("contactDetails"), (float)j.getDouble("latitude"), (float)(j.getDouble("longtitude")), j.getString("beginTime"),j.getString("endTime"),j.getInt("user_id"),j.getBoolean("active"),j.getBoolean("retry"));
 
 			}
+			SharedPreferences prefs = context.getSharedPreferences("location", context.MODE_PRIVATE);
+			SharedPreferences.Editor editor = prefs.edit();
+			Calendar cal = Calendar.getInstance();
+			editor.putInt("hour", cal.get(Calendar.HOUR_OF_DAY));
+			editor.commit();
 			Intent i = new Intent(context, cls); 
 			i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
 			context.startActivity(i); 
